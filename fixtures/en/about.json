@@ -1,0 +1,78 @@
+{
+  "seo": {
+    "title": "About — Auth Fly | Open auth construction kit",
+    "description": "Auth Fly is an open auth construction kit: a self-hosted SAML 2.0 + OIDC IdP, a UI8Kit-based hosted UI, and adaptive SDKs. Mission, working principles, technical references and roadmap from PoC to MVP.",
+    "keywords": "Auth Fly about, open source SSO, self-hosted IdP, AuthKit, UI8Kit, AuthKit TS, SSO SPI, security in the open, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "About",
+    "title": "Auth Fly",
+    "subtitle": "Open auth, owned by you."
+  },
+  "sections": {
+    "principles_title": "Working principles",
+    "books": {
+      "eyebrow": "Technical references",
+      "title": "Specs & checklists",
+      "intro": "Practical references for teams running their own IdP — protocols, hosted UI, and a public security checklist."
+    },
+    "timeline_title": "Roadmap timeline"
+  },
+  "sidebar_meta": [
+    "Open source · MIT",
+    "Started in 2025"
+  ],
+  "hero_portrait": {
+    "aria_label": "Auth Fly logo"
+  },
+  "bio": {
+    "short": "Auth Fly is an open construction kit for authentication: a self-hosted SAML 2.0 + OIDC Identity Provider, a hosted UI on UI8Kit, and adaptive SDKs that fit any language or framework. PoC is live with Hanko as the credential backend; MVP runs on Supabase or your own Postgres through the SSO SPI.",
+    "long": [
+      "The through-line is boring reliability: provider-agnostic core contracts, narrow adapters per credential backend, observability over storytelling, and documentation that matches production behaviour.",
+      "Security is not a feature — it is the spine of the project. Hardening is tracked publicly via a pre-flight checklist, with no telemetry and no third-party update channels in the critical path."
+    ]
+  },
+  "values": [
+    { "title": "Own your IdP", "desc": "Self-hosted, no telemetry, no third-party update calls. The IdP runs on your origin and only on your origin." },
+    { "title": "Adaptive SDKs", "desc": "One TypeScript core for the browser; thin adapters per provider and per language. New stacks ship as adapters, not rewrites." },
+    { "title": "Provider-agnostic core", "desc": "Core contracts depend on no UI and no backend. Swap Hanko for Supabase or a custom Postgres without touching the IdP or the UI." },
+    { "title": "Security in the open", "desc": "Hardening tracked publicly with a pre-flight checklist. Strong points and gaps are listed side by side." }
+  ],
+  "books": [
+    {
+      "title": "Auth Fly IdP — README",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 14,
+      "series": "Technical references",
+      "desc": "SAML 2.0 + OIDC dual-protocol IdP: endpoints, configuration, environment overrides, and cross-protocol SSO behaviour."
+    },
+    {
+      "title": "AuthKit & UI8Kit notes",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 9,
+      "series": "Technical references",
+      "desc": "Hosted UI on Go + templ: Renderer, ViewConfig, FlowConfig, embedded i18n, and the migration from Hanko Elements to UI8Kit."
+    },
+    {
+      "title": "Pre-flight security checklist",
+      "publisher": "Auth Fly",
+      "year": "2026",
+      "pages": 27,
+      "series": "Technical references",
+      "desc": "Public hardening list grouped into four stages: critical fixes, protocol hardening, web security, and enterprise features."
+    }
+  ],
+  "timeline": [
+    { "period": "2025 Q3", "label": "Architecture", "detail": "core / authkit / authkit-hanko split, contracts before code" },
+    { "period": "2025 Q4", "label": "PoC live", "detail": "SAML 2.0 + OIDC sharing one signed IdP session, Hanko as credential backend" },
+    { "period": "2025 Q4", "label": "UI migration", "detail": "Hanko Elements replaced one-to-one by UI8Kit across hosted login UI" },
+    { "period": "2026 Q1", "label": "Stage 1 hardening", "detail": "Critical fixes: HTTP timeouts, JWT iss/aud/alg, session_key validation, key file mode 0600" },
+    { "period": "2026 Q2", "label": "Stage 2 protocol hardening", "detail": "PKCE, at_hash, OIDC iss check, SAML IssueInstant / Destination / anti-replay" },
+    { "period": "2026 Q3", "label": "Stage 3 web security", "detail": "Security headers, CSRF on admin, rate limiting, MaxBytesReader, graceful shutdown" },
+    { "period": "2026 Q4", "label": "Stage 4 enterprise", "detail": "Key rotation with multi-key JWKS, RSA-4096, SAML SLO, structured audit logs" },
+    { "period": "Next", "label": "SSO SPI expansion", "detail": "Supabase and custom Postgres backends behind the same CredentialVerifier contract" },
+    { "period": "Next", "label": "Adaptive SDKs", "detail": "AuthKit TS core plus thin SDKs for Go, Node, Python, PHP and .NET" }
+  ]
+}

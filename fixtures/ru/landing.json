@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Auth Fly — открытый SSO IdP, hosted-UI, адаптивные SDK",
+    "description": "Auth Fly — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC IdP, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. PoC уже работает, MVP в активной разработке.",
+    "keywords": "Auth Fly, open source SSO, self-hosted IdP, SAML 2.0, OpenID Connect, OIDC provider, Hanko, UI8Kit, AuthKit TS, adaptive SDK, security hardening, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "Открытый конструктор аутентификации",
+    "title": "Auth Fly",
+    "subtitle": "SSO. SDK. Адаптеры. Взлёт.",
+    "description": "Auth Fly — это self-hosted SSO Identity Provider для SAML 2.0 и OIDC, hosted-UI на UI8Kit и адаптивные SDK, которые встают в любой язык и фреймворк. PoC уже работает: Hanko в роли credential-бэкенда. На MVP бэкендом становится Supabase или собственный Postgres. Без телеметрии, без скрытых каналов обновлений — усиление защиты ведётся открыто.",
+    "cta_primary": { "label": "Открыть журнал", "url": "/blog/" },
+    "cta_secondary": { "label": "Смотреть модули", "url": "/projects/" }
+  },
+  "path": [
+    { "year": "Идея", "icon": "server", "icon_color": "primary", "label": "Гипотеза", "note": "Self-hosted замена hosted-платформам аутентификации — без телеметрии и сторонних каналов обновлений" },
+    { "year": "2025 Q3", "icon": "book", "icon_color": "accent", "label": "Архитектура", "note": "Разделение core / authkit / authkit-hanko — provider-agnostic контракты раньше кода" },
+    { "year": "2025 Q4", "icon": "shopping-cart", "icon_color": "primary", "label": "PoC работает", "note": "SAML 2.0 + OIDC делят одну подписанную IdP-сессию, Hanko в роли credential-бэкенда" },
+    { "year": "2026 Q1+", "icon": "monitor", "icon_color": "accent", "label": "MVP в полёте", "note": "Pre-flight чек-лист безопасности, бэкенд на Supabase или собственном Postgres, каркас Console" },
+    { "year": "Дальше", "icon": "layers", "icon_color": "primary", "label": "Дорожная карта", "note": "SCIM, аудит-логи, организации, MFA, webhooks — этапы публикуем открыто" }
+  ],
+  "pillars": [
+    { "id": "defense", "icon": "shield", "icon_color": "primary", "label": "Безопасность во главе", "desc": "Без телеметрии и сторонних каналов обновлений. Усиление защиты ведётся публично через pre-flight чек-лист." },
+    { "id": "idp", "icon": "network", "icon_color": "primary", "label": "Ядро IdP", "desc": "SAML 2.0 IdP и OIDC Provider делят одну подписанную сессионную cookie. В PoC за credentials отвечает Hanko." },
+    { "id": "ui", "icon": "database", "icon_color": "accent", "label": "Hosted-UI", "desc": "Страницы входа, выхода и ошибок на UI8Kit со встроенной i18n и тёмной темой — отдаются с собственного origin." },
+    { "id": "sdk", "icon": "trending-up", "icon_color": "accent", "label": "Адаптивные SDK", "desc": "Одно ядро на TypeScript; тонкие адаптеры под провайдер и под язык — старт с Hanko уже сегодня." }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Протокола в работе (SAML, OIDC)" },
+    { "value": "5", "label": "Модулей в организации" },
+    { "value": "0", "label": "Внешних телеметрических вызовов" },
+    { "value": "MIT", "label": "Лицензия везде" }
+  ],
+  "quote": {
+    "text": "Слайды заменяем логами, подписанными assertion-ами и pre-flight чек-листом. История — в протоколе.",
+    "source": "Инженерный принцип Auth Fly"
+  },
+  "hero_evidence": {
+    "aria_label": "Ключевые факты",
+    "items": [
+      { "value": "2", "unit": "протокола" },
+      { "value": "5", "unit": "репозитория" },
+      { "value": "1", "unit": "IdP-сессия" },
+      { "value": "0", "unit": "трекинга" }
+    ]
+  },
+  "hero_portrait": {
+    "aria_label": "Логотип Auth Fly"
+  },
+  "sections": {
+    "career_path": { "eyebrow": "Траектория", "title": "От гипотезы к MVP" },
+    "metrics": { "aria_label": "Метрики проекта" },
+    "pillars": { "eyebrow": "Возможности", "title": "Что отгружает Auth Fly" },
+    "blog_preview": { "title": "Свежие записи журнала", "aria_label": "Последние заметки" },
+    "projects_preview": {
+      "eyebrow": "Модули",
+      "title": "Открытые строительные блоки",
+      "link_all": "Все модули →",
+      "heading_id": "projects-preview-title",
+      "aria_label": "Превью модулей",
+      "preview_count": 4
+    },
+    "platforms": {
+      "eyebrow": "Подписаться",
+      "title": "Где следить за Auth Fly",
+      "heading_id": "platforms-title"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "seo": {
+    "title": "О проекте — Auth Fly | Открытый конструктор аутентификации",
+    "description": "Auth Fly — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC IdP, hosted-UI на UI8Kit и адаптивные SDK. Миссия, рабочие принципы, технические референсы и дорожная карта от PoC к MVP.",
+    "keywords": "Auth Fly about, open source SSO, self-hosted IdP, AuthKit, UI8Kit, AuthKit TS, SSO SPI, security in the open, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "О проекте",
+    "title": "Auth Fly",
+    "subtitle": "Открытая аутентификация. На вашей стороне."
+  },
+  "sections": {
+    "principles_title": "Рабочие принципы",
+    "books": {
+      "eyebrow": "Технические референсы",
+      "title": "Спецификации и чек-листы",
+      "intro": "Практические референсы для команд, которые держат собственный IdP — протоколы, hosted-UI и публичный чек-лист безопасности."
+    },
+    "timeline_title": "Дорожная карта"
+  },
+  "sidebar_meta": [
+    "Open source · MIT",
+    "Старт в 2025"
+  ],
+  "hero_portrait": {
+    "aria_label": "Логотип Auth Fly"
+  },
+  "bio": {
+    "short": "Auth Fly — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC Identity Provider, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. PoC уже работает с Hanko в роли credential-бэкенда; на MVP бэкенд — Supabase или собственный Postgres через SSO SPI.",
+    "long": [
+      "Сквозная линия — скучная надёжность: provider-agnostic контракты в ядре, узкие адаптеры на каждый credential-бэкенд, наблюдаемость вместо сторителлинга и документация, совпадающая с поведением в проде.",
+      "Безопасность — не фича, а несущий хребет проекта. Усиление защиты ведётся публично через pre-flight чек-лист, без телеметрии и без сторонних каналов обновлений в критическом пути."
+    ]
+  },
+  "values": [
+    { "title": "IdP — на своей стороне", "desc": "Self-hosted, без телеметрии и без сторонних каналов обновлений. IdP работает на вашем origin и только на нём." },
+    { "title": "Адаптивные SDK", "desc": "Одно TypeScript-ядро для браузера; тонкие адаптеры под провайдера и под язык. Новый стек — это адаптер, а не переписывание." },
+    { "title": "Provider-agnostic ядро", "desc": "Контракты ядра не зависят ни от UI, ни от бэкенда. Hanko меняется на Supabase или собственный Postgres без правок IdP и UI." },
+    { "title": "Безопасность открыто", "desc": "Усиление защиты публикуется в pre-flight чек-листе. Сильные места и пробелы — рядом, без двойной бухгалтерии." }
+  ],
+  "books": [
+    {
+      "title": "Auth Fly IdP — README",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 14,
+      "series": "Технические референсы",
+      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: эндпоинты, конфигурация, переопределения через переменные окружения и поведение SSO между протоколами."
+    },
+    {
+      "title": "Заметки AuthKit и UI8Kit",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 9,
+      "series": "Технические референсы",
+      "desc": "Hosted-UI на Go + templ: Renderer, ViewConfig, FlowConfig, встроенная i18n и переход с Hanko Elements на UI8Kit."
+    },
+    {
+      "title": "Pre-flight чек-лист безопасности",
+      "publisher": "Auth Fly",
+      "year": "2026",
+      "pages": 27,
+      "series": "Технические референсы",
+      "desc": "Публичный список усиления защиты, разделённый на четыре стадии: критические правки, усиление протоколов, web-безопасность, enterprise-функции."
+    }
+  ],
+  "timeline": [
+    { "period": "2025 Q3", "label": "Архитектура", "detail": "Разделение core / authkit / authkit-hanko, контракты раньше кода" },
+    { "period": "2025 Q4", "label": "PoC работает", "detail": "SAML 2.0 + OIDC делят одну подписанную IdP-сессию, Hanko в роли credential-бэкенда" },
+    { "period": "2025 Q4", "label": "Миграция UI", "detail": "Hanko Elements заменены один-к-одному на UI8Kit во всём hosted-UI" },
+    { "period": "2026 Q1", "label": "Стадия 1: критические правки", "detail": "HTTP-таймауты, JWT iss/aud/alg, валидация session_key, режим ключевого файла 0600" },
+    { "period": "2026 Q2", "label": "Стадия 2: усиление протоколов", "detail": "PKCE, at_hash, проверка iss в OIDC, IssueInstant / Destination и анти-replay в SAML" },
+    { "period": "2026 Q3", "label": "Стадия 3: web-безопасность", "detail": "Security headers, CSRF на админке, rate limiting, MaxBytesReader, graceful shutdown" },
+    { "period": "2026 Q4", "label": "Стадия 4: enterprise", "detail": "Ротация ключей с multi-key JWKS, RSA-4096, SAML SLO, структурированные аудит-логи" },
+    { "period": "Дальше", "label": "Расширение SSO SPI", "detail": "Supabase и собственный Postgres за тем же контрактом CredentialVerifier" },
+    { "period": "Дальше", "label": "Адаптивные SDK", "detail": "Ядро AuthKit TS и тонкие SDK для Go, Node, Python, PHP и .NET" }
+  ]
+}

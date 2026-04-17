@@ -1,0 +1,15 @@
+{*
+  Public platform tile for the home page grid.
+  Expects: $platform with keys id, url, label, aria_label
+*}
+{var $platUrl = $platform['url'] ?? '#'}
+{var $platUrlStr = is_string($platUrl) ? $platUrl : '#'}
+{var $platExternal = str_starts_with($platUrlStr, 'http://') || str_starts_with($platUrlStr, 'https://')}
+{if $platExternal}
+<a href="{$platUrlStr}" class="mk-platform" target="_blank" rel="noopener noreferrer" aria-label="{$platform['aria_label'] ?? ''}">
+{else}
+<a href="{$platUrlStr}" class="mk-platform" aria-label="{$platform['aria_label'] ?? ''}">
+{/if}
+  {include platform-icon.latte, platform_id: ($platform['id'] ?? '')}
+  {$platform['label'] ?? ''}
+</a>

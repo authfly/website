@@ -1,0 +1,58 @@
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="contact-title">
+  <div class="mk-shell">
+    <div class="mk-about-hero">
+      <div>
+        <p class="mk-eyebrow" style="margin-bottom:1rem;">{$contact['hero']['eyebrow']}</p>
+        <h1 id="contact-title" style="font-size:clamp(1.85rem,4vw,3rem);font-weight:700;line-height:1.1;margin:0 0 0.75rem;">{$contact['hero']['title']}</h1>
+        <p style="font-size:1.05rem;color:hsl(var(--muted-foreground));line-height:1.65;max-width:52ch;margin:0 0 2rem;">
+          {$contact['hero']['description']}
+        </p>
+        <p style="font-size:0.95rem;line-height:1.65;color:hsl(var(--foreground));max-width:52ch;margin:0;">{$contact['note']}</p>
+      </div>
+      <div>
+        <div class="mk-portrait" style="height:280px;" aria-label="{$about['hero_portrait']['aria_label'] ?? ''}">
+          <img src="{$site['images']['portrait_about'] ?? ''}" alt="{$site['ui']['portrait_about_alt'] ?? ''}" width="260" height="280" loading="lazy">
+        </div>
+        <div class="mk-about-meta">
+          {foreach ($about['sidebar_meta'] ?? []) as $metaLine}
+          <div class="mk-about-meta-row">
+            <span style="font-size:0.875rem;color:hsl(var(--muted-foreground));">{$metaLine}</span>
+          </div>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section">
+  <div class="mk-content">
+    <h2 style="font-size:1.75rem;font-weight:700;margin:0 0 1.25rem;font-family:var(--font-display);">{$contact['sections']['channels_title'] ?? ''}</h2>
+    <div style="display:grid;gap:0.85rem;">
+      {foreach $contact['channels'] as $channel}
+        <article class="mk-card">
+          <a href="{$channel['url']}" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:hsl(var(--foreground));" aria-label="{$channel['label']}">
+            <span style="display:flex;flex-direction:column;gap:0.3rem;">
+              <strong style="font-size:1rem;font-family:var(--font-display);">{$channel['label']}</strong>
+              <span style="font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.03em;color:hsl(var(--accent));text-transform:uppercase;">{$channel['handle']}</span>
+            </span>
+            <span style="font-size:0.8125rem;color:hsl(var(--muted-foreground));">{$channel['desc']}</span>
+          </a>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" style="background-color:hsl(var(--paper-warm));">
+  <div class="mk-content">
+    <h2 style="font-size:1.75rem;font-weight:700;margin:0 0 1.25rem;font-family:var(--font-display);">{$contact['sections']['availability_title'] ?? ''}</h2>
+    <div class="mk-grid-3">
+      {foreach $contact['availability'] as $item}
+        <article class="mk-card" style="display:flex;align-items:center;justify-content:center;min-height:6rem;text-align:center;">
+          <p style="margin:0;color:hsl(var(--foreground));font-weight:500;font-size:0.9375rem;">{$item}</p>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+{if $show_language_switch ?? false}
+<a
+  href="{$lang_switch_url ?? '#'}"
+  class="mk-lang-toggle"
+  id="lang-toggle"
+  aria-label="{$site['ui']['switch_language_label'] ?? ''}"
+  aria-pressed="false"
+  role="button"
+>{$lang_toggle_label ?? ($site['ui']['language_toggle_fallback'] ?? '')}</a>
+{/if}

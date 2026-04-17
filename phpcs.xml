@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset name="FlightPHP Twelve-Factor">
+    <description>Coding standards for FlightPHP app (Twelve-Factor, Symfony-style, PSR-12). Requires: composer require --dev slevomat/coding-standard</description>
+
+    <!-- Scan app directories (from roadmap Phase 0) -->
+    <file>src</file>
+    <file>config</file>
+    <file>public</file>
+
+    <!-- Exclude non-PHP and generated files -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.json</exclude-pattern>
+    <exclude-pattern>*.latte</exclude-pattern>
+
+    <!-- Base: PSR-12 (Symfony follows PSR-12) -->
+    <rule ref="PSR12">
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+        <exclude name="PSR12.Files.DeclareStatement.SpaceFoundAfterDirective"/>
+        <exclude name="PSR12.Files.DeclareStatement.SpaceFoundBeforeDirectiveValue"/>
+    </rule>
+
+    <!-- Line endings: LF -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <!-- PHP 8.4 (from roadmap: webdevops/php:8.4-alpine) -->
+    <config name="php_version" value="80400"/>
+
+    <!-- 1. declare(strict_types=1) - Symfony style -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
+
+    <!-- 2. PSR-4: file path must match class/namespace (requires slevomat/coding-standard in require-dev) -->
+    <arg name="basepath" value="."/>
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src" value="App"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Output -->
+    <arg name="colors"/>
+    <arg name="parallel" value="8"/>
+    <arg value="p"/>
+</ruleset>

@@ -1,0 +1,77 @@
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));">
+  <div class="mk-shell">
+    <a href="/blog/" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-mono);font-size:0.8125rem;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:1.25rem;color:hsl(var(--muted-foreground));text-decoration:none;">
+      {$blog['ui']['back_to_blog'] ?? ''}
+    </a>
+    <p class="mk-tag mk-tag-primary" style="margin:0 0 0.75rem;">{$post['tag']}</p>
+    <h1 style="font-size:clamp(1.9rem,4vw,3rem);font-weight:700;line-height:1.08;margin:0 0 0.85rem;font-family:var(--font-display);">{$post['title']}</h1>
+
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;margin:0 0 1.5rem;">
+      <time datetime="{$post['date'] ?? ''}" style="color:hsl(var(--muted-foreground));font-size:0.875rem;">{$post['date']}</time>
+      <span style="width:4px;height:4px;border-radius:50%;background:hsl(var(--border));display:inline-block;" aria-hidden="true"></span>
+      <span style="color:hsl(var(--muted-foreground));font-size:0.875rem;">{$post['reading_time'] ?? ''}</span>
+    </div>
+
+    <div class="mk-prose">
+      <p class="mk-blog-post-lead">{$post['excerpt']}</p>
+    </div>
+  </div>
+</section>
+
+{if !empty($post['evidence_html'])}
+<div class="mk-prose mk-prose--post-evidence">
+  {$post['evidence_html']|noescape}
+</div>
+{/if}
+
+<article class="mk-section" aria-label="{$blog['ui']['article_content_aria'] ?? ''}">
+  <div class="mk-prose">
+    <div class="mk-prose-body">
+      {if !empty($post['body_html'])}
+        {$post['body_html']|noescape}
+      {else}
+        <p>{$post['excerpt']}</p>
+      {/if}
+    </div>
+  </div>
+</article>
+
+<section class="mk-section-sm" aria-label="{$blog['ui']['author_section_aria'] ?? ''}">
+  <div class="mk-prose">
+    <hr class="mk-divider" style="margin-bottom:2rem;">
+    <div style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+      <div class="mk-portrait-avatar" style="width:3rem;height:3rem;">
+        <img src="{$site['images']['portrait_about'] ?? ''}" alt="{$site['ui']['portrait_about_alt'] ?? ''}">
+      </div>
+      <div>
+        <p style="font-weight:700;font-size:0.9375rem;margin:0 0 0.125rem;font-family:var(--font-display);">{$site['name'] ?? ''}</p>
+        <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground));margin:0;">{$blog['ui']['author_tagline'] ?? ''}</p>
+      </div>
+      <a href="/about/" class="mk-btn mk-btn-outline" style="margin-left:auto;font-size:0.8125rem;">{$blog['ui']['author_about_label'] ?? ''}</a>
+    </div>
+  </div>
+</section>
+
+{if !empty($post['related'])}
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="related-title">
+  <div class="mk-prose">
+    <h2 id="related-title" style="font-size:1.25rem;font-weight:700;margin:0 0 1.25rem;font-family:var(--font-display);">{$blog['ui']['related_title'] ?? ''}</h2>
+    <div class="mk-related">
+      {foreach ($post['related'] ?? []) as $rel}
+        {foreach $blog['posts'] as $candidate}
+          {if ($candidate['slug'] ?? '') === ($rel['slug'] ?? '')}
+      <a href="/blog/{$candidate['slug']}/" class="mk-related-card">
+        {if (($rel['tag_tone'] ?? 'primary') === 'accent')}
+        <span class="mk-tag mk-tag-accent mk-related-card__tag">{$candidate['tag']}</span>
+        {else}
+        <span class="mk-tag mk-tag-primary mk-related-card__tag">{$candidate['tag']}</span>
+        {/if}
+        <h3 class="mk-post-title">{$candidate['title']}</h3>
+      </a>
+          {/if}
+        {/foreach}
+      {/foreach}
+    </div>
+  </div>
+</section>
+{/if}

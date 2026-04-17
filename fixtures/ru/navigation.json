@@ -1,0 +1,9 @@
+{
+  "main": [
+    { "id": "home", "label": "Главная", "url": "/" },
+    { "id": "blog", "label": "Журнал", "url": "/blog/" },
+    { "id": "projects", "label": "Модули", "url": "/projects/" },
+    { "id": "about", "label": "О проекте", "url": "/about/" },
+    { "id": "contact", "label": "Контакты", "url": "/contact/" }
+  ]
+}

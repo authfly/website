@@ -1,0 +1,117 @@
+{
+  "seo": {
+    "title": "Projects — Auth Fly | Open IdP, Hosted UI, Adaptive SDKs",
+    "description": "Five Auth Fly modules: a self-hosted SAML 2.0 + OIDC IdP, AuthKit hosted UI, AuthKit TS browser SDK, the Hanko adapter for the PoC, and the UI8Kit component library.",
+    "keywords": "Auth Fly modules, SSO IdP Go, SAML 2.0 provider, OIDC provider, AuthKit, AuthKit TS, OIDC Hanko, UI8Kit, hosted login UI, self-hosted authentication"
+  },
+  "hero": {
+    "eyebrow": "Modules",
+    "title": "Open building blocks",
+    "description": "Each module is shippable on its own and composes with the rest. Provider-agnostic core, narrow adapters, no telemetry."
+  },
+  "projects": [
+    {
+      "id": "idp",
+      "icon": "shield",
+      "icon_color": "primary",
+      "name": "AuthFly IdP",
+      "url": "/projects/#project-idp",
+      "category": "Identity Provider",
+      "status": "PoC live",
+      "status_tone": "warning",
+      "tag_tone": "primary",
+      "summary": "SAML 2.0 + OIDC Identity Provider sharing one signed session.",
+      "tagline": "One IdP session for SAML and OIDC",
+      "description": "Dual-protocol IdP written in Go: SAML AuthnRequest handling with ACS pinned to SP config, full OIDC authorization-code flow with JWKS, and a single signed idp_session cookie that bridges both protocols. Hanko provides credentials in the PoC; MVP swaps in Supabase or your own Postgres via the SSO SPI.",
+      "metrics": ["No telemetry", "Pre-flight checklist tracked"],
+      "tech": ["SAML 2.0", "OIDC", "JWKS", "Go"]
+    },
+    {
+      "id": "authkit",
+      "icon": "monitor",
+      "icon_color": "accent",
+      "name": "AuthKit",
+      "url": "/projects/#project-authkit",
+      "category": "Hosted UI",
+      "status": "PoC live",
+      "status_tone": "warning",
+      "tag_tone": "accent",
+      "summary": "Embeddable login, logout and error pages on Go + templ + UI8Kit.",
+      "tagline": "Hosted login UI, served from your origin",
+      "description": "Implements Renderer (RenderLogin / RenderLogout / RenderError) and ships static assets via StaticFS(). Branding, FlowConfig and FeatureFlags come from the host app; AuthKit itself never imports a credential backend, so the same UI works against Hanko today and other providers tomorrow.",
+      "metrics": ["Embedded i18n (en, ru)", "No external assets"],
+      "tech": ["Go", "templ", "UI8Kit", "Tailwind"]
+    },
+    {
+      "id": "authkit-ts",
+      "icon": "database",
+      "icon_color": "accent",
+      "name": "AuthKit TS",
+      "url": "/projects/#project-authkit-ts",
+      "category": "Browser SDK core",
+      "status": "Active",
+      "status_tone": "success",
+      "tag_tone": "accent",
+      "summary": "TypeScript core for browser auth flows, with thin per-provider adapters.",
+      "tagline": "One core, many adapters — start with Hanko",
+      "description": "The browser SDK core that AuthKit ships through SDKScript. A single TypeScript core handles flow orchestration; adapters bind it to a specific credential backend (Hanko first), so adding a new provider does not mean rewriting the UI or the IdP.",
+      "metrics": ["One core, many adapters", "No 3rd-party calls"],
+      "tech": ["TypeScript", "UMD bundle", "Provider adapters"]
+    },
+    {
+      "id": "oidc-hanko",
+      "icon": "users",
+      "icon_color": "primary",
+      "name": "OIDC Hanko",
+      "url": "/projects/#project-oidc-hanko",
+      "category": "Credential backend",
+      "status": "Active",
+      "status_tone": "success",
+      "tag_tone": "default",
+      "summary": "Hanko packaged as the PoC credential backend for Auth Fly.",
+      "tagline": "Hanko, ready for Auth Fly out of the box",
+      "description": "Hanko Docker image and config tuned for the Auth Fly IdP: JWT + JWKS for browser sessions, cookie-bound tokens, and CORS aligned with the IdP origin. Implements core.CredentialVerifier so the rest of the stack stays provider-agnostic.",
+      "metrics": ["JWT + JWKS verify", "Cookie-bound sessions"],
+      "tech": ["Hanko", "Docker", "Postgres"]
+    },
+    {
+      "id": "ui8kit",
+      "icon": "search",
+      "icon_color": "accent",
+      "name": "UI8Kit",
+      "url": "/projects/#project-ui8kit",
+      "category": "UI library",
+      "status": "Active",
+      "status_tone": "success",
+      "tag_tone": "accent",
+      "summary": "Component library that fully replaces Hanko Elements across the hosted UI.",
+      "tagline": "Replaced Hanko Elements end-to-end",
+      "description": "UI8Kit is the component layer behind AuthKit: forms, fields, buttons, error states and the auth flow widgets. Bundled as a single ui8kit.js served from /static — no CDN dependency, no third-party JS in the login page.",
+      "metrics": ["No CDN dependency", "Self-hosted bundle"],
+      "tech": ["TypeScript", "Tailwind", "UMD bundle"]
+    }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Protocols hardened (SAML, OIDC)" },
+    { "value": "0", "label": "Telemetry endpoints" },
+    { "value": "1", "label": "IdP session for SAML + OIDC" },
+    { "value": "MIT", "label": "License everywhere" }
+  ],
+  "intro": {
+    "prompt": "Modules, intentionally small.",
+    "description": "Open tooling shaped by protocol reality: signed assertions, JWKS, one IdP session — observable, documented, and boring where possible."
+  },
+  "sections": {
+    "metrics_aria_label": "Module metrics",
+    "portfolio_eyebrow": "Modules",
+    "portfolio_title": "Open building blocks",
+    "products_heading_id": "products-title"
+  },
+  "ui": {
+    "status_active_label": "Active",
+    "open_project_label": "Open module",
+    "open_project_aria_prefix": "Open",
+    "visit_external_label": "In project",
+    "visit_external_aria_prefix": "View module"
+  }
+}

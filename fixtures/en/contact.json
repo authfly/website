@@ -1,0 +1,50 @@
+{
+  "seo": {
+    "title": "Contact — Auth Fly | Follow the build",
+    "description": "Auth Fly is in active PoC → MVP. Follow the build on GitHub and Telegram, install packages from npm, and report security issues via private advisories.",
+    "keywords": "Auth Fly contact, github.com/authfly, t.me/authfly, npmjs authfly, security advisories, self-hosted SSO support"
+  },
+  "sections": {
+    "channels_title": "Where to follow",
+    "availability_title": "What Auth Fly can help with"
+  },
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Auth Fly is in active development — PoC is live, MVP is in flight. Follow the build, file issues, or join the discussion."
+  },
+  "channels": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "github.com/authfly",
+      "url": "https://github.com/authfly",
+      "desc": "Issues, discussions, releases, and private security advisories.",
+      "type": "primary"
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "handle": "t.me/authfly",
+      "url": "https://t.me/authfly",
+      "desc": "Public channel with build notes and roadmap updates.",
+      "type": "social"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "handle": "npmjs.com/org/authfly",
+      "url": "https://www.npmjs.com/org/authfly",
+      "desc": "Browser SDK packages — start with AuthKit TS.",
+      "type": "social"
+    }
+  ],
+  "availability": [
+    "Self-hosted SSO (SAML 2.0 + OIDC) deployments on your own origin",
+    "Hanko-backed PoC integrations and migrations from third-party login UIs",
+    "Adaptive SDKs for new languages and frameworks",
+    "Hosted UI customisation with UI8Kit and embedded i18n",
+    "Security review against the public pre-flight checklist"
+  ],
+  "note": "Auth Fly is in PoC → MVP. Live demos will appear after MVP hardening — follow GitHub and Telegram for updates. Vulnerability reports: open a private security advisory at github.com/authfly."
+}

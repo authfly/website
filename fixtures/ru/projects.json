@@ -1,0 +1,117 @@
+{
+  "seo": {
+    "title": "Модули — Auth Fly | Открытый IdP, hosted-UI, адаптивные SDK",
+    "description": "Пять модулей Auth Fly: self-hosted SAML 2.0 + OIDC IdP, AuthKit hosted-UI, AuthKit TS browser SDK, адаптер Hanko для PoC и библиотека компонентов UI8Kit.",
+    "keywords": "Auth Fly modules, SSO IdP Go, SAML 2.0 provider, OIDC provider, AuthKit, AuthKit TS, OIDC Hanko, UI8Kit, hosted login UI, self-hosted authentication"
+  },
+  "hero": {
+    "eyebrow": "Модули",
+    "title": "Открытые строительные блоки",
+    "description": "Каждый модуль самодостаточен и собирается с остальными. Provider-agnostic ядро, узкие адаптеры, без телеметрии."
+  },
+  "projects": [
+    {
+      "id": "idp",
+      "icon": "shield",
+      "icon_color": "primary",
+      "name": "AuthFly IdP",
+      "url": "/projects/#project-idp",
+      "category": "Identity Provider",
+      "status": "PoC работает",
+      "status_tone": "warning",
+      "tag_tone": "primary",
+      "summary": "SAML 2.0 + OIDC Identity Provider с одной подписанной сессией.",
+      "tagline": "Одна IdP-сессия для SAML и OIDC",
+      "description": "Двухпротокольный IdP на Go: разбор SAML AuthnRequest с ACS, фиксированным в конфиге SP, полный OIDC authorization-code flow с JWKS и одна подписанная сессионная cookie idp_session, мостящая оба протокола. В PoC за credentials отвечает Hanko; на MVP бэкенд меняется на Supabase или собственный Postgres через SSO SPI.",
+      "metrics": ["Без телеметрии", "Pre-flight чек-лист публичен"],
+      "tech": ["SAML 2.0", "OIDC", "JWKS", "Go"]
+    },
+    {
+      "id": "authkit",
+      "icon": "monitor",
+      "icon_color": "accent",
+      "name": "AuthKit",
+      "url": "/projects/#project-authkit",
+      "category": "Hosted UI",
+      "status": "PoC работает",
+      "status_tone": "warning",
+      "tag_tone": "accent",
+      "summary": "Встраиваемые страницы входа, выхода и ошибок на Go + templ + UI8Kit.",
+      "tagline": "Hosted-UI входа на собственном origin",
+      "description": "Реализует Renderer (RenderLogin / RenderLogout / RenderError) и отдаёт статику через StaticFS(). Брендинг, FlowConfig и FeatureFlags приходят из host-приложения; сам AuthKit не импортирует ни одного credential-бэкенда, поэтому одна и та же UI работает с Hanko сегодня и с другими провайдерами завтра.",
+      "metrics": ["Встроенная i18n (en, ru)", "Без внешних ассетов"],
+      "tech": ["Go", "templ", "UI8Kit", "Tailwind"]
+    },
+    {
+      "id": "authkit-ts",
+      "icon": "database",
+      "icon_color": "accent",
+      "name": "AuthKit TS",
+      "url": "/projects/#project-authkit-ts",
+      "category": "Browser SDK core",
+      "status": "В работе",
+      "status_tone": "success",
+      "tag_tone": "accent",
+      "summary": "TypeScript-ядро браузерных auth-флоу с тонкими адаптерами под провайдеров.",
+      "tagline": "Одно ядро, много адаптеров — старт с Hanko",
+      "description": "Браузерное ядро SDK, которое AuthKit подключает через SDKScript. Единое TypeScript-ядро ведёт оркестрацию флоу; адаптеры привязывают его к конкретному credential-бэкенду (первым — Hanko), поэтому добавление нового провайдера не требует переписывать UI или IdP.",
+      "metrics": ["Одно ядро, много адаптеров", "Без сторонних вызовов"],
+      "tech": ["TypeScript", "UMD bundle", "Адаптеры провайдеров"]
+    },
+    {
+      "id": "oidc-hanko",
+      "icon": "users",
+      "icon_color": "primary",
+      "name": "OIDC Hanko",
+      "url": "/projects/#project-oidc-hanko",
+      "category": "Credential backend",
+      "status": "В работе",
+      "status_tone": "success",
+      "tag_tone": "default",
+      "summary": "Hanko, упакованный как credential-бэкенд PoC для Auth Fly.",
+      "tagline": "Hanko, готовый к Auth Fly из коробки",
+      "description": "Docker-образ Hanko и конфигурация под IdP Auth Fly: JWT + JWKS для браузерных сессий, токены, привязанные к cookie, и CORS, согласованный с origin IdP. Реализует core.CredentialVerifier, чтобы остальной стек оставался provider-agnostic.",
+      "metrics": ["Проверка JWT + JWKS", "Сессии, привязанные к cookie"],
+      "tech": ["Hanko", "Docker", "Postgres"]
+    },
+    {
+      "id": "ui8kit",
+      "icon": "search",
+      "icon_color": "accent",
+      "name": "UI8Kit",
+      "url": "/projects/#project-ui8kit",
+      "category": "UI library",
+      "status": "В работе",
+      "status_tone": "success",
+      "tag_tone": "accent",
+      "summary": "Библиотека компонентов, полностью заместившая Hanko Elements в hosted-UI.",
+      "tagline": "Hanko Elements заменены целиком",
+      "description": "UI8Kit — слой компонентов под AuthKit: формы, поля, кнопки, состояния ошибок и виджеты auth-флоу. Поставляется одним бандлом ui8kit.js из /static — без зависимостей от CDN, без сторонних JS на странице входа.",
+      "metrics": ["Без зависимости от CDN", "Self-hosted bundle"],
+      "tech": ["TypeScript", "Tailwind", "UMD bundle"]
+    }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Протокола усилено (SAML, OIDC)" },
+    { "value": "0", "label": "Эндпоинтов телеметрии" },
+    { "value": "1", "label": "IdP-сессия для SAML + OIDC" },
+    { "value": "MIT", "label": "Лицензия везде" }
+  ],
+  "intro": {
+    "prompt": "Модули, осознанно небольшие.",
+    "description": "Открытый инструментарий, выросший из реальностей протоколов: подписанные assertion-ы, JWKS, одна IdP-сессия — наблюдаемо, документировано и скучно там, где это возможно."
+  },
+  "sections": {
+    "metrics_aria_label": "Метрики модулей",
+    "portfolio_eyebrow": "Модули",
+    "portfolio_title": "Открытые строительные блоки",
+    "products_heading_id": "products-title"
+  },
+  "ui": {
+    "status_active_label": "В работе",
+    "open_project_label": "Открыть модуль",
+    "open_project_aria_prefix": "Открыть",
+    "visit_external_label": "В модуле",
+    "visit_external_aria_prefix": "Посмотреть модуль"
+  }
+}

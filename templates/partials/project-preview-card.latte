@@ -1,0 +1,32 @@
+{*
+  Compact product card for the home page grid (matches .project/html-site/index.html).
+  Expects: $project (array), optional $projects for shared UI (unused; status/tag from project).
+*}
+{var $p = $project}
+{var $iconColor = $p['icon_color'] ?? 'primary'}
+{var $iconId = $p['icon'] ?? null}
+{var $summary = $p['summary'] ?? ($p['tagline'] ?? '')}
+<article class="mk-card mk-project-preview-card" aria-label="{$p['name'] ?? ''} project">
+  <div class="mk-project-preview-card__top">
+    <div class="mk-project-preview-icon" style="background:hsl(var(--{$iconColor})/0.1);" aria-hidden="true">
+      {if $iconId}
+        {include lucide-icon.latte, icon: $iconId, color: $iconColor, size: 18}
+      {/if}
+    </div>
+    {if ($p['status_tone'] ?? 'success') === 'warning'}
+      <span class="mk-status-warning">{$p['status'] ?? ''}</span>
+    {else}
+      <span class="mk-status mk-project-preview-card__status">{$p['status'] ?? ''}</span>
+    {/if}
+  </div>
+  <h3 class="mk-project-preview-name">{$p['name'] ?? ''}</h3>
+  <p class="mk-project-preview-desc">{$summary}</p>
+  {var $tagTone = $p['tag_tone'] ?? 'default'}
+  {if $tagTone === 'primary'}
+    <span class="mk-tag mk-tag-primary">{$p['category'] ?? ''}</span>
+  {elseif $tagTone === 'accent'}
+    <span class="mk-tag mk-tag-accent">{$p['category'] ?? ''}</span>
+  {else}
+    <span class="mk-tag">{$p['category'] ?? ''}</span>
+  {/if}
+</article>

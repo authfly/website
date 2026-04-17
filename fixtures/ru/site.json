@@ -1,0 +1,65 @@
+{
+  "titles": {
+    "home": "Главная",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "projects": "Модули",
+    "contact": "Контакты"
+  },
+  "name": "Auth Fly",
+  "tagline": "Лёгкая аутентификация, готова ко взлёту.",
+  "images": {
+    "portrait_home": "/static/img/authfly.png",
+    "portrait_about": "/static/img/authfly.png",
+    "og": "/static/img/authfly.png"
+  },
+  "description": "Открытый конструктор аутентификации: self-hosted SSO IdP для SAML 2.0 и OIDC, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. Без телеметрии, без сторонних каналов обновлений.",
+  "slogan": "Без шумихи. Реальные протоколы.",
+  "copyright": "© 2026 Auth Fly",
+  "channels": {
+    "youtube": "https://t.me/authfly",
+    "linkedin": "https://github.com/authfly",
+    "telegram": "https://t.me/authfly",
+    "github": "https://github.com/authfly"
+  },
+  "ui": {
+    "switch_language_label": "Сменить язык",
+    "language_toggle_fallback": "Язык",
+    "nav_main_aria": "Основная навигация",
+    "aria_logo_home": "Auth Fly — главная",
+    "theme_toggle_aria": "Переключить тёмную тему",
+    "mobile_menu_open_aria": "Открыть меню",
+    "nav_mobile_aria": "Мобильная навигация",
+    "nav_footer_aria": "Навигация в подвале",
+    "og_image_alt": "Логотип Auth Fly",
+    "portrait_home_alt": "Логотип Auth Fly",
+    "portrait_about_alt": "Логотип Auth Fly"
+  },
+  "socials_display": {
+    "linkedin": { "label": "GitHub", "url": "https://github.com/authfly" },
+    "telegram": { "label": "Telegram", "url": "https://t.me/authfly" },
+    "github": { "label": "npm", "url": "https://www.npmjs.com/org/authfly" }
+  },
+  "seo": {
+    "canonical_base": "",
+    "robots": "index, follow",
+    "json_ld_person": {
+      "@type": "Organization",
+      "name": "Auth Fly",
+      "url": "https://github.com/authfly",
+      "logo": "/static/img/authfly.png",
+      "description": "Открытый конструктор аутентификации: self-hosted SSO IdP, hosted-UI и адаптивные SDK.",
+      "sameAs": [
+        "https://github.com/authfly",
+        "https://www.npmjs.com/org/authfly",
+        "https://t.me/authfly"
+      ]
+    }
+  },
+  "platforms": [
+    { "id": "github", "label": "GitHub · authfly", "url": "https://github.com/authfly", "aria_label": "Auth Fly на GitHub" },
+    { "id": "linkedin", "label": "npm · authfly", "url": "https://www.npmjs.com/org/authfly", "aria_label": "Auth Fly на npm" },
+    { "id": "telegram", "label": "Telegram · authfly", "url": "https://t.me/authfly", "aria_label": "Auth Fly в Telegram" },
+    { "id": "reddit", "label": "GitHub · UI8Kit", "url": "https://github.com/fastygo/ui8kit", "aria_label": "UI8Kit на GitHub" }
+  ]
+}

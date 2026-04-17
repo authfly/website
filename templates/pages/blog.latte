@@ -1,0 +1,144 @@
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));">
+  <div class="mk-shell">
+    <p class="mk-eyebrow" style="margin-bottom:1rem;">{$blog['hero']['eyebrow']}</p>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;margin:0 0 0.75rem;">{$blog['hero']['title']}</h1>
+    <p style="font-size:1.05rem;max-width:52ch;color:hsl(var(--muted-foreground));line-height:1.65;margin:0 0 2.25rem;">{$blog['hero']['description']}</p>
+
+    <div class="mk-filter-row" role="tablist" aria-label="{$blog['ui']['filter_tablist_aria'] ?? ''}" style="margin-bottom:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <button
+        type="button"
+        class="mk-filter-btn mk-filter-btn--active"
+        data-filter="all"
+        role="tab"
+          aria-label="{$blog['ui']['filter_all_aria'] ?? ''}"
+        aria-pressed="true"
+        aria-selected="true"
+      >
+        {$blog['ui']['filter_all'] ?? ''}
+      </button>
+      {foreach $blog['categories'] as $category}
+        {if strtolower($category['id'] ?? '') !== 'all'}
+        <button
+          type="button"
+          class="mk-filter-btn"
+          data-filter="{$category['id']}"
+          role="tab"
+          aria-label="{$blog['ui']['filter_category_aria_prefix'] ?? ''} {$category['label']}"
+          aria-pressed="false"
+          aria-selected="false"
+        >
+          {$category['label']}
+        </button>
+        {/if}
+      {/foreach}
+    </div>
+
+    <div id="blog-list">
+      {foreach $blog['posts'] as $post}
+        <article class="mk-post-row" data-category="{$post['category'] ?? 'news'}">
+          <a href="/blog/{$post['slug']}/" class="mk-post-item" style="text-decoration:none;color:inherit;" aria-label="{$blog['ui']['read_post_aria_prefix'] ?? ''} {$post['title']}">
+            <div class="mk-post-meta">
+              <span class="mk-tag mk-tag-primary">{$post['tag'] ?? ''}</span>
+              <time class="mk-post-date" datetime="{$post['date'] ?? ''}">{$post['date']}</time>
+              <span class="mk-post-read">{$post['reading_time'] ?? ''}</span>
+            </div>
+            <h2 class="mk-post-title">{$post['title']}</h2>
+            <p class="mk-post-excerpt">{$post['excerpt']}</p>
+          </a>
+        </article>
+      {/foreach}
+    </div>
+
+    <p id="blog-no-results" class="mk-no-results" role="status" aria-live="polite" style="display:none;">{$blog['ui']['no_results'] ?? ''}</p>
+  </div>
+</section>
+
+<style>
+  .mk-filter-row button {
+    border: 1px solid hsl(var(--border));
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    transition: transform 200ms ease, background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    cursor: pointer;
+  }
+
+  .mk-filter-btn--active {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+  }
+
+  .mk-filter-btn--hidden {
+    opacity: 0.45;
+  }
+
+  .mk-post-row {
+    display: grid;
+    border-bottom: 1px solid hsl(var(--border));
+    padding: 1.25rem 0;
+  }
+
+  .mk-no-results {
+    margin: 2rem 0 0;
+    padding: 1.25rem;
+    border: 1px dashed hsl(var(--border));
+    border-radius: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    font-style: italic;
+  }
+</style>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('[data-filter]');
+    var items = document.querySelectorAll('.mk-post-row');
+    var noResults = document.getElementById('blog-no-results');
+    var filterKey = window.location.hash ? window.location.hash.replace('#', '').toLowerCase() : 'all';
+
+    function activateFilter(filterId) {
+      var normalized = filterId ? filterId.toLowerCase() : 'all';
+      var count = 0;
+
+      buttons.forEach(function (btn) {
+        var id = btn.getAttribute('data-filter').toLowerCase();
+        var isActive = id === normalized;
+        btn.classList.toggle('mk-filter-btn--active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      items.forEach(function (item) {
+        var category = item.getAttribute('data-category') || 'all';
+        var show = normalized === 'all' || normalized === category.toLowerCase();
+        item.style.display = show ? 'grid' : 'none';
+        if (show) {
+          count++;
+          item.classList.remove('mk-filter-btn--hidden');
+        } else {
+          item.classList.add('mk-filter-btn--hidden');
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = count === 0 ? 'block' : 'none';
+      }
+      window.location.hash = normalized === 'all' ? '' : normalized;
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activateFilter(btn.getAttribute('data-filter'));
+      });
+    });
+
+    var hasDefault = Array.from(buttons).some(function (btn) {
+      return btn.getAttribute('data-filter').toLowerCase() === filterKey;
+    });
+    activateFilter(hasDefault ? filterKey : 'all');
+  })();
+</script>

@@ -1,0 +1,44 @@
+services:
+  cache-init:
+    image: busybox:1.36
+    command:
+      - sh
+      - -lc
+      - mkdir -p /cache /template-cache && chown -R 1000:1000 /cache /template-cache && chmod -R ug+rwX /cache /template-cache
+    volumes:
+      - defense-cache:/cache
+      - template-cache:/template-cache
+
+  php:
+    image: webdevops/php:8.4-alpine
+    volumes:
+      - .:/var/www/html
+      - defense-cache:/var/www/html/cache
+      - template-cache:/var/www/html/templates/cache
+      - ./${PHP_INI_FILE:-php.ini}:/opt/docker/etc/php/php.ini
+      - ./${APCU_INI_FILE:-apcu.ini}:/opt/docker/etc/php/conf.d/apcu.ini
+    depends_on:
+      cache-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "sh", "-lc", "php -m | grep -q apcu"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  nginx:
+    image: nginx:alpine
+    expose:
+      - "80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      php:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  defense-cache:
+  template-cache:

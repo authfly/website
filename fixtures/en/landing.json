@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Auth Fly — Open SSO IdP, Hosted UI, Adaptive SDKs",
+    "description": "Auth Fly is an open auth construction kit: a self-hosted SAML 2.0 + OIDC IdP, a UI8Kit-based hosted UI, and adaptive SDKs for any language or framework. PoC live, MVP in active development.",
+    "keywords": "Auth Fly, open source SSO, self-hosted IdP, SAML 2.0, OpenID Connect, OIDC provider, Hanko, UI8Kit, AuthKit TS, adaptive SDK, security hardening, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "Open auth construction kit",
+    "title": "Auth Fly",
+    "subtitle": "SSO. SDKs. Adapters. Take off.",
+    "description": "Auth Fly is a self-hosted SSO Identity Provider for SAML 2.0 and OIDC, a hosted UI on UI8Kit, and adaptive SDKs that fit any language or framework. PoC is live with Hanko as the credential backend; MVP runs on Supabase or your own Postgres. No telemetry, no hidden update channels — security tracked in the open.",
+    "cta_primary": { "label": "Read the Journal", "url": "/blog/" },
+    "cta_secondary": { "label": "Explore projects", "url": "/projects/" }
+  },
+  "path": [
+    { "year": "Idea", "icon": "server", "icon_color": "primary", "label": "Hypothesis", "note": "Self-hosted alternative to hosted auth platforms — without telemetry, without third-party update calls" },
+    { "year": "2025 Q3", "icon": "book", "icon_color": "accent", "label": "Architecture", "note": "core / authkit / authkit-hanko split — provider-agnostic contracts before code" },
+    { "year": "2025 Q4", "icon": "shopping-cart", "icon_color": "primary", "label": "PoC live", "note": "SAML 2.0 + OIDC sharing one signed IdP session, Hanko as credential backend" },
+    { "year": "2026 Q1+", "icon": "monitor", "icon_color": "accent", "label": "MVP in flight", "note": "Pre-flight security checklist, Supabase / custom Postgres backend, Console scaffolding" },
+    { "year": "Next", "icon": "layers", "icon_color": "primary", "label": "Roadmap", "note": "SCIM, Audit logs, Organizations, MFA, Webhooks — staged in the open" }
+  ],
+  "pillars": [
+    { "id": "defense", "icon": "shield", "icon_color": "primary", "label": "Security first", "desc": "No telemetry, no third-party update calls. Hardening tracked publicly via a pre-flight checklist." },
+    { "id": "idp", "icon": "network", "icon_color": "primary", "label": "IdP core", "desc": "SAML 2.0 IdP and OIDC Provider sharing one signed session cookie, Hanko-backed for the PoC." },
+    { "id": "ui", "icon": "database", "icon_color": "accent", "label": "Hosted UI", "desc": "UI8Kit-based login, logout and error pages with embedded i18n and dark theme — served from your own origin." },
+    { "id": "sdk", "icon": "trending-up", "icon_color": "accent", "label": "Adaptive SDKs", "desc": "One TypeScript core; thin adapters per provider and per language — start with Hanko today." }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Protocols live (SAML, OIDC)" },
+    { "value": "5", "label": "Modules in the org" },
+    { "value": "0", "label": "External telemetry calls" },
+    { "value": "MIT", "label": "License everywhere" }
+  ],
+  "quote": {
+    "text": "Replace slide decks with logs, signed assertions, and a pre-flight checklist. The story is in the protocol.",
+    "source": "Auth Fly engineering principle"
+  },
+  "hero_evidence": {
+    "aria_label": "Key facts",
+    "items": [
+      { "value": "2", "unit": "protocols" },
+      { "value": "5", "unit": "repos" },
+      { "value": "1", "unit": "IdP session" },
+      { "value": "0", "unit": "tracking" }
+    ]
+  },
+  "hero_portrait": {
+    "aria_label": "Auth Fly logo"
+  },
+  "sections": {
+    "career_path": { "eyebrow": "Trajectory", "title": "From hypothesis to MVP" },
+    "metrics": { "aria_label": "Project metrics" },
+    "pillars": { "eyebrow": "Capabilities", "title": "What Auth Fly ships" },
+    "blog_preview": { "title": "Recent flight log", "aria_label": "Latest notes" },
+    "projects_preview": {
+      "eyebrow": "Modules",
+      "title": "Open building blocks",
+      "link_all": "All projects →",
+      "heading_id": "projects-preview-title",
+      "aria_label": "Projects preview",
+      "preview_count": 4
+    },
+    "platforms": {
+      "eyebrow": "Follow",
+      "title": "Where to track Auth Fly",
+      "heading_id": "platforms-title"
+    }
+  }
+}

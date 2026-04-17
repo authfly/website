@@ -1,0 +1,178 @@
+<section class="mk-section-lg mk-hero-bg" aria-labelledby="hero-title">
+  <div class="mk-shell">
+    <div class="mk-hero-grid">
+      <div>
+        <p class="mk-eyebrow" style="margin-bottom:1.25rem;">{$landing['hero']['eyebrow']}</p>
+        <h1 id="hero-title" style="font-size:clamp(2.25rem,5vw,3.25rem);font-weight:700;margin:0 0 0.625rem;line-height:1.08;">{$landing['hero']['title']}</h1>
+        <p class="mk-hero-prompt">
+          <span class="mk-hero-prompt-chevron" aria-hidden="true">&gt;</span>
+          {$landing['hero']['subtitle']}
+          <span class="mk-hero-prompt-cursor" aria-hidden="true"></span>
+        </p>
+
+        {var $heroEvidenceItems = is_array($landing['hero_evidence']['items'] ?? null) ? $landing['hero_evidence']['items'] : []}
+        <div class="mk-hero-evidence" aria-label="{$landing['hero_evidence']['aria_label'] ?? ''}">
+          {foreach $heroEvidenceItems as $evIdx => $evItem}
+            {if $evIdx > 0}<span class="mk-hero-evidence-sep" aria-hidden="true"></span>{/if}
+            <span class="mk-hero-evidence-item">
+              <span class="mk-hero-evidence-value">{$evItem['value'] ?? ''}</span>
+              <span>{$evItem['unit'] ?? ''}</span>
+            </span>
+          {/foreach}
+        </div>
+
+        <blockquote class="mk-hero-quote">
+          <p style="margin:0;">{$landing['quote']['text']}</p>
+        </blockquote>
+
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="/blog/" class="mk-btn mk-btn-primary">{$landing['hero']['cta_primary']['label']}</a>
+          <a href="/projects/" class="mk-btn mk-btn-outline">{$landing['hero']['cta_secondary']['label']}</a>
+        </div>
+      </div>
+      <div class="mk-portrait-wrap">
+        <div class="mk-portrait" style="height:280px;" aria-label="{$landing['hero_portrait']['aria_label'] ?? ''}">
+          <img src="{$site['images']['portrait_home'] ?? ''}" alt="{$site['ui']['portrait_home_alt'] ?? ''}" width="260" height="280" loading="eager" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));">
+  <div class="mk-shell">
+    <p class="mk-eyebrow" style="margin-bottom:1rem;">{$landing['sections']['career_path']['eyebrow'] ?? ''}</p>
+    <h2 style="font-size:1.75rem;font-weight:700;margin:0 0 2.5rem;">{$landing['sections']['career_path']['title'] ?? ''}</h2>
+    <div class="mk-timeline-grid mk-career-cards">
+      {foreach $landing['path'] as $step}
+        {var $stepIcon = $step['icon'] ?? null}
+        {var $stepColor = $step['icon_color'] ?? 'primary'}
+        <article class="mk-career-card">
+          <div class="mk-career-card__header">
+            <div class="mk-career-card__icon" style="background:hsl(var(--{$stepColor}));" aria-hidden="true">
+              {if $stepIcon}
+              {include '../partials/lucide-icon.latte', icon: $stepIcon, color: $stepColor, size: 14, stroke: 'white'}
+              {else}
+              <span class="mk-career-card__icon-dot"></span>
+              {/if}
+            </div>
+            <h3 class="mk-career-card__title">{$step['label']}</h3>
+            <p class="mk-career-card__year">{$step['year']}</p>
+          </div>
+          <p class="mk-career-card__note">{$step['note']}</p>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" aria-label="{$landing['sections']['metrics']['aria_label'] ?? ''}">
+  <div class="mk-shell">
+    <div class="mk-grid-4">
+      {foreach $landing['metrics'] as $metric}
+        <article class="mk-card">
+          <p class="mk-metric-value">{$metric['value']}</p>
+          <p class="mk-metric-label">{$metric['label']}</p>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" style="background-color:hsl(var(--paper-warm));">
+  <div class="mk-shell">
+    <div style="margin-bottom:2.5rem;">
+      <p class="mk-eyebrow" style="margin-bottom:0.75rem;">{$landing['sections']['pillars']['eyebrow'] ?? ''}</p>
+      <h2 style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['pillars']['title'] ?? ''}</h2>
+    </div>
+    <div class="mk-grid-4">
+      {foreach $landing['pillars'] as $pillar}
+        <article class="mk-card">
+          {var $pillarIcon = $pillar['icon'] ?? null}
+          {var $pillarIconColor = $pillar['icon_color'] ?? 'primary'}
+          {if $pillarIcon}
+          {* Same badge shell as project-preview-card — flex-centers the Lucide SVG *}
+          <div class="mk-project-preview-icon" style="background:hsl(var(--{$pillarIconColor})/0.1);margin-bottom:0.75rem;" aria-hidden="true">
+            {include '../partials/lucide-icon.latte', icon: $pillarIcon, color: $pillarIconColor, size: 18}
+          </div>
+          {/if}
+          <h3 style="font-size:1rem;font-weight:700;margin:0 0 0.5rem;font-family:var(--font-display);">{$pillar['label']}</h3>
+          <p style="font-size:0.875rem;color:hsl(var(--muted-foreground));line-height:1.6;margin:0;">{$pillar['desc']}</p>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" aria-label="{$landing['sections']['blog_preview']['aria_label'] ?? ''}">
+  <div class="mk-content">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <p class="mk-eyebrow" style="margin-bottom:0.5rem;">{$blog['hero']['eyebrow']}</p>
+        <h2 style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['blog_preview']['title'] ?? ''}</h2>
+      </div>
+      <a href="/blog/" style="font-family:var(--font-mono);font-size:0.8125rem;letter-spacing:0.02em;text-transform:uppercase;">{$blog['hero']['title']}</a>
+    </div>
+
+    <div style="display:grid;gap:1.25rem;">
+      {foreach array_slice($blog['posts'], 0, 4) as $post}
+        <article>
+          <a href="/blog/{$post['slug']}/" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+            <div class="mk-post-meta">
+              <span class="mk-tag mk-tag-primary">{$post['tag'] ?? ''}</span>
+              <time class="mk-post-date" datetime="{$post['date'] ?? ''}">{$post['date']}</time>
+              <span class="mk-post-read">{$post['reading_time'] ?? ''}</span>
+            </div>
+            <h3 class="mk-post-title">{$post['title']}</h3>
+            <p class="mk-post-excerpt">{$post['excerpt']}</p>
+          </a>
+        </article>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+{var $previewCount = (int) ($landing['sections']['projects_preview']['preview_count'] ?? 4)}
+{var $allPortfolioProjects = is_array($projects['projects'] ?? null) ? $projects['projects'] : []}
+{* Home grid: only active products (excludes e.g. offlinecrm “in development” — status_tone success) *}
+{var $activePortfolioProjects = array_values(array_filter($allPortfolioProjects, fn($p) => ($p['status_tone'] ?? '') === 'success'))}
+{var $previewProjects = array_slice($activePortfolioProjects, 0, $previewCount)}
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="{$landing['sections']['projects_preview']['heading_id'] ?? 'projects-preview-title'}">
+  <div class="mk-shell">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <p class="mk-eyebrow" style="margin-bottom:0.5rem;">{$landing['sections']['projects_preview']['eyebrow'] ?? ''}</p>
+        <h2 id="{$landing['sections']['projects_preview']['heading_id'] ?? 'projects-preview-title'}" style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['projects_preview']['title'] ?? ''}</h2>
+      </div>
+      <a href="/projects/" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;">{$landing['sections']['projects_preview']['link_all'] ?? ''}</a>
+    </div>
+    <div class="mk-grid-2">
+      {foreach $previewProjects as $project}
+        {include '../partials/project-preview-card.latte', project: $project, projects: $projects}
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section-sm">
+  <div class="mk-prose">
+    <blockquote class="mk-quote">
+      <p>{$landing['quote']['text']}</p>
+      <cite>— {$landing['quote']['source'] ?? ''}</cite>
+    </blockquote>
+  </div>
+</section>
+
+<section class="mk-section" style="background-color:hsl(var(--paper-warm));" aria-labelledby="{$landing['sections']['platforms']['heading_id'] ?? 'platforms-title'}">
+  <div class="mk-shell">
+    <div style="margin-bottom:2rem;">
+      <p class="mk-eyebrow" style="margin-bottom:0.5rem;">{$landing['sections']['platforms']['eyebrow'] ?? ''}</p>
+      <h2 id="{$landing['sections']['platforms']['heading_id'] ?? 'platforms-title'}" style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['platforms']['title'] ?? ''}</h2>
+    </div>
+    <div class="mk-grid-4">
+      {foreach ($site['platforms'] ?? []) as $platform}
+        {include '../partials/platform-link.latte', platform: $platform}
+      {/foreach}
+    </div>
+  </div>
+</section>

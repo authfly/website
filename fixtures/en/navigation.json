@@ -1,0 +1,9 @@
+{
+  "main": [
+    { "id": "home", "label": "Home", "url": "/" },
+    { "id": "blog", "label": "Journal", "url": "/blog/" },
+    { "id": "projects", "label": "Projects", "url": "/projects/" },
+    { "id": "about", "label": "About", "url": "/about/" },
+    { "id": "contact", "label": "Contact", "url": "/contact/" }
+  ]
+}

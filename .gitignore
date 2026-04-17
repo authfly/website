@@ -1,0 +1,43 @@
+.manual/
+.cursor/
+.paas/
+.cursorignore
+bun.lockb
+bun.lock
+package-lock.json
+dist/
+node_modules/
+vendor/
+.env
+.workspaces/
+.phpcs/
+.phpstan/
+.phpunit/
+
+/cache/
+templates/cache/
+
+.cursorignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Cache and coverage artifacts
+.phpunit.result.cache
+.php-cs-fixer.cache
+.phpcs-cache
+coverage/
+
+# Editor/IDE settings
+.idea/
+
+# PAAS runner
+paas.exe
+.paas/config.yml
+.gorunner/

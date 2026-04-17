@@ -1,0 +1,58 @@
+{*
+  Full-width project row — layout from html-site/projects; enhanced visuals via .mk-project-card--* and CSS.
+  Expects: $project, $projects, $statusActiveLabel
+*}
+{var $p = $project}
+{var $iconId = $p['icon'] ?? null}
+{var $iconColor = $p['icon_color'] ?? 'primary'}
+{var $cardTone = ($iconColor === 'accent') ? 'accent' : 'primary'}
+<article id="project-{$p['id'] ?? ''}" class="mk-card mk-project-card mk-project-card--{$cardTone}" aria-label="{$p['name'] ?? ''}">
+  <div class="mk-project-card__icon-wrap">
+    <div class="mk-project-icon mk-project-icon--framed" style="background:hsl(var(--{$iconColor})/0.12);" aria-hidden="true">
+      {if $iconId}
+        {include lucide-icon.latte, icon: $iconId, color: $iconColor, size: 22}
+      {else}
+        <span class="mk-project-icon-fallback" aria-hidden="true"></span>
+      {/if}
+    </div>
+  </div>
+  <div class="mk-project-card__main">
+    <div class="mk-project-header">
+      <h3 class="mk-project-title">{$p['name'] ?? ''}</h3>
+      {var $tagTone = $p['tag_tone'] ?? 'default'}
+      {if $tagTone === 'primary'}
+        <span class="mk-tag mk-tag-primary">{$p['category'] ?? ''}</span>
+      {elseif $tagTone === 'accent'}
+        <span class="mk-tag mk-tag-accent">{$p['category'] ?? ''}</span>
+      {else}
+        <span class="mk-tag">{$p['category'] ?? ''}</span>
+      {/if}
+      {if ($p['status_tone'] ?? 'success') === 'warning'}
+        <span class="mk-status-warning">{$p['status'] ?? ''}</span>
+      {elseif ($p['status'] ?? '') === $statusActiveLabel}
+        <span class="mk-status mk-project-card__status--ok">{$p['status'] ?? ''}</span>
+      {else}
+        <span class="mk-status mk-project-card__status--muted">{$p['status'] ?? ''}</span>
+      {/if}
+    </div>
+    <p class="mk-project-tagline">{$p['tagline'] ?? ''}</p>
+    <p class="mk-project-body">{$p['description'] ?? ''}</p>
+    <div class="mk-project-tech">
+      {foreach ($p['tech'] ?? []) as $tech}
+        <span class="mk-chip mk-project-chip">{$tech}</span>
+      {/foreach}
+    </div>
+  </div>
+  {var $projectUrl = $p['url'] ?? '#'}
+  {var $projectUrlStr = is_string($projectUrl) ? $projectUrl : '#'}
+  {var $projectOpenExternal = str_starts_with($projectUrlStr, 'http://') || str_starts_with($projectUrlStr, 'https://')}
+  {if $projectOpenExternal}
+  <a href="{$projectUrlStr}" target="_blank" rel="noopener noreferrer" class="mk-btn mk-btn-outline mk-project-cta" aria-label="{$projects['ui']['visit_external_aria_prefix'] ?? ''} {$p['name'] ?? ''}">
+    {$projects['ui']['visit_external_label'] ?? ''}
+  </a>
+  {else}
+  <a href="{$projectUrlStr}" class="mk-btn mk-btn-outline mk-project-cta" aria-label="{$projects['ui']['visit_external_aria_prefix'] ?? ''} {$p['name'] ?? ''}">
+    {$projects['ui']['visit_external_label'] ?? ''}
+  </a>
+  {/if}
+</article>

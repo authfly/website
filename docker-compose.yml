@@ -1,0 +1,24 @@
+# Render this template in CI with APP_IMAGE=<registry>/<repo>:sha-<commit>
+# and send the resolved YAML to the dashboard API.
+services:
+  web:
+    image: ${APP_IMAGE:?APP_IMAGE is required}
+    expose:
+      - "80"
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      DATA_SOURCE: ${DATA_SOURCE:-fixtures}
+      CACHE_TTL: ${CACHE_TTL:-3600}
+      CACHE_DIR: ${CACHE_DIR:-/app/cache}
+      FIXTURES_PATH: ${FIXTURES_PATH:-/app/fixtures}
+      DEFENSE_CONFIG_PATH: ${DEFENSE_CONFIG_PATH:-/app/config/defense.php}
+      APP_WARM_CACHE: ${APP_WARM_CACHE:-0}
+    volumes:
+      - app-cache:/app/cache
+      - template-cache:/app/templates/cache
+
+volumes:
+  app-cache:
+  template-cache:

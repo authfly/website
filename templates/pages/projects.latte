@@ -1,0 +1,34 @@
+{var $statusActiveLabel = $projects['ui']['status_active_label'] ?? ''}
+<section class="mk-section" style="background-color:hsl(var(--surface-subtle));" aria-labelledby="projects-hero-title">
+  <div class="mk-content">
+    <p class="mk-eyebrow" style="margin-bottom:1rem;">{$projects['hero']['eyebrow']}</p>
+    <h1 id="projects-hero-title" style="font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;margin:0 0 1rem;">{$projects['hero']['title']}</h1>
+    <p style="font-size:1.0625rem;color:hsl(var(--muted-foreground));max-width:600px;line-height:1.7;margin:0;">
+      {$projects['hero']['description']}
+    </p>
+  </div>
+</section>
+
+<section class="mk-section-sm" aria-label="{$projects['sections']['metrics_aria_label'] ?? ''}">
+  <div class="mk-content">
+    <div class="mk-grid-4">
+      {foreach $projects['metrics'] as $mIdx => $metric}
+        <div class="mk-metric mk-metric--strip {if ($mIdx % 2) === 1}mk-metric--strip-primary{/if}">
+          <p class="mk-metric-value">{$metric['value']}</p>
+          <p class="mk-metric-label">{$metric['label']}</p>
+        </div>
+      {/foreach}
+    </div>
+  </div>
+</section>
+
+<section class="mk-section" aria-labelledby="{$projects['sections']['products_heading_id'] ?? 'products-title'}">
+  <div class="mk-content">
+    <h2 id="{$projects['sections']['products_heading_id'] ?? 'products-title'}" style="font-size:1.375rem;font-weight:700;margin:0 0 2rem;font-family:var(--font-display);">{$projects['sections']['portfolio_title'] ?? ''}</h2>
+    <div class="mk-project-list">
+      {foreach $projects['projects'] as $project}
+        {include '../partials/project-row-card.latte', project: $project, projects: $projects, statusActiveLabel: $statusActiveLabel}
+      {/foreach}
+    </div>
+  </div>
+</section>
