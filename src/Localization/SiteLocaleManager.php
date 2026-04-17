@@ -77,9 +77,30 @@ final class SiteLocaleManager implements LocaleResolverInterface
         return array_keys($this->supportedLocales);
     }
 
+    /**
+     * Public locales eligible for the language switcher.
+     * Voice pseudo-locales (voice/*) are excluded.
+     *
+     * @return array<int, string>
+     */
+    public function getPublicLocales(): array
+    {
+        return array_values(array_filter(
+            array_keys($this->supportedLocales),
+            static fn (string $locale): bool => !str_starts_with($locale, 'voice/')
+        ));
+    }
+
+    public function isVoiceLocale(string $locale): bool
+    {
+        $normalized = $this->normalizeToken($locale);
+
+        return $normalized !== '' && str_starts_with($normalized, 'voice/');
+    }
+
     public function hasMultipleLocales(): bool
     {
-        return count($this->supportedLocales) > 1;
+        return count($this->getPublicLocales()) > 1;
     }
 
     public function resolveRequestLocale(
@@ -110,20 +131,27 @@ final class SiteLocaleManager implements LocaleResolverInterface
 
     public function getNextLocale(string $locale): string
     {
-        $supported = $this->getSupportedLocales();
-        if (count($supported) < 2) {
-            return $this->normalize($locale);
+        $publicLocales = $this->getPublicLocales();
+        if (count($publicLocales) < 2) {
+            return $publicLocales[0] ?? $this->defaultLocale;
         }
 
         $current = $this->normalize($locale);
-        $currentIndex = array_search($current, $supported, true);
-        if ($currentIndex === false) {
-            return $supported[0];
+        // Voice pseudo-locales render Russian content, so the toggle should
+        // behave as if the user were on the Russian page — and offer the
+        // English alternative as the next step.
+        if ($this->isVoiceLocale($current)) {
+            $current = isset($this->supportedLocales['ru']) ? 'ru' : $this->defaultLocale;
         }
 
-        $nextIndex = ($currentIndex + 1) % count($supported);
+        $currentIndex = array_search($current, $publicLocales, true);
+        if ($currentIndex === false) {
+            return $publicLocales[0];
+        }
 
-        return $supported[$nextIndex];
+        $nextIndex = ($currentIndex + 1) % count($publicLocales);
+
+        return $publicLocales[$nextIndex];
     }
 
     public function getLabel(string $locale): string

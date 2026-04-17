@@ -1,0 +1,50 @@
+{
+  "seo": {
+    "title": "Контакты — IdПровайдер | Следить за разработкой",
+    "description": "IdПровайдер активно идёт от PoC к MVP. Следить за разработкой — на GitHub и в Telegram, ставить пакеты — с npm, репортить уязвимости — через приватные security advisories.",
+    "keywords": "IdПровайдер contact, github.com/authfly, t.me/authfly, npmjs authfly, security advisories, self-hosted SSO support"
+  },
+  "sections": {
+    "channels_title": "Где следить",
+    "availability_title": "С чем помогает IdПровайдер"
+  },
+  "hero": {
+    "eyebrow": "Контакты",
+    "title": "Связаться",
+    "description": "IdПровайдер — в активной разработке: PoC уже работает, MVP в полёте. Issues, обсуждения и приватные advisories — через GitHub; быстрые анонсы — Telegram."
+  },
+  "channels": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "github.com/authfly",
+      "url": "https://github.com/authfly",
+      "desc": "Issues, обсуждения, релизы и приватные security advisories. Источник правды по статусу.",
+      "type": "primary"
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "handle": "t.me/authfly",
+      "url": "https://t.me/authfly",
+      "desc": "Публичный канал с заметками о разработке, релизами и обновлениями дорожной карты.",
+      "type": "social"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "handle": "npmjs.com/org/authfly",
+      "url": "https://www.npmjs.com/org/authfly",
+      "desc": "Браузерные SDK-пакеты — старт с AuthKit TS.",
+      "type": "social"
+    }
+  ],
+  "availability": [
+    "Self-hosted развёртывание SSO (SAML 2.0 + OIDC) на собственном origin",
+    "Миграции с тяжеловесных IdP-платформ на узкий self-hosted стек",
+    "Замена Hanko-бэкенда на Supabase или собственный Postgres через SSO SPI",
+    "Кастомизация hosted-UI на UI8Kit и встроенная i18n без CDN-зависимостей",
+    "Аудит безопасности по публичному pre-flight чек-листу как runbook"
+  ],
+  "note": "IdПровайдер идёт от PoC к MVP. Живые демо появятся после стадий усиления — следить удобно на GitHub и в Telegram. Сообщения об уязвимостях: открывайте приватный security advisory на github.com/authfly."
+}

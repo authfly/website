@@ -1,0 +1,9 @@
+{
+  "main": [
+    { "id": "home", "label": "Главная", "url": "/?voice=devops" },
+    { "id": "blog", "label": "Журнал", "url": "/blog/?voice=devops" },
+    { "id": "projects", "label": "Модули", "url": "/projects/?voice=devops" },
+    { "id": "about", "label": "О проекте", "url": "/about/?voice=devops" },
+    { "id": "contact", "label": "Контакты", "url": "/contact/?voice=devops" }
+  ]
+}

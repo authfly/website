@@ -47,4 +47,10 @@ Flight::set('flight.log_errors', $debug);
 
 require_once __DIR__ . '/../config/routes.php';
 
+// Hermetic SEO guard: any URL with ?voice= must never enter search indexes,
+// even if external links bypass robots.txt.
+if (isset($_GET['voice']) && trim((string) $_GET['voice']) !== '') {
+    header('X-Robots-Tag: noindex, nofollow', true);
+}
+
 Flight::start();

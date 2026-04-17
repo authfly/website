@@ -1,0 +1,117 @@
+{
+  "seo": {
+    "title": "Модули — Авторизатор | Открытый IdP, hosted-UI, адаптивные SDK",
+    "description": "Пять модулей Авторизатор: self-hosted SAML 2.0 + OIDC IdP, AuthKit hosted-UI, AuthKit TS browser SDK, адаптер Hanko для PoC и библиотека компонентов UI8Kit.",
+    "keywords": "Авторизатор modules, SSO IdP Go, SAML 2.0 provider, OIDC provider, AuthKit, AuthKit TS, OIDC Hanko, UI8Kit, hosted login UI, self-hosted authentication"
+  },
+  "hero": {
+    "eyebrow": "Модули",
+    "title": "Что из чего собирается",
+    "description": "Пять кубиков, каждый работает сам по себе и стыкуется с остальными. Ядро ничего не знает о конкретном бэкенде — поэтому стек собирается под вас, а не наоборот."
+  },
+  "projects": [
+    {
+      "id": "idp",
+      "icon": "shield",
+      "icon_color": "primary",
+      "name": "AuthFly IdP",
+      "url": "/projects/?voice=itpop#project-idp",
+      "category": "Identity Provider",
+      "status": "PoC работает",
+      "status_tone": "warning",
+      "tag_tone": "primary",
+      "summary": "Тот самый сервер, который проверяет «свой/чужой» и говорит «да» приложениям.",
+      "tagline": "SAML и OIDC живут вместе и делят одну сессию",
+      "description": "IdP (Identity Provider) — это сервис, к которому ходят приложения и спрашивают «это правда тот самый человек». Авторизатор IdP написан на Go и поддерживает сразу два диалекта такого «спроса»: SAML 2.0 (старый добрый, любим B2B) и OIDC (современный, на нём работает «логин через Google»). Внутри — одна подписанная сессия на оба протокола, JWKS для проверки подписей и адрес страницы входа из конфига SP, а не из запроса (это важно для безопасности). PoC работает на Hanko, на MVP бэкенд меняется на Supabase или свой Postgres — сам IdP при этом не трогается.",
+      "metrics": ["Без телеметрии", "Pre-flight чек-лист публичен"],
+      "tech": ["SAML 2.0", "OIDC", "JWKS", "Go"]
+    },
+    {
+      "id": "authkit",
+      "icon": "monitor",
+      "icon_color": "accent",
+      "name": "AuthKit",
+      "url": "/projects/?voice=itpop#project-authkit",
+      "category": "Hosted UI",
+      "status": "PoC работает",
+      "status_tone": "warning",
+      "tag_tone": "accent",
+      "summary": "Готовые страницы входа, выхода и ошибок — встраиваются в любое приложение.",
+      "tagline": "Страница входа на вашем домене, без CDN",
+      "description": "AuthKit — это собранный модуль на Go + templ + UI8Kit с тремя страницами: вход, выход, ошибка. Брендинг и настройки приходят из приложения; сам AuthKit ничего не знает про конкретный credential-бэкенд (тот, который реально проверяет логин и пароль). Поэтому одна и та же страница входа работает с Hanko сегодня и с другим провайдером завтра — без правок в самой странице.",
+      "metrics": ["Встроенная i18n (en, ru)", "Без внешних ассетов"],
+      "tech": ["Go", "templ", "UI8Kit", "Tailwind"]
+    },
+    {
+      "id": "authkit-ts",
+      "icon": "database",
+      "icon_color": "accent",
+      "name": "AuthKit TS",
+      "url": "/projects/?voice=itpop#project-authkit-ts",
+      "category": "Browser SDK core",
+      "status": "В работе",
+      "status_tone": "success",
+      "tag_tone": "accent",
+      "summary": "Браузерный SDK: ведёт пользователя по шагам логина, не привязан к одному провайдеру.",
+      "tagline": "Одно ядро на TS, тонкие адаптеры под бэкенды",
+      "description": "Когда пользователь нажимает «Войти», в браузере должен кто-то вести флоу: показать форму, отправить challenge, проверить ответ, перевести на следующий шаг. AuthKit TS — это «ядро» такого флоу на TypeScript. К нему пишутся короткие адаптеры под конкретный credential-бэкенд (первый — Hanko). Подключается одним UMD-бандлом — как обычный <script> на странице.",
+      "metrics": ["Одно ядро, много адаптеров", "Без сторонних вызовов"],
+      "tech": ["TypeScript", "UMD bundle", "Адаптеры провайдеров"]
+    },
+    {
+      "id": "oidc-hanko",
+      "icon": "users",
+      "icon_color": "primary",
+      "name": "OIDC Hanko",
+      "url": "/projects/?voice=itpop#project-oidc-hanko",
+      "category": "Credential backend",
+      "status": "В работе",
+      "status_tone": "success",
+      "tag_tone": "default",
+      "summary": "Hanko, обёрнутый под Авторизатор: тот, кто реально проверяет логины и passkey.",
+      "tagline": "Готовый бэкенд логина, поднимается одним compose-файлом",
+      "description": "Hanko — это open-source сервис для логина (email + passcode, WebAuthn / passkey). В Авторизатор он играет роль credential-бэкенда: его задача — выдавать JWT (короткий подписанный токен), который потом проверяет IdP. Образ Docker и конфиг подогнаны под Авторизатор: правильные CORS, привязка токена к cookie, JWKS для проверки подписи.",
+      "metrics": ["Проверка JWT + JWKS", "Сессии, привязанные к cookie"],
+      "tech": ["Hanko", "Docker", "Postgres"]
+    },
+    {
+      "id": "ui8kit",
+      "icon": "search",
+      "icon_color": "accent",
+      "name": "UI8Kit",
+      "url": "/projects/?voice=itpop#project-ui8kit",
+      "category": "UI library",
+      "status": "В работе",
+      "status_tone": "accent",
+      "tag_tone": "accent",
+      "summary": "Своя библиотека компонентов вместо чужого web-компонента входа.",
+      "tagline": "Hanko Elements заменены целиком — теперь всё своё",
+      "description": "UI8Kit — это «слой кубиков»: формы, поля, кнопки, состояния ошибок и виджеты для шагов логина. Лежит в одном файле ui8kit.js и отдаётся с того же домена, что и сайт. Никаких чужих CDN на странице входа — это и быстрее, и безопаснее, и проще обновлять.",
+      "metrics": ["Без зависимости от CDN", "Self-hosted bundle"],
+      "tech": ["TypeScript", "Tailwind", "UMD bundle"]
+    }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Протокола работают (SAML, OIDC)" },
+    { "value": "0", "label": "Адресов телеметрии" },
+    { "value": "1", "label": "Сессия на оба протокола" },
+    { "value": "MIT", "label": "Лицензия везде" }
+  ],
+  "intro": {
+    "prompt": "Кубики — намеренно небольшие.",
+    "description": "Открытые кирпичики из реальной практики: подписанные ответы, JWKS, одна сессия на два протокола. Понятно по логам, прописано в документации, скучно там, где это можно."
+  },
+  "sections": {
+    "metrics_aria_label": "Метрики модулей",
+    "portfolio_eyebrow": "Модули",
+    "portfolio_title": "Что из чего собирается",
+    "products_heading_id": "products-title"
+  },
+  "ui": {
+    "status_active_label": "В работе",
+    "open_project_label": "Открыть модуль",
+    "open_project_aria_prefix": "Открыть",
+    "visit_external_label": "В модуле",
+    "visit_external_aria_prefix": "Посмотреть модуль"
+  }
+}

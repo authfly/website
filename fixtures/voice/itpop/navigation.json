@@ -1,0 +1,9 @@
+{
+  "main": [
+    { "id": "home", "label": "Главная", "url": "/?voice=itpop" },
+    { "id": "blog", "label": "Журнал", "url": "/blog/?voice=itpop" },
+    { "id": "projects", "label": "Модули", "url": "/projects/?voice=itpop" },
+    { "id": "about", "label": "О проекте", "url": "/about/?voice=itpop" },
+    { "id": "contact", "label": "Контакты", "url": "/contact/?voice=itpop" }
+  ]
+}

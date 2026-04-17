@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Авторизатор — открытый SSO IdP, hosted-UI, адаптивные SDK",
+    "description": "Авторизатор — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC IdP, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. PoC уже работает, MVP в активной разработке.",
+    "keywords": "Авторизатор, open source SSO, self-hosted IdP, SAML 2.0, OpenID Connect, OIDC provider, Hanko, UI8Kit, AuthKit TS, adaptive SDK, security hardening, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "SSO простыми словами",
+    "title": "Авторизатор",
+    "subtitle": "Один логин — много сервисов. Можно собрать самому.",
+    "description": "Авторизатор — это сборка для своего SSO (single sign-on, один логин для нескольких сервисов). Внутри — IdP (Identity Provider, тот самый сервис, который и говорит «да, это правда тот самый человек») на двух протоколах: SAML 2.0 и OIDC. Готовая страница входа на UI8Kit и SDK для браузера и сервера. PoC уже работает на Hanko, MVP пойдёт на Supabase или своём Postgres. Никаких чужих счётчиков и каналов обновлений в фоне."
+,
+    "cta_primary": { "label": "Открыть журнал", "url": "/blog/?voice=itpop" },
+    "cta_secondary": { "label": "Смотреть модули", "url": "/projects/?voice=itpop" }
+  },
+  "path": [
+    { "year": "Идея", "icon": "server", "icon_color": "primary", "label": "Гипотеза", "note": "Своё SSO, которое можно поднять самому — без облачных подписок и фоновых звонков" },
+    { "year": "2025 Q3", "icon": "book", "icon_color": "accent", "label": "Архитектура", "note": "Сначала договорились про контракты (core / authkit / authkit-hanko), потом писали код" },
+    { "year": "2025 Q4", "icon": "shopping-cart", "icon_color": "primary", "label": "PoC работает", "note": "SAML и OIDC делят одну подписанную сессию: вошёл один раз — попадаешь куда нужно" },
+    { "year": "2026 Q1+", "icon": "monitor", "icon_color": "accent", "label": "MVP в полёте", "note": "Pre-flight чек-лист безопасности, бэкенд на Supabase или своём Postgres, каркас Console" },
+    { "year": "Дальше", "icon": "layers", "icon_color": "primary", "label": "Дорожная карта", "note": "SCIM, аудит-логи, организации, MFA, webhooks — всё постепенно и открыто" }
+  ],
+  "pillars": [
+    { "id": "defense", "icon": "shield", "icon_color": "primary", "label": "Никаких счётчиков в фоне", "desc": "Сервер не звонит домой и не тянет апдейты со стороны. Что есть в безопасности и что ещё впереди — видно в открытом чек-листе." },
+    { "id": "idp", "icon": "network", "icon_color": "primary", "label": "Один логин — два мира", "desc": "Старые B2B-сервисы любят SAML, новые — OIDC. У нас обе двери открываются одной и той же подписанной сессионной cookie." },
+    { "id": "ui", "icon": "database", "icon_color": "accent", "label": "Готовая страница входа", "desc": "Login, logout и страницы ошибок на UI8Kit. Лежат у вас, отдаются с вашего домена — никаких CDN-сюрпризов." },
+    { "id": "sdk", "icon": "trending-up", "icon_color": "accent", "label": "SDK под ваш стек", "desc": "Одно ядро на TypeScript для браузера; тонкие адаптеры под язык. Новый стек — это ещё один адаптер, а не «перепиши всё заново»." }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Протокола: SAML и OIDC" },
+    { "value": "5", "label": "Модулей в Авторизатор" },
+    { "value": "0", "label": "Звонков «домой» из бинаря" },
+    { "value": "MIT", "label": "Лицензия везде" }
+  ],
+  "quote": {
+    "text": "Протоколы — это правила, по которым сервисы доверяют друг другу. Если правила понятны и подписаны — доверие можно проверить, а не принять на веру.",
+    "source": "Принцип Авторизатор"
+  },
+  "hero_evidence": {
+    "aria_label": "Ключевые факты",
+    "items": [
+      { "value": "2", "unit": "протокола" },
+      { "value": "5", "unit": "репозитория" },
+      { "value": "1", "unit": "IdP-сессия" },
+      { "value": "0", "unit": "трекинга" }
+    ]
+  },
+  "hero_portrait": {
+    "aria_label": "Авторизатор — голос Айтишника"
+  },
+  "sections": {
+    "career_path": { "eyebrow": "Траектория", "title": "От гипотезы к MVP" },
+    "metrics": { "aria_label": "Метрики проекта" },
+    "pillars": { "eyebrow": "Возможности", "title": "Что внутри Авторизатор" },
+    "blog_preview": { "title": "Свежие записи журнала", "aria_label": "Последние заметки" },
+    "projects_preview": {
+      "eyebrow": "Модули",
+      "title": "Что из чего собирается",
+      "link_all": "Все модули →",
+      "heading_id": "projects-preview-title",
+      "aria_label": "Превью модулей",
+      "preview_count": 4
+    },
+    "platforms": {
+      "eyebrow": "Подписаться",
+      "title": "Где следить за Авторизатор",
+      "heading_id": "platforms-title"
+    }
+  }
+}

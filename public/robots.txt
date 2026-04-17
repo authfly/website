@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Voice pseudo-locales: alternative content tones (DevOps, IT-Pop, etc.)
+# served via the ?voice=<id> query parameter. They duplicate the canonical
+# Russian content with a different writing tone and must never enter the
+# search index. The X-Robots-Tag: noindex, nofollow header is also set in
+# HTTP responses for any URL carrying ?voice=, as a hermetic backup.
+Disallow: /*?voice=
+Disallow: /*&voice=

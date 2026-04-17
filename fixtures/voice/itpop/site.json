@@ -1,0 +1,65 @@
+{
+  "titles": {
+    "home": "Главная",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "projects": "Модули",
+    "contact": "Контакты"
+  },
+  "name": "Авторизатор",
+  "tagline": "IdP Провайдер без боли — все летает",
+  "images": {
+    "portrait_home": "/static/img/itpop.png",
+    "portrait_about": "/static/img/itpop.png",
+    "og": "/static/img/authfly.png"
+  },
+  "description": "Открытый конструктор аутентификации: SSO (один логин для нескольких сервисов) на SAML 2.0 и OIDC, готовый UI входа на UI8Kit и SDK под любой стек. Лёгкий вход, понятные шаги, без вендорского хвоста.",
+  "slogan": "Логин один — сервисов много.",
+  "copyright": "© 2026 Авторизатор",
+  "channels": {
+    "youtube": "https://t.me/authfly",
+    "linkedin": "https://github.com/authfly",
+    "telegram": "https://t.me/authfly",
+    "github": "https://github.com/authfly"
+  },
+  "ui": {
+    "switch_language_label": "Сменить язык",
+    "language_toggle_fallback": "Язык",
+    "nav_main_aria": "Основная навигация",
+    "aria_logo_home": "Авторизатор — главная",
+    "theme_toggle_aria": "Переключить тёмную тему",
+    "mobile_menu_open_aria": "Открыть меню",
+    "nav_mobile_aria": "Мобильная навигация",
+    "nav_footer_aria": "Навигация в подвале",
+    "og_image_alt": "Логотип Авторизатор",
+    "portrait_home_alt": "Авторизатор — голос Айтишника",
+    "portrait_about_alt": "Авторизатор — голос Айтишника"
+  },
+  "socials_display": {
+    "linkedin": { "label": "GitHub", "url": "https://github.com/authfly" },
+    "telegram": { "label": "Telegram", "url": "https://t.me/authfly" },
+    "github": { "label": "npm", "url": "https://www.npmjs.com/org/authfly" }
+  },
+  "seo": {
+    "canonical_base": "",
+    "robots": "index, follow",
+    "json_ld_person": {
+      "@type": "Organization",
+      "name": "Авторизатор",
+      "url": "https://github.com/authfly",
+      "logo": "/static/img/authfly.png",
+      "description": "Открытый конструктор аутентификации: self-hosted SSO IdP, hosted-UI и адаптивные SDK.",
+      "sameAs": [
+        "https://github.com/authfly",
+        "https://www.npmjs.com/org/authfly",
+        "https://t.me/authfly"
+      ]
+    }
+  },
+  "platforms": [
+    { "id": "github", "label": "GitHub · authfly", "url": "https://github.com/authfly", "aria_label": "Авторизатор на GitHub" },
+    { "id": "linkedin", "label": "npm · authfly", "url": "https://www.npmjs.com/org/authfly", "aria_label": "Авторизатор на npm" },
+    { "id": "telegram", "label": "Telegram · authfly", "url": "https://t.me/authfly", "aria_label": "Авторизатор в Telegram" },
+    { "id": "reddit", "label": "GitHub · UI8Kit", "url": "https://github.com/fastygo/ui8kit", "aria_label": "UI8Kit на GitHub" }
+  ]
+}

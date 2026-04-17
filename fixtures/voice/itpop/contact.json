@@ -1,0 +1,50 @@
+{
+  "seo": {
+    "title": "Контакты — Авторизатор | Следить за разработкой",
+    "description": "Авторизатор активно идёт от PoC к MVP. Следить за разработкой — на GitHub и в Telegram, ставить пакеты — с npm, репортить уязвимости — через приватные security advisories.",
+    "keywords": "Авторизатор contact, github.com/authfly, t.me/authfly, npmjs authfly, security advisories, self-hosted SSO support"
+  },
+  "sections": {
+    "channels_title": "Где следить",
+    "availability_title": "С чем поможет Авторизатор"
+  },
+  "hero": {
+    "eyebrow": "Контакты",
+    "title": "Связаться",
+    "description": "Авторизатор сейчас активно собирается: PoC уже работает, MVP в полёте. Можно подписаться, открыть issue, задать вопрос — всё открыто."
+  },
+  "channels": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "github.com/authfly",
+      "url": "https://github.com/authfly",
+      "desc": "Issues, обсуждения, релизы и приватные security advisories — всё там.",
+      "type": "primary"
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "handle": "t.me/authfly",
+      "url": "https://t.me/authfly",
+      "desc": "Канал с заметками о разработке и обновлениями дорожной карты.",
+      "type": "social"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "handle": "npmjs.com/org/authfly",
+      "url": "https://www.npmjs.com/org/authfly",
+      "desc": "Браузерные SDK — стартуем с AuthKit TS.",
+      "type": "social"
+    }
+  ],
+  "availability": [
+    "Первый запуск своего SSO (SAML 2.0 + OIDC) на собственном домене",
+    "Подключение Hanko и переезд с готовых страниц входа на UI8Kit",
+    "Адаптеры SDK под новые языки и фреймворки",
+    "Своя верстка hosted-UI на UI8Kit и встроенная i18n",
+    "Самопроверка безопасности по публичному pre-flight чек-листу"
+  ],
+  "note": "Авторизатор идёт от PoC к MVP. Живые демо появятся, когда MVP усилится — а пока удобно следить на GitHub и в Telegram. Нашли уязвимость — открывайте приватный security advisory на github.com/authfly."
+}

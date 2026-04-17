@@ -1121,6 +1121,118 @@
     display: inline-flex;
   }
 
+  /* ============================================================
+     Voice switcher — "Read as" footer widget
+     ============================================================ */
+
+  .mk-voice {
+    padding: 2.5rem 0 1.25rem;
+  }
+
+  .mk-voice-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    flex-wrap: wrap;
+    padding: 1.125rem 1.5rem;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(
+      180deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--secondary) / 0.45) 100%
+    );
+  }
+
+  .mk-voice-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: hsl(var(--accent));
+    font-weight: 700;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .mk-voice-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 999px;
+    background-color: hsl(var(--background));
+  }
+
+  .mk-voice-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4375rem 0.875rem;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    color: hsl(var(--muted-foreground));
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+  }
+
+  .mk-voice-btn:hover {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--secondary));
+  }
+
+  .mk-voice-btn:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+  }
+
+  .mk-voice-btn.is-active {
+    color: hsl(var(--accent-foreground, var(--background)));
+    background-color: hsl(var(--accent));
+    border-color: hsl(var(--accent));
+  }
+
+  .mk-voice-btn.is-active:hover {
+    background-color: hsl(var(--accent));
+  }
+
+  .mk-voice-note {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    margin: 0;
+    flex: 1 1 100%;
+    text-align: right;
+    order: 3;
+  }
+
+  @media (max-width: 640px) {
+    .mk-voice-card {
+      padding: 1rem 1.125rem;
+      gap: 0.75rem;
+    }
+    .mk-voice-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .mk-voice-btn {
+      flex: 1;
+      padding: 0.5rem 0.5rem;
+      font-size: 0.75rem;
+    }
+    .mk-voice-note {
+      text-align: left;
+      font-size: 0.6875rem;
+    }
+  }
+
   @media (max-width: 640px) {
     .mk-related {
       grid-template-columns: 1fr;

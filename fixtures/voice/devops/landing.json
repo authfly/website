@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "IdПровайдер — открытый SSO IdP, hosted-UI, адаптивные SDK",
+    "description": "IdПровайдер — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC IdP, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. PoC уже работает, MVP в активной разработке.",
+    "keywords": "IdПровайдер, open source SSO, self-hosted IdP, SAML 2.0, OpenID Connect, OIDC provider, Hanko, UI8Kit, AuthKit TS, adaptive SDK, security hardening, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "Self-hosted SSO без вендорского хвоста",
+    "title": "IdПровайдер",
+    "subtitle": "Один бинарь. Локальные ключи. Никаких звонков домой.",
+    "description": "IdПровайдер — это self-hosted SSO Identity Provider для SAML 2.0 и OIDC, hosted-UI на UI8Kit и адаптивные SDK. Бинарь не тянет манифесты обновлений и не шлёт usage events. Ключи и allowlist-ы — локальные файлы и переменные окружения, без вендорских консолей. PoC работает на Hanko как credential-бэкенде; MVP — Supabase или собственный Postgres за тем же контрактом SPI.",
+    "cta_primary": { "label": "Открыть журнал", "url": "/blog/?voice=devops" },
+    "cta_secondary": { "label": "Смотреть модули", "url": "/projects/?voice=devops" }
+  },
+  "path": [
+    { "year": "Идея", "icon": "server", "icon_color": "primary", "label": "Гипотеза", "note": "Self-hosted замена hosted-платформам — без телеметрии и сторонних каналов обновлений в критическом пути" },
+    { "year": "2025 Q3", "icon": "book", "icon_color": "accent", "label": "Архитектура", "note": "Разделение core / authkit / authkit-hanko — provider-agnostic контракты раньше кода" },
+    { "year": "2025 Q4", "icon": "shopping-cart", "icon_color": "primary", "label": "PoC работает", "note": "SAML 2.0 + OIDC делят одну подписанную IdP-сессию, Hanko в роли credential-бэкенда" },
+    { "year": "2026 Q1+", "icon": "monitor", "icon_color": "accent", "label": "MVP в полёте", "note": "Pre-flight чек-лист как runbook готовности, бэкенд на Supabase или собственном Postgres, каркас Console" },
+    { "year": "Дальше", "icon": "layers", "icon_color": "primary", "label": "Дорожная карта", "note": "SCIM, аудит-логи, организации, MFA, webhooks — этапы видны на GitHub" }
+  ],
+  "pillars": [
+    { "id": "defense", "icon": "shield", "icon_color": "primary", "label": "Контейнер не звонит домой", "desc": "Без телеметрии, без update-манифестов, без сторонних usage events. Усиление защиты ведётся открыто через pre-flight чек-лист." },
+    { "id": "idp", "icon": "network", "icon_color": "primary", "label": "Один origin для двух протоколов", "desc": "SAML 2.0 IdP и OIDC Provider делят одну подписанную сессионную cookie. Меньше движущихся частей — короче runbook." },
+    { "id": "ui", "icon": "database", "icon_color": "accent", "label": "UI без CDN", "desc": "Страницы входа, выхода и ошибок на UI8Kit. Один бандл из /static, ни один ассет не тянется со стороны." },
+    { "id": "sdk", "icon": "trending-up", "icon_color": "accent", "label": "Адаптеры вместо форков", "desc": "Одно ядро на TypeScript; тонкие адаптеры под провайдер и под язык — новый стек добавляется адаптером, не переписыванием." }
+  ],
+  "metrics": [
+    { "value": "2", "label": "Протокола в одном бинаре (SAML, OIDC)" },
+    { "value": "5", "label": "Модулей в организации" },
+    { "value": "0", "label": "Внешних телеметрических вызовов" },
+    { "value": "MIT", "label": "Лицензия везде" }
+  ],
+  "quote": {
+    "text": "Слайды заменяем логами, подписанными assertion-ами и runbook-ом готовности. История — в протоколе.",
+    "source": "Инженерный принцип IdПровайдер"
+  },
+  "hero_evidence": {
+    "aria_label": "Ключевые факты",
+    "items": [
+      { "value": "2", "unit": "протокола" },
+      { "value": "5", "unit": "репозитория" },
+      { "value": "1", "unit": "IdP-сессия" },
+      { "value": "0", "unit": "трекинга" }
+    ]
+  },
+  "hero_portrait": {
+    "aria_label": "IdПровайдер — голос DevOps"
+  },
+  "sections": {
+    "career_path": { "eyebrow": "Траектория", "title": "От гипотезы к MVP" },
+    "metrics": { "aria_label": "Метрики проекта" },
+    "pillars": { "eyebrow": "Возможности", "title": "Что отгружает IdПровайдер" },
+    "blog_preview": { "title": "Свежие записи журнала", "aria_label": "Последние заметки" },
+    "projects_preview": {
+      "eyebrow": "Модули",
+      "title": "Открытые строительные блоки",
+      "link_all": "Все модули →",
+      "heading_id": "projects-preview-title",
+      "aria_label": "Превью модулей",
+      "preview_count": 4
+    },
+    "platforms": {
+      "eyebrow": "Подписаться",
+      "title": "Где следить за IdПровайдер",
+      "heading_id": "platforms-title"
+    }
+  }
+}
