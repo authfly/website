@@ -82,14 +82,20 @@
     </div>
     <div class="mk-grid-3">
       {foreach $about['books'] as $book}
-        <article class="mk-card mk-book-card" aria-label="{$book['title']}">
+        <article class="mk-card mk-book-card{if !empty($book['url'])} mk-book-card--linked{/if}" aria-label="{$book['title']}">
           <div class="mk-book-card__meta">
             <p class="mk-book-card__publisher">{$book['publisher']}</p>
             <span class="mk-book-card__year">{$book['year']}</span>
           </div>
           <h3 class="mk-book-card__title">{$book['title']}</h3>
           <p class="mk-book-card__desc">{$book['desc']}</p>
-          <span class="mk-tag">{$book['series']}</span>
+          <span class="mk-tag mk-book-card__tag">{$book['series']}</span>
+          {if !empty($book['url'])}
+          <a href="{$book['url']}" class="mk-book-card__cta">
+            <span>{$book['cta'] ?? 'Прочесть в Журнале'}</span>
+            <span class="mk-book-card__cta-arrow" aria-hidden="true">→</span>
+          </a>
+          {/if}
         </article>
       {/foreach}
     </div>

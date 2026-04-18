@@ -45,7 +45,9 @@
       "year": "2025",
       "pages": 14,
       "series": "Technical references",
-      "desc": "SAML 2.0 + OIDC dual-protocol IdP: endpoints, configuration, environment overrides, and cross-protocol SSO behaviour."
+      "desc": "SAML 2.0 + OIDC dual-protocol IdP: endpoints, configuration, environment overrides, and cross-protocol SSO behaviour.",
+      "url": "/blog/one-idp-session-for-saml-and-oidc/?lang=en",
+      "cta": "Read in the Journal"
     },
     {
       "title": "AuthKit & UI8Kit notes",
@@ -53,7 +55,9 @@
       "year": "2025",
       "pages": 9,
       "series": "Technical references",
-      "desc": "Hosted UI on Go + templ: Renderer, ViewConfig, FlowConfig, embedded i18n, and the migration from Hanko Elements to UI8Kit."
+      "desc": "Hosted UI on Go + templ: Renderer, ViewConfig, FlowConfig, embedded i18n, and the migration from Hanko Elements to UI8Kit.",
+      "url": "/blog/hosted-ui-on-go-templ-i18n/?lang=en",
+      "cta": "Read in the Journal"
     },
     {
       "title": "Pre-flight security checklist",
@@ -61,7 +65,19 @@
       "year": "2026",
       "pages": 27,
       "series": "Technical references",
-      "desc": "Public hardening list grouped into four stages: critical fixes, protocol hardening, web security, and enterprise features."
+      "desc": "Public hardening list grouped into four stages: critical fixes, protocol hardening, web security, and enterprise features.",
+      "url": "/blog/preflight-checklist-from-poc-to-mvp-hardening/?lang=en",
+      "cta": "Read in the Journal"
+    },
+    {
+      "title": "Provider-agnostic core",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 11,
+      "series": "Technical references",
+      "desc": "Contracts before code: the core knows neither Hanko nor Supabase. Backend and UI swap behind the interface; the core stays.",
+      "url": "/blog/provider-agnostic-core-contracts-before-code/?lang=en",
+      "cta": "Read in the Journal"
     }
   ],
   "timeline": [

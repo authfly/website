@@ -45,7 +45,9 @@
       "year": "2025",
       "pages": 14,
       "series": "Технические референсы",
-      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: эндпоинты, конфигурация, переопределения через переменные окружения и поведение SSO между протоколами."
+      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: эндпоинты, конфигурация, переопределения через переменные окружения и поведение SSO между протоколами.",
+      "url": "/blog/one-idp-session-for-saml-and-oidc/?voice=devops",
+      "cta": "Открыть runbook"
     },
     {
       "title": "Заметки AuthKit и UI8Kit",
@@ -53,7 +55,9 @@
       "year": "2025",
       "pages": 9,
       "series": "Технические референсы",
-      "desc": "Hosted-UI на Go + templ: Renderer, ViewConfig, FlowConfig, встроенная i18n и переход с Hanko Elements на UI8Kit."
+      "desc": "Hosted-UI на Go + templ: Renderer, ViewConfig, FlowConfig, встроенная i18n и переход с Hanko Elements на UI8Kit.",
+      "url": "/blog/hosted-ui-on-go-templ-i18n/?voice=devops",
+      "cta": "Открыть runbook"
     },
     {
       "title": "Pre-flight чек-лист безопасности",
@@ -61,7 +65,19 @@
       "year": "2026",
       "pages": 27,
       "series": "Технические референсы",
-      "desc": "Публичный runbook готовности к проду: четыре стадии — критические правки, усиление протоколов, web-безопасность, enterprise-функции."
+      "desc": "Публичный runbook готовности к проду: четыре стадии — критические правки, усиление протоколов, web-безопасность, enterprise-функции.",
+      "url": "/blog/preflight-checklist-from-poc-to-mvp-hardening/?voice=devops",
+      "cta": "Открыть runbook"
+    },
+    {
+      "title": "Provider-agnostic ядро",
+      "publisher": "IdПровайдер",
+      "year": "2025",
+      "pages": 11,
+      "series": "Технические референсы",
+      "desc": "Контракты раньше кода. Бэкенд credential — это адаптер. Сменить Hanko на Supabase или собственный Postgres без правок IdP и UI.",
+      "url": "/blog/provider-agnostic-core-contracts-before-code/?voice=devops",
+      "cta": "Открыть runbook"
     }
   ],
   "timeline": [

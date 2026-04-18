@@ -111,10 +111,10 @@ $buildVoiceWidget = static function (string $locale) use ($localeManager): array
 
     $voices = [
         ['id' => 'sre', 'label' => 'SRE', 'voice' => null, 'lang' => 'ru'],
-        ['id' => 'vika', 'label' => 'Vika', 'voice' => 'vika', 'lang' => null],
+        ['id' => 'vika', 'label' => 'Вика', 'voice' => 'vika', 'lang' => null],
         ['id' => 'devops', 'label' => 'DevOps', 'voice' => 'devops', 'lang' => null],
         ['id' => 'itpop', 'label' => 'Айтишник', 'voice' => 'itpop', 'lang' => null],
-        ['id' => 'burnout', 'label' => 'Синьор', 'voice' => 'burnout', 'lang' => null],
+        ['id' => 'burnout', 'label' => 'Senior', 'voice' => 'burnout', 'lang' => null],
     ];
 
     $items = [];
@@ -153,7 +153,7 @@ $voiceCatalogue = static function (): array {
     return [
         [
             'id' => 'vika',
-            'label' => 'Vika',
+            'label' => 'Вика',
             'avatar' => '/static/img/vika.png',
             'slogan' => 'Один пропуск — и человек у вас «свой» на каждой площадке.',
             'url' => '/about/?voice=vika',
@@ -174,7 +174,7 @@ $voiceCatalogue = static function (): array {
         ],
         [
             'id' => 'burnout',
-            'label' => 'Синьор',
+            'label' => 'Senior',
             'avatar' => '/static/img/senior.png',
             'slogan' => 'Войти быстрее, чем заполнить форму согласия на обработку.',
             'url' => '/about/?voice=burnout',

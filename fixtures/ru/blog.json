@@ -24,11 +24,26 @@
         "related_title": "Смежные материалы"
     },
     "categories": [
-        { "id": "idp", "label": "Ядро IdP" },
-        { "id": "ui", "label": "Миграция UI" },
-        { "id": "protocols-saml", "label": "SAML" },
-        { "id": "protocols-oidc", "label": "OIDC" },
-        { "id": "roadmap", "label": "Дорожная карта и SSO" }
+        {
+            "id": "idp",
+            "label": "Ядро IdP"
+        },
+        {
+            "id": "ui",
+            "label": "Миграция UI"
+        },
+        {
+            "id": "protocols-saml",
+            "label": "SAML"
+        },
+        {
+            "id": "protocols-oidc",
+            "label": "OIDC"
+        },
+        {
+            "id": "roadmap",
+            "label": "Дорожная карта и SSO"
+        }
     ],
     "posts": [
         {
@@ -43,7 +58,17 @@
             "url": "/blog/why-auth-fly-own-your-idp/",
             "seo_keywords": "self-hosted SSO, open source IdP, no telemetry IdP, own your authentication, Auth Fly manifesto",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Эндпоинтов телеметрии</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Протокола с первого дня</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">MIT</span><span class=\"mk-evidence-lbl\">Лицензия везде</span></li></ul>",
-            "body_html": "<p>Аутентификация — одна из немногих систем, где значим каждый запрос и где любая просадка границы доверия превращается в потерю выручки или безопасности. Auth Fly — конструктор, который мы хотели разворачивать сами: достаточно компактный, чтобы прочитать его от начала до конца, опирающийся на контракты и без фоновых каналов, на которые мы не подписывались.</p>\n<h2>Что значит «свой IdP»</h2>\n<ul>\n<li>IdP работает на собственном origin. SAML metadata, OIDC discovery, JWKS — всё отдаётся с вашего домена.</li>\n<li>Без телеметрии. Бинарь не звонит домой, не тянет манифесты обновлений, не шлёт usage events.</li>\n<li>Конфигурация — у вас. Allowlist SP, allowlist OIDC-клиентов, ключи подписи — локальные файлы и переменные окружения, а не вендорские консоли.</li>\n</ul>\n<h2>Почему не выбрать готовую платформу</h2>\n<p>Существуют отличные открытые IdP. Мы строим свой потому, что хотим оставить поверхность намеренно узкой: dual-protocol мост, hosted-UI, адаптивные SDK. Меньше поверхность — быстрее аудит, меньше движущихся частей в incident response.</p>\n<h2>Что в PoC</h2>\n<ul>\n<li>SAML 2.0 IdP с одной подписанной сессией, общей с OIDC-провайдером.</li>\n<li>OIDC authorization-code flow, JWKS, UserInfo, Discovery.</li>\n<li>Hosted-UI на Go + templ + UI8Kit со встроенными английским и русским.</li>\n<li>Hanko как credential-бэкенд за provider-agnostic контрактом.</li>\n</ul>\n<h2>Что на полосе разгона</h2>\n<p>MVP усиливается: PKCE, SAML анти-replay, ротация ключей, security headers, структурированные аудит-логи. Полная последовательность опубликована как pre-flight чек-лист — без сюрпризов и без скрытой дорожной карты.</p>"
+            "body_html": "<p>Аутентификация — одна из немногих систем, где значим каждый запрос и где любая просадка границы доверия превращается в потерю выручки или безопасности. Auth Fly — конструктор, который мы хотели разворачивать сами: достаточно компактный, чтобы прочитать его от начала до конца, опирающийся на контракты и без фоновых каналов, на которые мы не подписывались.</p>\n<h2>Что значит «свой IdP»</h2>\n<ul>\n<li>IdP работает на собственном origin. SAML metadata, OIDC discovery, JWKS — всё отдаётся с вашего домена.</li>\n<li>Без телеметрии. Бинарь не звонит домой, не тянет манифесты обновлений, не шлёт usage events.</li>\n<li>Конфигурация — у вас. Allowlist SP, allowlist OIDC-клиентов, ключи подписи — локальные файлы и переменные окружения, а не вендорские консоли.</li>\n</ul>\n<h2>Почему не выбрать готовую платформу</h2>\n<p>Существуют отличные открытые IdP. Мы строим свой потому, что хотим оставить поверхность намеренно узкой: dual-protocol мост, hosted-UI, адаптивные SDK. Меньше поверхность — быстрее аудит, меньше движущихся частей в incident response.</p>\n<h2>Что в PoC</h2>\n<ul>\n<li>SAML 2.0 IdP с одной подписанной сессией, общей с OIDC-провайдером.</li>\n<li>OIDC authorization-code flow, JWKS, UserInfo, Discovery.</li>\n<li>Hosted-UI на Go + templ + UI8Kit со встроенными английским и русским.</li>\n<li>Hanko как credential-бэкенд за provider-agnostic контрактом.</li>\n</ul>\n<h2>Что на полосе разгона</h2>\n<p>MVP усиливается: PKCE, SAML анти-replay, ротация ключей, security headers, структурированные аудит-логи. Полная последовательность опубликована как pre-flight чек-лист — без сюрпризов и без скрытой дорожной карты.</p>",
+            "related": [
+                {
+                    "slug": "preflight-checklist-from-poc-to-mvp-hardening",
+                    "tag_tone": "accent"
+                },
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "primary"
+                }
+            ]
         },
         {
             "id": "one-idp-session",
@@ -59,8 +84,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Подписанная сессионная cookie</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Протокола делят её</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Повторных входов между флоу</span></li></ul>",
             "body_html": "<p>Многие реальные стэки сочетают SAML Service Provider-ы (старые B2B-инструменты) и OIDC Relying Party (новые приложения). Auth Fly считает оба first-class на одном IdP, делящем одну сессию.</p>\n<h2>Общая cookie</h2>\n<p>После успешного входа через Hanko IdP ставит на собственном origin подписанную cookie <code>idp_session</code>. Cookie HttpOnly, Secure, подписана HMAC. Обработчики SAML и OIDC читают одну и ту же cookie.</p>\n<h2>Путь SAML</h2>\n<ul>\n<li><code>GET /sso</code> разбирает AuthnRequest и ищет SP в allowlist по <code>Issuer</code>.</li>\n<li>Если IdP-сессия валидна, пользователь сразу уходит на <code>/sso/complete</code>.</li>\n<li>SAML Response подписывается и постится на ACS из конфига SP — никогда не из запроса.</li>\n</ul>\n<h2>Путь OIDC</h2>\n<ul>\n<li><code>GET /authorize</code> валидирует <code>client_id</code> и <code>redirect_uri</code> точным сравнением по allowlist.</li>\n<li>Если IdP-сессия валидна, authorization code выдаётся сразу, и пользователь возвращается с <code>code</code>.</li>\n<li><code>POST /token</code> меняет одноразовый code на access token и id_token, подписанный ключом IdP (RS256, доступен через JWKS).</li>\n</ul>\n<h2>Почему одна cookie</h2>\n<p>Одну подписанную cookie проще объяснить, проще отозвать и проще аудировать, чем две параллельные сессии. Экран входа рисуется один раз; оба протокола завершаются без второго запроса.</p>",
             "related": [
-                { "slug": "saml-2-in-600-lines-of-go", "tag_tone": "primary" },
-                { "slug": "oidc-done-minimal-code-flow-jwks-pkce", "tag_tone": "accent" }
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -75,7 +106,17 @@
             "url": "/blog/saml-2-in-600-lines-of-go/",
             "seo_keywords": "SAML 2.0 Go, XMLDSig SHA-256, RS256 SAML signing, AuthnRequest validation, ACS allowlist, SAML hardening",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">SHA-256</span><span class=\"mk-evidence-lbl\">Метод digest</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">RS256</span><span class=\"mk-evidence-lbl\">Метод подписи</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">Allowlist</span><span class=\"mk-evidence-lbl\">Источник SP &amp; ACS</span></li></ul>",
-            "body_html": "<p>За SAML закрепилась репутация тяжёлого протокола. Ядро флоу для IdP получается компактным, как только провести жёсткую границу того, что именно в scope.</p>\n<h2>Что делает IdP</h2>\n<ul>\n<li>Отдаёт <code>/metadata</code> как IdP metadata XML.</li>\n<li>Принимает AuthnRequest на <code>/sso</code> через HTTP-Redirect binding.</li>\n<li>Постит подписанный SAML Response на ACS SP в <code>/sso/complete</code>.</li>\n</ul>\n<h2>Сильные дефолты, уже на месте</h2>\n<ul>\n<li><strong>ACS — из конфига SP.</strong> Response уходит на ACS URL, хранящийся в allowlist SP, никогда — на URL из входящего запроса. Это закрывает атаки подменой ACS.</li>\n<li><strong>Поиск SP по allowlist.</strong> Неизвестные значения <code>Issuer</code> отклоняются до любой дальнейшей обработки.</li>\n<li><strong>Подписанные assertion-ы.</strong> XMLDSig с SHA-256 digest и RS256 подписью, enveloped-signature transform, exclusive canonicalization.</li>\n<li><strong>Обязательные элементы.</strong> AudienceRestriction, SubjectConfirmation, NotOnOrAfter — всё заполняется из конфига SP.</li>\n</ul>\n<h2>Что в pre-flight чек-листе</h2>\n<ul>\n<li>Валидировать <code>Destination</code>, если он присутствует в AuthnRequest.</li>\n<li>Отклонять AuthnRequest со старым <code>IssueInstant</code>.</li>\n<li>Анти-replay кеш для ID-шников AuthnRequest.</li>\n<li>Опциональная проверка подписанных AuthnRequest, когда SP это включает.</li>\n</ul>\n<h2>Что мы намеренно не строим</h2>\n<p>SAML-профили, которые нам не нужны: ECP, attribute query, artifact binding. Меньше поверхность — меньше способов ошибиться в конфигурации.</p>"
+            "body_html": "<p>За SAML закрепилась репутация тяжёлого протокола. Ядро флоу для IdP получается компактным, как только провести жёсткую границу того, что именно в scope.</p>\n<h2>Что делает IdP</h2>\n<ul>\n<li>Отдаёт <code>/metadata</code> как IdP metadata XML.</li>\n<li>Принимает AuthnRequest на <code>/sso</code> через HTTP-Redirect binding.</li>\n<li>Постит подписанный SAML Response на ACS SP в <code>/sso/complete</code>.</li>\n</ul>\n<h2>Сильные дефолты, уже на месте</h2>\n<ul>\n<li><strong>ACS — из конфига SP.</strong> Response уходит на ACS URL, хранящийся в allowlist SP, никогда — на URL из входящего запроса. Это закрывает атаки подменой ACS.</li>\n<li><strong>Поиск SP по allowlist.</strong> Неизвестные значения <code>Issuer</code> отклоняются до любой дальнейшей обработки.</li>\n<li><strong>Подписанные assertion-ы.</strong> XMLDSig с SHA-256 digest и RS256 подписью, enveloped-signature transform, exclusive canonicalization.</li>\n<li><strong>Обязательные элементы.</strong> AudienceRestriction, SubjectConfirmation, NotOnOrAfter — всё заполняется из конфига SP.</li>\n</ul>\n<h2>Что в pre-flight чек-листе</h2>\n<ul>\n<li>Валидировать <code>Destination</code>, если он присутствует в AuthnRequest.</li>\n<li>Отклонять AuthnRequest со старым <code>IssueInstant</code>.</li>\n<li>Анти-replay кеш для ID-шников AuthnRequest.</li>\n<li>Опциональная проверка подписанных AuthnRequest, когда SP это включает.</li>\n</ul>\n<h2>Что мы намеренно не строим</h2>\n<p>SAML-профили, которые нам не нужны: ECP, attribute query, artifact binding. Меньше поверхность — меньше способов ошибиться в конфигурации.</p>",
+            "related": [
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "oidc-minimal",
@@ -89,7 +130,17 @@
             "url": "/blog/oidc-done-minimal-code-flow-jwks-pkce/",
             "seo_keywords": "OIDC provider Go, OpenID Connect discovery, JWKS, authorization code one-shot, PKCE, at_hash, redirect_uri allowlist",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">5 мин</span><span class=\"mk-evidence-lbl\">TTL authorization code</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">Точное</span><span class=\"mk-evidence-lbl\">сравнение redirect_uri</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">no-store</span><span class=\"mk-evidence-lbl\">Cache-Control на /token</span></li></ul>",
-            "body_html": "<p>OIDC — большая спецификация. Срез, нужный для self-hosted SSO IdP, обслуживающего confidential-клиентов, существенно меньше — и мы намеренно отгружаем именно его.</p>\n<h2>Эндпоинты</h2>\n<ul>\n<li><code>GET /.well-known/openid-configuration</code> — Discovery.</li>\n<li><code>GET /authorize</code> — authorization endpoint, response_type=code.</li>\n<li><code>POST /token</code> — token endpoint, grant_type=authorization_code.</li>\n<li><code>GET /userinfo</code> — UserInfo, Bearer access token.</li>\n<li><code>GET /jwks</code> — JWKS для JWT, выпускаемых IdP (RS256).</li>\n</ul>\n<h2>Сильные дефолты, уже на месте</h2>\n<ul>\n<li><strong>Точное сравнение <code>redirect_uri</code></strong> по allowlist на каждого клиента.</li>\n<li><strong>Одноразовые authorization code</strong> с TTL и timing-safe сравнением.</li>\n<li><strong>no-store</strong> на token endpoint — токены не оседают в посредниках.</li>\n<li><strong>Только RS256</strong> для подписи; <code>alg</code> никогда не берётся из запроса.</li>\n</ul>\n<h2>Дорога к PKCE</h2>\n<p>Сегодня флоу рассчитан на confidential-клиентов. Чтобы безопасно обслуживать публичных, нативных и SPA-клиентов, следующие шаги:</p>\n<ul>\n<li>Принимать и хранить <code>code_challenge</code> + <code>code_challenge_method</code> на <code>/authorize</code>.</li>\n<li>Проверять <code>code_verifier</code> на <code>/token</code> в constant-time сравнении.</li>\n<li>Анонсировать <code>code_challenge_methods_supported</code> в Discovery.</li>\n<li>Добавить <code>at_hash</code> в id_token, чтобы привязать его к access token.</li>\n<li>Валидировать <code>iss</code> при внутренней проверке access token.</li>\n</ul>\n<p>В этом нет экзотики — это следующая страница того же минимального флоу.</p>"
+            "body_html": "<p>OIDC — большая спецификация. Срез, нужный для self-hosted SSO IdP, обслуживающего confidential-клиентов, существенно меньше — и мы намеренно отгружаем именно его.</p>\n<h2>Эндпоинты</h2>\n<ul>\n<li><code>GET /.well-known/openid-configuration</code> — Discovery.</li>\n<li><code>GET /authorize</code> — authorization endpoint, response_type=code.</li>\n<li><code>POST /token</code> — token endpoint, grant_type=authorization_code.</li>\n<li><code>GET /userinfo</code> — UserInfo, Bearer access token.</li>\n<li><code>GET /jwks</code> — JWKS для JWT, выпускаемых IdP (RS256).</li>\n</ul>\n<h2>Сильные дефолты, уже на месте</h2>\n<ul>\n<li><strong>Точное сравнение <code>redirect_uri</code></strong> по allowlist на каждого клиента.</li>\n<li><strong>Одноразовые authorization code</strong> с TTL и timing-safe сравнением.</li>\n<li><strong>no-store</strong> на token endpoint — токены не оседают в посредниках.</li>\n<li><strong>Только RS256</strong> для подписи; <code>alg</code> никогда не берётся из запроса.</li>\n</ul>\n<h2>Дорога к PKCE</h2>\n<p>Сегодня флоу рассчитан на confidential-клиентов. Чтобы безопасно обслуживать публичных, нативных и SPA-клиентов, следующие шаги:</p>\n<ul>\n<li>Принимать и хранить <code>code_challenge</code> + <code>code_challenge_method</code> на <code>/authorize</code>.</li>\n<li>Проверять <code>code_verifier</code> на <code>/token</code> в constant-time сравнении.</li>\n<li>Анонсировать <code>code_challenge_methods_supported</code> в Discovery.</li>\n<li>Добавить <code>at_hash</code> в id_token, чтобы привязать его к access token.</li>\n<li>Валидировать <code>iss</code> при внутренней проверке access token.</li>\n</ul>\n<p>В этом нет экзотики — это следующая страница того же минимального флоу.</p>",
+            "related": [
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "ui-migration",
@@ -105,8 +156,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">100%</span><span class=\"mk-evidence-lbl\">Покрытие замещения</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Зависимостей от CDN</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Встроенные локали (en, ru)</span></li></ul>",
             "body_html": "<p>В PoC изначально использовался <code>&lt;hanko-auth&gt;</code> из стороннего бандла. Он работал, но привязывал страницу входа к ассетам, тянущимся с домена, который мы не контролируем, и превращал тематизацию в обходной путь, а не в фичу. Мы перенесли всю поверхность на UI8Kit один-к-одному.</p>\n<h2>Зачем мигрировать</h2>\n<ul>\n<li>Вход — security-critical страница. Меньше origin, меньше скриптов, меньше сторонних участников.</li>\n<li>Согласованность UX. Страницы AuthKit теперь делят те же design tokens, что и остальной UI8Kit.</li>\n<li>Гигиена сборки. Один бандл <code>ui8kit.js</code>, отдающийся из <code>/static/js</code>, версионируется вместе с IdP.</li>\n</ul>\n<h2>Что сохранили</h2>\n<ul>\n<li>Флоу email + passcode, идентичный предыдущему UI.</li>\n<li>WebAuthn / passkey — через тот же контракт бэкенда.</li>\n<li>Встроенная i18n (английский, русский).</li>\n<li>Переключатель тёмной темы и дефолты с уважением к reduced-motion.</li>\n</ul>\n<h2>Что поменялось под капотом</h2>\n<ul>\n<li>Браузерное SDK живёт в <code>authkit-ts</code>; Hanko-специфичная привязка — тонкий адаптер.</li>\n<li>AuthKit (Go + templ) рендерит страницу и указывает браузеру <code>SDKScript</code> из FlowConfig — сама страница не импортирует Hanko.</li>\n<li>Статика отдаётся через <code>StaticFS()</code>; ни один ассет не тянется с CDN.</li>\n</ul>\n<h2>Цена миграции</h2>\n<p>Одна человеко-неделя до feature parity, потом ещё неделя на полировку. Главный выигрыш не виден глазу: страница входа теперь — скучный HTML с одним локальным бандлом. Именно это и нужно security-critical поверхности.</p>",
             "related": [
-                { "slug": "hosted-ui-on-go-templ-i18n", "tag_tone": "primary" },
-                { "slug": "provider-agnostic-core-contracts-before-code", "tag_tone": "accent" }
+                {
+                    "slug": "hosted-ui-on-go-templ-i18n",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -121,7 +178,17 @@
             "url": "/blog/hosted-ui-on-go-templ-i18n/",
             "seo_keywords": "Go templ login UI, embedded i18n auth, hosted login Go, AuthKit Renderer, FlowConfig SDKScript",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Точки входа Render</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Static FS</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Импортов бэкенда в UI</span></li></ul>",
-            "body_html": "<p>Hosted-UI — небольшой Go-модуль, но его структура несёт всю историю продукта: провайдеры приходят и уходят, UI остаётся прежним.</p>\n<h2>Поверхность Renderer</h2>\n<ul>\n<li><code>RenderLogin(w, r, ViewConfig)</code></li>\n<li><code>RenderLogout(w, r, ViewConfig)</code></li>\n<li><code>RenderError(w, r, ViewConfig, err)</code></li>\n<li><code>StaticFS()</code> для <code>/static/...</code></li>\n</ul>\n<h2>Контракт — это ViewConfig</h2>\n<p>Host-приложение передаёт брендинг, FlowConfig и FeatureFlags. FlowConfig несёт API URL, имя сессионной cookie, путь логаута и — критично — <code>SDKScript</code>: URL бандла браузерного SDK для активного провайдера. AuthKit не знает, говорит ли этот бандл с Hanko, Supabase или собственным Postgres-бэкендом.</p>\n<h2>Почему это важно</h2>\n<ul>\n<li>Один и тот же UI-модуль рисует страницу входа для каждого провайдера, который мы поддерживаем сегодня и завтра.</li>\n<li>Провайдер-специфичные ассеты живут в собственной static FS (например, <code>authkit-hanko</code>) и мерджатся под тем же префиксом <code>/static/</code>.</li>\n<li>i18n встроена в бинарь; никаких рантайм-загрузок языковых файлов нет.</li>\n</ul>\n<h2>Операционные свойства</h2>\n<ul>\n<li>Шаблоны компилируются в Go через templ; XSS-экранирование автоматическое.</li>\n<li>Тёмная тема — CSS-переключатель в <code>localStorage</code>, с no-flash inline boot script.</li>\n<li>Бандл статики content-hashed и агрессивно кешируется на edge.</li>\n</ul>"
+            "body_html": "<p>Hosted-UI — небольшой Go-модуль, но его структура несёт всю историю продукта: провайдеры приходят и уходят, UI остаётся прежним.</p>\n<h2>Поверхность Renderer</h2>\n<ul>\n<li><code>RenderLogin(w, r, ViewConfig)</code></li>\n<li><code>RenderLogout(w, r, ViewConfig)</code></li>\n<li><code>RenderError(w, r, ViewConfig, err)</code></li>\n<li><code>StaticFS()</code> для <code>/static/...</code></li>\n</ul>\n<h2>Контракт — это ViewConfig</h2>\n<p>Host-приложение передаёт брендинг, FlowConfig и FeatureFlags. FlowConfig несёт API URL, имя сессионной cookie, путь логаута и — критично — <code>SDKScript</code>: URL бандла браузерного SDK для активного провайдера. AuthKit не знает, говорит ли этот бандл с Hanko, Supabase или собственным Postgres-бэкендом.</p>\n<h2>Почему это важно</h2>\n<ul>\n<li>Один и тот же UI-модуль рисует страницу входа для каждого провайдера, который мы поддерживаем сегодня и завтра.</li>\n<li>Провайдер-специфичные ассеты живут в собственной static FS (например, <code>authkit-hanko</code>) и мерджатся под тем же префиксом <code>/static/</code>.</li>\n<li>i18n встроена в бинарь; никаких рантайм-загрузок языковых файлов нет.</li>\n</ul>\n<h2>Операционные свойства</h2>\n<ul>\n<li>Шаблоны компилируются в Go через templ; XSS-экранирование автоматическое.</li>\n<li>Тёмная тема — CSS-переключатель в <code>localStorage</code>, с no-flash inline boot script.</li>\n<li>Бандл статики content-hashed и агрессивно кешируется на edge.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "from-hanko-elements-to-ui8kit",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "adaptive-sdks-one-core-many-adapters",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "provider-agnostic-core",
@@ -135,7 +202,17 @@
             "url": "/blog/provider-agnostic-core-contracts-before-code/",
             "seo_keywords": "AuthFly core, FlowConfig, CredentialVerifier, provider-agnostic auth, identity contracts, IdP architecture",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Пакета ядра</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Зависимостей UI / бэкенда в core</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Интерфейс CredentialVerifier</span></li></ul>",
-            "body_html": "<p>Первое, что мы построили, — не фичу, а пакет контрактов. <code>core</code> описывает, что должно знать IdP-флоу, и не импортирует ни UI, ни Hanko, ни хранилище.</p>\n<h2>Что живёт в core</h2>\n<ul>\n<li><strong>FlowConfig</strong> — API URL, имя сессионной cookie, путь логаута, URL скрипта браузерного SDK.</li>\n<li><strong>FeatureFlags</strong> — переключатели регистрации (public, OIDC, SAML).</li>\n<li><strong>AuthCode / AuthCodeStore</strong> — authorization code в стиле OAuth2 для слоя OIDC.</li>\n<li><strong>CredentialVerifier</strong> — проверка bearer- или сессионных токенов, выдача <code>FlowConfig()</code> для UI-слоя.</li>\n<li><strong>IdentityClaims</strong>, хелперы сессии, общие ошибки.</li>\n</ul>\n<h2>Почему именно в этом порядке</h2>\n<p>Если ядро зависит от конкретного провайдера, каждый новый провайдер становится форком. Если UI зависит от конкретного провайдера, каждый новый провайдер становится переписыванием UI. Написав контракты первыми, мы заставили остальной стек быть честным.</p>\n<h2>Как разрез окупается</h2>\n<ul>\n<li><strong>authkit</strong> рендерит страницы из ViewConfig, в котором лежит generic FlowConfig — имя провайдера в коде не появляется.</li>\n<li><strong>authkit-hanko</strong> реализует <code>CredentialVerifier</code> для Hanko: проверка JWT + JWKS, извлечение из cookie, правильный указатель SDKScript.</li>\n<li>IdP собирает и то и другое на старте. Замена Hanko на другой провайдер — это новый пакет рядом с <code>authkit-hanko</code>.</li>\n</ul>\n<h2>Будущие модули</h2>\n<ul>\n<li><code>github.com/authfly/core</code> — контракты.</li>\n<li><code>github.com/authfly/authkit</code> — hosted-UI.</li>\n<li><code>github.com/authfly/authkit-hanko</code> — первый адаптер провайдера.</li>\n</ul>"
+            "body_html": "<p>Первое, что мы построили, — не фичу, а пакет контрактов. <code>core</code> описывает, что должно знать IdP-флоу, и не импортирует ни UI, ни Hanko, ни хранилище.</p>\n<h2>Что живёт в core</h2>\n<ul>\n<li><strong>FlowConfig</strong> — API URL, имя сессионной cookie, путь логаута, URL скрипта браузерного SDK.</li>\n<li><strong>FeatureFlags</strong> — переключатели регистрации (public, OIDC, SAML).</li>\n<li><strong>AuthCode / AuthCodeStore</strong> — authorization code в стиле OAuth2 для слоя OIDC.</li>\n<li><strong>CredentialVerifier</strong> — проверка bearer- или сессионных токенов, выдача <code>FlowConfig()</code> для UI-слоя.</li>\n<li><strong>IdentityClaims</strong>, хелперы сессии, общие ошибки.</li>\n</ul>\n<h2>Почему именно в этом порядке</h2>\n<p>Если ядро зависит от конкретного провайдера, каждый новый провайдер становится форком. Если UI зависит от конкретного провайдера, каждый новый провайдер становится переписыванием UI. Написав контракты первыми, мы заставили остальной стек быть честным.</p>\n<h2>Как разрез окупается</h2>\n<ul>\n<li><strong>authkit</strong> рендерит страницы из ViewConfig, в котором лежит generic FlowConfig — имя провайдера в коде не появляется.</li>\n<li><strong>authkit-hanko</strong> реализует <code>CredentialVerifier</code> для Hanko: проверка JWT + JWKS, извлечение из cookie, правильный указатель SDKScript.</li>\n<li>IdP собирает и то и другое на старте. Замена Hanko на другой провайдер — это новый пакет рядом с <code>authkit-hanko</code>.</li>\n</ul>\n<h2>Будущие модули</h2>\n<ul>\n<li><code>github.com/authfly/core</code> — контракты.</li>\n<li><code>github.com/authfly/authkit</code> — hosted-UI.</li>\n<li><code>github.com/authfly/authkit-hanko</code> — первый адаптер провайдера.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "sso-spi-from-hanko-poc-to-supabase",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "adaptive-sdks",
@@ -151,8 +228,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Браузерное ядро</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">N</span><span class=\"mk-evidence-lbl\">Адаптеров провайдеров</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">N</span><span class=\"mk-evidence-lbl\">Целевых SDK на бэкенде</span></li></ul>",
             "body_html": "<p>Большинство auth-SDK пишутся по разу под язык и копируют одну и ту же оркестрацию по кругу. Мы инвертируем это: одно TypeScript-ядро для браузера, тонкие адаптеры под провайдера и под язык — для всего остального.</p>\n<h2>Браузерная сторона</h2>\n<ul>\n<li><strong>Ядро authkit-ts</strong> — конечный автомат флоу: start, challenge, verify, complete, error.</li>\n<li><strong>Адаптеры провайдеров</strong> — привязывают ядро к credential-бэкенду (первым — Hanko). Адаптер знает бэкенд; ядро — нет.</li>\n<li><strong>Дистрибуция</strong> — UMD-бандл, опубликованный как <code>ui8kit.js</code> рядом с AuthKit; npm-пакет в <code>npmjs.com/org/authfly</code>.</li>\n</ul>\n<h2>Бэкенд-сторона</h2>\n<ul>\n<li><strong>Go</strong> — first-class, поскольку IdP на Go. Переиспользует контракты из <code>core</code>.</li>\n<li><strong>TypeScript / Node</strong> — серверные хелперы для OIDC-клиентов и валидации сессий.</li>\n<li><strong>Python, PHP, .NET</strong> — тонкие SDK поверх той же Management API и OIDC-эндпоинтов.</li>\n</ul>\n<h2>Паттерн адаптера</h2>\n<p>Каждый адаптер реализует три функции: превратить пользовательский ввод в credential challenge, проверить ответ и отдать вызывающему нормализованную identity. Цикл оркестрации остаётся в ядре, поэтому поведение одинаково на всех стэках.</p>\n<h2>Почему это лучше переписывания под каждый язык</h2>\n<ul>\n<li>Багфикс — в одном месте.</li>\n<li>Паритет поведения проверяется проигрыванием одного и того же флоу против каждого адаптера.</li>\n<li>Новые провайдеры приходят как адаптеры, а не как форки.</li>\n</ul>",
             "related": [
-                { "slug": "sso-spi-from-hanko-poc-to-supabase", "tag_tone": "primary" },
-                { "slug": "from-hanko-elements-to-ui8kit", "tag_tone": "accent" }
+                {
+                    "slug": "sso-spi-from-hanko-poc-to-supabase",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "from-hanko-elements-to-ui8kit",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -167,7 +250,17 @@
             "url": "/blog/sso-spi-from-hanko-poc-to-supabase",
             "seo_keywords": "SSO SPI, credential backend interface, Hanko adapter, Supabase auth, custom Postgres auth, provider-agnostic IdP",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Контракт SPI</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Бэкенда в плане (Hanko, Supabase, custom)</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Переписываний IdP под бэкенд</span></li></ul>",
-            "body_html": "<p>PoC живёт на Hanko. MVP должен запускаться на том, что уже эксплуатирует заказчик — чаще всего это Supabase или собственный Postgres. Мы рассматриваем это как задачу SPI, а не задачу форка.</p>\n<h2>Что гарантирует SPI</h2>\n<ul>\n<li>Проверить сессионный или bearer-токен и вернуть нормализованные identity claims.</li>\n<li>Отдать FlowConfig, который UI сможет нарисовать (API URL, имя cookie, путь логаута, скрипт SDK).</li>\n<li>Поддержать поверхность feature flags, чтобы UI мог скрывать или показывать точки регистрации.</li>\n<li>Сохранить инварианты безопасности: подписанные cookie, JWT-валидация через JWKS, allowlist-ы origin.</li>\n</ul>\n<h2>Бэкенды в дорожной карте</h2>\n<ul>\n<li><strong>Hanko</strong> — PoC. Credentials, JWKS, WebAuthn из коробки.</li>\n<li><strong>Supabase</strong> — частый выбор для greenfield-продуктов; SPI мапит токены Supabase Auth в <code>IdentityClaims</code>.</li>\n<li><strong>Собственный Postgres</strong> — для команд, уже управляющих пользователями, паролями или passkey самостоятельно; SPI оборачивает существующее хранилище.</li>\n</ul>\n<h2>Что не меняется при смене бэкенда</h2>\n<ul>\n<li>IdP — эндпоинты SAML и OIDC ведут себя одинаково.</li>\n<li>Hosted-UI — те же страницы входа, выхода и ошибок.</li>\n<li>Чек-лист безопасности — каждый бэкенд должен удовлетворять одним и тем же проверкам JWT, cookie и origin.</li>\n</ul>\n<h2>Что меняется</h2>\n<ul>\n<li>Пакет адаптера, реализующий <code>CredentialVerifier</code>.</li>\n<li>URL браузерного бандла, на который указывает <code>SDKScript</code>.</li>\n<li>Операционные вопросы — где живут пользователи, как хранятся пароли или passkey, как добраться до Admin API.</li>\n</ul>"
+            "body_html": "<p>PoC живёт на Hanko. MVP должен запускаться на том, что уже эксплуатирует заказчик — чаще всего это Supabase или собственный Postgres. Мы рассматриваем это как задачу SPI, а не задачу форка.</p>\n<h2>Что гарантирует SPI</h2>\n<ul>\n<li>Проверить сессионный или bearer-токен и вернуть нормализованные identity claims.</li>\n<li>Отдать FlowConfig, который UI сможет нарисовать (API URL, имя cookie, путь логаута, скрипт SDK).</li>\n<li>Поддержать поверхность feature flags, чтобы UI мог скрывать или показывать точки регистрации.</li>\n<li>Сохранить инварианты безопасности: подписанные cookie, JWT-валидация через JWKS, allowlist-ы origin.</li>\n</ul>\n<h2>Бэкенды в дорожной карте</h2>\n<ul>\n<li><strong>Hanko</strong> — PoC. Credentials, JWKS, WebAuthn из коробки.</li>\n<li><strong>Supabase</strong> — частый выбор для greenfield-продуктов; SPI мапит токены Supabase Auth в <code>IdentityClaims</code>.</li>\n<li><strong>Собственный Postgres</strong> — для команд, уже управляющих пользователями, паролями или passkey самостоятельно; SPI оборачивает существующее хранилище.</li>\n</ul>\n<h2>Что не меняется при смене бэкенда</h2>\n<ul>\n<li>IdP — эндпоинты SAML и OIDC ведут себя одинаково.</li>\n<li>Hosted-UI — те же страницы входа, выхода и ошибок.</li>\n<li>Чек-лист безопасности — каждый бэкенд должен удовлетворять одним и тем же проверкам JWT, cookie и origin.</li>\n</ul>\n<h2>Что меняется</h2>\n<ul>\n<li>Пакет адаптера, реализующий <code>CredentialVerifier</code>.</li>\n<li>URL браузерного бандла, на который указывает <code>SDKScript</code>.</li>\n<li>Операционные вопросы — где живут пользователи, как хранятся пароли или passkey, как добраться до Admin API.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "adaptive-sdks-one-core-many-adapters",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "preflight-checklist",
@@ -183,8 +276,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">27</span><span class=\"mk-evidence-lbl\">Пунктов в чек-листе</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">7</span><span class=\"mk-evidence-lbl\">Критичных пунктов (Стадия 1)</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">4</span><span class=\"mk-evidence-lbl\">Стадии</span></li></ul>",
             "body_html": "<p>Безопасность — та часть Auth Fly, в которой мы не хотим никого удивлять. Ниже — весь чек-лист, разбитый по стадиям, с честно записанными сильными местами рядом с тем, что ещё предстоит сделать.</p>\n<h2>Что уже сильно</h2>\n<ul>\n<li>SAML ACS берётся из конфига SP, никогда — из AuthnRequest. Закрывает подмену ACS.</li>\n<li>OIDC <code>redirect_uri</code> валидируется точным сравнением по allowlist на каждого клиента.</li>\n<li>Authorization code — одноразовые, ограничены TTL, сравниваются через <code>hmac.Equal</code>.</li>\n<li>Сессионные cookie подписаны HMAC-SHA256, <code>HttpOnly</code>, <code>Secure</code>.</li>\n<li><code>Cache-Control: no-store</code> на token endpoint.</li>\n<li>Hosted-UI отдаёт статику локально; зависимостей от CDN нет.</li>\n<li><code>html/template</code> и templ автоматически экранируют поля, рисуемые от пользователя.</li>\n<li>URL возврата после логаута валидируются по allowlist origin.</li>\n</ul>\n<h2>Стадия 1 — критическое (неделя 1)</h2>\n<ul>\n<li>Проверять <code>iss</code> и <code>aud</code> в Hanko-JWT после проверки подписи.</li>\n<li>Фиксировать <code>alg</code> JWT на <code>RS256</code> в верификаторе; никогда не доверять значению из заголовка.</li>\n<li>Перестать принимать bearer-токены из query-параметра <code>?token=</code>.</li>\n<li>Отказывать в старте, когда <code>session_key</code> — placeholder или короче 32 байт.</li>\n<li>Конфигурировать <code>http.Server</code> с явными ReadTimeout, WriteTimeout и IdleTimeout.</li>\n<li>Создавать файл приватного ключа IdP с режимом <code>0600</code>.</li>\n<li>Запускать контейнер не от root.</li>\n</ul>\n<h2>Стадия 2 — усиление протоколов (недели 2–3)</h2>\n<ul>\n<li>PKCE: хранить <code>code_challenge</code> + метод, проверять <code>code_verifier</code>, анонсировать в Discovery.</li>\n<li>Добавить <code>at_hash</code> в id_token, чтобы привязать его к access token.</li>\n<li>Проверять <code>iss</code> в access token до того, как принимать его в работу.</li>\n<li>Валидировать <code>IssueInstant</code> и (когда есть) <code>Destination</code> в SAML AuthnRequest.</li>\n<li>Опционально проверять подписанные AuthnRequest для SP, которые это включают.</li>\n<li>Запустить горутину очистки code-store; ограничить рост памяти.</li>\n<li>Валидировать запрашиваемые OIDC-scopes; отклонять всё, что вне поддерживаемого набора.</li>\n</ul>\n<h2>Стадия 3 — web-безопасность (недели 3–4)</h2>\n<ul>\n<li>Middleware security headers: CSP, X-Frame-Options DENY, X-Content-Type-Options, Referrer-Policy, HSTS.</li>\n<li>CSRF-токены на каждом POST-запросе админки.</li>\n<li>Rate limiting на <code>/token</code>, <code>/authorize</code>, <code>/sso</code>, <code>/console/users</code>.</li>\n<li><code>http.MaxBytesReader</code> на POST-эндпоинтах.</li>\n<li>Graceful shutdown через <code>signal.NotifyContext</code> + <code>server.Shutdown</code>.</li>\n</ul>\n<h2>Стадия 4 — enterprise (недели 4–6)</h2>\n<ul>\n<li>Ротация ключей с multi-key JWKS и валидатором предыдущего ключа.</li>\n<li>Перевод генерации новых ключей на RSA-4096.</li>\n<li>SAML Single Logout (SLO) для подключённых SP.</li>\n<li>Структурированные аудит-логи: кто, когда, что, откуда и с каким результатом.</li>\n<li>Опциональное серверное хранилище сессий (Redis или SQLite) для принудительного логаута.</li>\n<li>OIDC: refresh-токены, <code>prompt</code>, <code>max_age</code>.</li>\n<li>Админка: CSRF, настраиваемая верификация email, scoped API keys.</li>\n<li>Health- и readiness-эндпоинты для оркестрации.</li>\n</ul>\n<h2>Как следить</h2>\n<p>Каждый пункт ведётся публично на GitHub в <code>github.com/authfly</code>. Сообщения об уязвимостях — через приватные security advisories в той же организации. Без приватной дорожной карты и без скрытых severity-оценок.</p>",
             "related": [
-                { "slug": "saml-2-in-600-lines-of-go", "tag_tone": "primary" },
-                { "slug": "oidc-done-minimal-code-flow-jwks-pkce", "tag_tone": "accent" }
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
             ]
         }
     ]

@@ -24,11 +24,26 @@
         "related_title": "Related reading"
     },
     "categories": [
-        { "id": "idp", "label": "IdP core" },
-        { "id": "ui", "label": "UI migration" },
-        { "id": "protocols-saml", "label": "SAML" },
-        { "id": "protocols-oidc", "label": "OIDC" },
-        { "id": "roadmap", "label": "Roadmap & SSO" }
+        {
+            "id": "idp",
+            "label": "IdP core"
+        },
+        {
+            "id": "ui",
+            "label": "UI migration"
+        },
+        {
+            "id": "protocols-saml",
+            "label": "SAML"
+        },
+        {
+            "id": "protocols-oidc",
+            "label": "OIDC"
+        },
+        {
+            "id": "roadmap",
+            "label": "Roadmap & SSO"
+        }
     ],
     "posts": [
         {
@@ -43,7 +58,17 @@
             "url": "/blog/why-auth-fly-own-your-idp/",
             "seo_keywords": "self-hosted SSO, open source IdP, no telemetry IdP, own your authentication, Auth Fly manifesto",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Telemetry endpoints</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Protocols on day one</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">MIT</span><span class=\"mk-evidence-lbl\">License everywhere</span></li></ul>",
-            "body_html": "<p>Authentication is one of the few systems where every request matters and every trust boundary leaks revenue or safety when it slips. Auth Fly is the construction kit we wanted to deploy ourselves: small enough to read end to end, opinionated about contracts, and free of background channels we did not sign up for.</p>\n<h2>What we mean by “own your IdP”</h2>\n<ul>\n<li>The IdP runs on your origin. SAML metadata, OIDC discovery, JWKS — all served from your domain.</li>\n<li>No telemetry. The binary does not phone home, does not pull update manifests, does not ship usage events.</li>\n<li>Configuration is yours. SP allowlists, OIDC client allowlists, signing keys — local files and environment variables, not vendor consoles.</li>\n</ul>\n<h2>Why not pick an existing platform</h2>\n<p>There are excellent open IdPs. We chose to build because we wanted the surface to stay narrow on purpose: dual-protocol bridge, hosted UI, adaptive SDKs. Smaller surface, faster audit, fewer moving parts in incident response.</p>\n<h2>What ships in PoC</h2>\n<ul>\n<li>SAML 2.0 IdP with one signed session shared with the OIDC provider.</li>\n<li>OIDC authorization-code flow, JWKS, UserInfo, Discovery.</li>\n<li>Hosted UI on Go + templ + UI8Kit, with embedded English and Russian.</li>\n<li>Hanko as the credential backend behind a provider-agnostic contract.</li>\n</ul>\n<h2>What is on the runway</h2>\n<p>MVP is hardening: PKCE, SAML anti-replay, key rotation, security headers, structured audit logs. The full sequence is published as a pre-flight checklist — no surprises, no hidden roadmap.</p>"
+            "body_html": "<p>Authentication is one of the few systems where every request matters and every trust boundary leaks revenue or safety when it slips. Auth Fly is the construction kit we wanted to deploy ourselves: small enough to read end to end, opinionated about contracts, and free of background channels we did not sign up for.</p>\n<h2>What we mean by “own your IdP”</h2>\n<ul>\n<li>The IdP runs on your origin. SAML metadata, OIDC discovery, JWKS — all served from your domain.</li>\n<li>No telemetry. The binary does not phone home, does not pull update manifests, does not ship usage events.</li>\n<li>Configuration is yours. SP allowlists, OIDC client allowlists, signing keys — local files and environment variables, not vendor consoles.</li>\n</ul>\n<h2>Why not pick an existing platform</h2>\n<p>There are excellent open IdPs. We chose to build because we wanted the surface to stay narrow on purpose: dual-protocol bridge, hosted UI, adaptive SDKs. Smaller surface, faster audit, fewer moving parts in incident response.</p>\n<h2>What ships in PoC</h2>\n<ul>\n<li>SAML 2.0 IdP with one signed session shared with the OIDC provider.</li>\n<li>OIDC authorization-code flow, JWKS, UserInfo, Discovery.</li>\n<li>Hosted UI on Go + templ + UI8Kit, with embedded English and Russian.</li>\n<li>Hanko as the credential backend behind a provider-agnostic contract.</li>\n</ul>\n<h2>What is on the runway</h2>\n<p>MVP is hardening: PKCE, SAML anti-replay, key rotation, security headers, structured audit logs. The full sequence is published as a pre-flight checklist — no surprises, no hidden roadmap.</p>",
+            "related": [
+                {
+                    "slug": "preflight-checklist-from-poc-to-mvp-hardening",
+                    "tag_tone": "accent"
+                },
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "primary"
+                }
+            ]
         },
         {
             "id": "one-idp-session",
@@ -59,8 +84,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Signed session cookie</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Protocols sharing it</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Re-logins between flows</span></li></ul>",
             "body_html": "<p>Many real-world stacks combine SAML Service Providers (older B2B tools) and OIDC Relying Parties (newer apps). Auth Fly treats both as first-class on the same IdP, sharing one session.</p>\n<h2>The shared cookie</h2>\n<p>On a successful Hanko login, the IdP sets a signed <code>idp_session</code> cookie on its own origin. The cookie is HttpOnly, Secure, and HMAC-signed. Both SAML and OIDC handlers read the same cookie.</p>\n<h2>SAML path</h2>\n<ul>\n<li><code>GET /sso</code> parses the AuthnRequest and looks up the SP by <code>Issuer</code> in the allowlist.</li>\n<li>If the IdP session is valid, the user is sent to <code>/sso/complete</code> immediately.</li>\n<li>The SAML Response is signed and posted to the SP&apos;s ACS — taken from config, never from the request.</li>\n</ul>\n<h2>OIDC path</h2>\n<ul>\n<li><code>GET /authorize</code> validates <code>client_id</code> and <code>redirect_uri</code> by exact match against the allowlist.</li>\n<li>If the IdP session is valid, an authorization code is issued immediately and the user is redirected back with <code>code</code>.</li>\n<li><code>POST /token</code> exchanges the one-shot code for an access token and an id_token signed with the IdP key (RS256, JWKS-discoverable).</li>\n</ul>\n<h2>Why one cookie</h2>\n<p>One signed cookie is easier to reason about, easier to revoke, and easier to audit than two parallel session systems. The login screen is rendered once; both protocols complete without a second prompt.</p>",
             "related": [
-                { "slug": "saml-2-in-600-lines-of-go", "tag_tone": "primary" },
-                { "slug": "oidc-done-minimal-code-flow-jwks-pkce", "tag_tone": "accent" }
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -75,7 +106,17 @@
             "url": "/blog/saml-2-in-600-lines-of-go/",
             "seo_keywords": "SAML 2.0 Go, XMLDSig SHA-256, RS256 SAML signing, AuthnRequest validation, ACS allowlist, SAML hardening",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">SHA-256</span><span class=\"mk-evidence-lbl\">Digest method</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">RS256</span><span class=\"mk-evidence-lbl\">Signature method</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">Allowlist</span><span class=\"mk-evidence-lbl\">SP &amp; ACS source</span></li></ul>",
-            "body_html": "<p>SAML has a reputation as a heavy protocol. The core flow we need for an IdP is small once you draw a hard line around what is in scope.</p>\n<h2>What the IdP does</h2>\n<ul>\n<li>Serves <code>/metadata</code> as IdP metadata XML.</li>\n<li>Accepts AuthnRequest at <code>/sso</code> via HTTP-Redirect binding.</li>\n<li>Issues a signed SAML Response posted to the SP&apos;s ACS at <code>/sso/complete</code>.</li>\n</ul>\n<h2>Strong defaults already in place</h2>\n<ul>\n<li><strong>ACS pinned to SP config.</strong> The Response goes to the ACS URL stored in the SP allowlist, never to a URL in the inbound request. This closes ACS substitution attacks.</li>\n<li><strong>SP lookup by allowlist.</strong> Unknown <code>Issuer</code> values are rejected before any further processing.</li>\n<li><strong>Signed assertions.</strong> XMLDSig with SHA-256 digest and RS256 signature, enveloped-signature transform, exclusive canonicalization.</li>\n<li><strong>Required elements.</strong> AudienceRestriction, SubjectConfirmation, NotOnOrAfter — all populated from SP config.</li>\n</ul>\n<h2>What is on the pre-flight checklist</h2>\n<ul>\n<li>Validate <code>Destination</code> when present in the AuthnRequest.</li>\n<li>Reject AuthnRequests with stale <code>IssueInstant</code>.</li>\n<li>Anti-replay cache for AuthnRequest IDs.</li>\n<li>Optional verification of signed AuthnRequests when an SP opts in.</li>\n</ul>\n<h2>What we deliberately do not build</h2>\n<p>SAML profiles we do not need: ECP, attribute query, artifact binding. Less surface, fewer ways to misconfigure.</p>"
+            "body_html": "<p>SAML has a reputation as a heavy protocol. The core flow we need for an IdP is small once you draw a hard line around what is in scope.</p>\n<h2>What the IdP does</h2>\n<ul>\n<li>Serves <code>/metadata</code> as IdP metadata XML.</li>\n<li>Accepts AuthnRequest at <code>/sso</code> via HTTP-Redirect binding.</li>\n<li>Issues a signed SAML Response posted to the SP&apos;s ACS at <code>/sso/complete</code>.</li>\n</ul>\n<h2>Strong defaults already in place</h2>\n<ul>\n<li><strong>ACS pinned to SP config.</strong> The Response goes to the ACS URL stored in the SP allowlist, never to a URL in the inbound request. This closes ACS substitution attacks.</li>\n<li><strong>SP lookup by allowlist.</strong> Unknown <code>Issuer</code> values are rejected before any further processing.</li>\n<li><strong>Signed assertions.</strong> XMLDSig with SHA-256 digest and RS256 signature, enveloped-signature transform, exclusive canonicalization.</li>\n<li><strong>Required elements.</strong> AudienceRestriction, SubjectConfirmation, NotOnOrAfter — all populated from SP config.</li>\n</ul>\n<h2>What is on the pre-flight checklist</h2>\n<ul>\n<li>Validate <code>Destination</code> when present in the AuthnRequest.</li>\n<li>Reject AuthnRequests with stale <code>IssueInstant</code>.</li>\n<li>Anti-replay cache for AuthnRequest IDs.</li>\n<li>Optional verification of signed AuthnRequests when an SP opts in.</li>\n</ul>\n<h2>What we deliberately do not build</h2>\n<p>SAML profiles we do not need: ECP, attribute query, artifact binding. Less surface, fewer ways to misconfigure.</p>",
+            "related": [
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "oidc-minimal",
@@ -89,7 +130,17 @@
             "url": "/blog/oidc-done-minimal-code-flow-jwks-pkce/",
             "seo_keywords": "OIDC provider Go, OpenID Connect discovery, JWKS, authorization code one-shot, PKCE, at_hash, redirect_uri allowlist",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">5 min</span><span class=\"mk-evidence-lbl\">Authorization code TTL</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">Exact</span><span class=\"mk-evidence-lbl\">redirect_uri match</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">no-store</span><span class=\"mk-evidence-lbl\">Cache-Control on /token</span></li></ul>",
-            "body_html": "<p>OIDC is large. The slice that matters for a self-hosted SSO IdP serving confidential clients is much smaller, and we ship that slice intentionally.</p>\n<h2>Endpoints we serve</h2>\n<ul>\n<li><code>GET /.well-known/openid-configuration</code> — Discovery.</li>\n<li><code>GET /authorize</code> — authorization endpoint, response_type=code.</li>\n<li><code>POST /token</code> — token endpoint, grant_type=authorization_code.</li>\n<li><code>GET /userinfo</code> — UserInfo, Bearer access token.</li>\n<li><code>GET /jwks</code> — JWKS for IdP-issued JWTs (RS256).</li>\n</ul>\n<h2>Strong defaults already in place</h2>\n<ul>\n<li><strong>redirect_uri exact-match</strong> against per-client allowlist.</li>\n<li><strong>One-shot authorization codes</strong> with TTL and timing-safe comparison.</li>\n<li><strong>no-store</strong> on the token endpoint to keep tokens out of intermediaries.</li>\n<li><strong>RS256</strong> signing only; <code>alg</code> never sourced from the request.</li>\n</ul>\n<h2>The road to PKCE</h2>\n<p>Today the flow assumes confidential clients. To serve public, native and SPA clients safely, the next steps are:</p>\n<ul>\n<li>Accept and store <code>code_challenge</code> + <code>code_challenge_method</code> at <code>/authorize</code>.</li>\n<li>Verify <code>code_verifier</code> at <code>/token</code> with constant-time comparison.</li>\n<li>Advertise <code>code_challenge_methods_supported</code> in Discovery.</li>\n<li>Add <code>at_hash</code> to id_token to bind it to the access token.</li>\n<li>Validate <code>iss</code> when verifying access tokens internally.</li>\n</ul>\n<p>None of this is exotic — it is the next page of the same minimal flow.</p>"
+            "body_html": "<p>OIDC is large. The slice that matters for a self-hosted SSO IdP serving confidential clients is much smaller, and we ship that slice intentionally.</p>\n<h2>Endpoints we serve</h2>\n<ul>\n<li><code>GET /.well-known/openid-configuration</code> — Discovery.</li>\n<li><code>GET /authorize</code> — authorization endpoint, response_type=code.</li>\n<li><code>POST /token</code> — token endpoint, grant_type=authorization_code.</li>\n<li><code>GET /userinfo</code> — UserInfo, Bearer access token.</li>\n<li><code>GET /jwks</code> — JWKS for IdP-issued JWTs (RS256).</li>\n</ul>\n<h2>Strong defaults already in place</h2>\n<ul>\n<li><strong>redirect_uri exact-match</strong> against per-client allowlist.</li>\n<li><strong>One-shot authorization codes</strong> with TTL and timing-safe comparison.</li>\n<li><strong>no-store</strong> on the token endpoint to keep tokens out of intermediaries.</li>\n<li><strong>RS256</strong> signing only; <code>alg</code> never sourced from the request.</li>\n</ul>\n<h2>The road to PKCE</h2>\n<p>Today the flow assumes confidential clients. To serve public, native and SPA clients safely, the next steps are:</p>\n<ul>\n<li>Accept and store <code>code_challenge</code> + <code>code_challenge_method</code> at <code>/authorize</code>.</li>\n<li>Verify <code>code_verifier</code> at <code>/token</code> with constant-time comparison.</li>\n<li>Advertise <code>code_challenge_methods_supported</code> in Discovery.</li>\n<li>Add <code>at_hash</code> to id_token to bind it to the access token.</li>\n<li>Validate <code>iss</code> when verifying access tokens internally.</li>\n</ul>\n<p>None of this is exotic — it is the next page of the same minimal flow.</p>",
+            "related": [
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "ui-migration",
@@ -105,8 +156,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">100%</span><span class=\"mk-evidence-lbl\">Replacement coverage</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">CDN dependencies</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">2</span><span class=\"mk-evidence-lbl\">Locales embedded (en, ru)</span></li></ul>",
             "body_html": "<p>The PoC originally embedded <code>&lt;hanko-auth&gt;</code> from a third-party bundle. It worked, but it tied the login screen to assets fetched from a domain we did not control and made theming a workaround instead of a feature. We migrated the entire surface to UI8Kit one-to-one.</p>\n<h2>Why migrate</h2>\n<ul>\n<li>Login is a security-critical page. Fewer origins, fewer scripts, fewer third parties.</li>\n<li>UX consistency. AuthKit pages now share the same design tokens as the rest of UI8Kit.</li>\n<li>Build hygiene. One <code>ui8kit.js</code> bundle, served from <code>/static/js</code>, versioned with the IdP.</li>\n</ul>\n<h2>What we kept</h2>\n<ul>\n<li>Email + passcode flow, identical to the previous UI.</li>\n<li>WebAuthn / passkey support through the same backend contract.</li>\n<li>Embedded i18n (English, Russian).</li>\n<li>Dark theme toggle and reduced-motion defaults.</li>\n</ul>\n<h2>What changed under the hood</h2>\n<ul>\n<li>The browser SDK lives in <code>authkit-ts</code>; the Hanko-specific binding is a thin adapter.</li>\n<li>AuthKit (Go + templ) renders the page and points the browser to <code>SDKScript</code> from FlowConfig — the page itself does not import Hanko.</li>\n<li>Static assets ship through <code>StaticFS()</code>; nothing is fetched from a CDN.</li>\n</ul>\n<h2>Cost of migration</h2>\n<p>One person-week to reach feature parity, then a second week of polish. The biggest win is not visible: the login page is now boring HTML with one local bundle, which is exactly what we want for a security-critical surface.</p>",
             "related": [
-                { "slug": "hosted-ui-on-go-templ-i18n", "tag_tone": "primary" },
-                { "slug": "provider-agnostic-core-contracts-before-code", "tag_tone": "accent" }
+                {
+                    "slug": "hosted-ui-on-go-templ-i18n",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -121,7 +178,17 @@
             "url": "/blog/hosted-ui-on-go-templ-i18n/",
             "seo_keywords": "Go templ login UI, embedded i18n auth, hosted login Go, AuthKit Renderer, FlowConfig SDKScript",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Render entry points</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Static FS</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Backend imports in UI</span></li></ul>",
-            "body_html": "<p>The hosted UI is a small Go module, but the structure carries the whole product story: providers come and go, the UI does not change.</p>\n<h2>Renderer surface</h2>\n<ul>\n<li><code>RenderLogin(w, r, ViewConfig)</code></li>\n<li><code>RenderLogout(w, r, ViewConfig)</code></li>\n<li><code>RenderError(w, r, ViewConfig, err)</code></li>\n<li><code>StaticFS()</code> for <code>/static/...</code></li>\n</ul>\n<h2>ViewConfig is the contract</h2>\n<p>The host app passes branding, FlowConfig and FeatureFlags. FlowConfig carries the API URL, the session cookie name, the logout path, and — critically — <code>SDKScript</code>: the URL of the browser SDK bundle for the active provider. AuthKit does not know whether that bundle talks to Hanko, Supabase or a custom Postgres backend.</p>\n<h2>Why this matters</h2>\n<ul>\n<li>The same UI module renders the login page for every provider we support today and tomorrow.</li>\n<li>Provider-specific assets live in their own static FS (for example <code>authkit-hanko</code>) and are merged on the same <code>/static/</code> prefix.</li>\n<li>i18n is embedded in the binary; there is no runtime download of language files.</li>\n</ul>\n<h2>Operational properties</h2>\n<ul>\n<li>Templates compile to Go via templ; XSS escaping is automatic.</li>\n<li>Dark theme is a CSS toggle stored in <code>localStorage</code>, with a no-flash inline boot script.</li>\n<li>The static bundle is content-hashed and cached aggressively at the edge.</li>\n</ul>"
+            "body_html": "<p>The hosted UI is a small Go module, but the structure carries the whole product story: providers come and go, the UI does not change.</p>\n<h2>Renderer surface</h2>\n<ul>\n<li><code>RenderLogin(w, r, ViewConfig)</code></li>\n<li><code>RenderLogout(w, r, ViewConfig)</code></li>\n<li><code>RenderError(w, r, ViewConfig, err)</code></li>\n<li><code>StaticFS()</code> for <code>/static/...</code></li>\n</ul>\n<h2>ViewConfig is the contract</h2>\n<p>The host app passes branding, FlowConfig and FeatureFlags. FlowConfig carries the API URL, the session cookie name, the logout path, and — critically — <code>SDKScript</code>: the URL of the browser SDK bundle for the active provider. AuthKit does not know whether that bundle talks to Hanko, Supabase or a custom Postgres backend.</p>\n<h2>Why this matters</h2>\n<ul>\n<li>The same UI module renders the login page for every provider we support today and tomorrow.</li>\n<li>Provider-specific assets live in their own static FS (for example <code>authkit-hanko</code>) and are merged on the same <code>/static/</code> prefix.</li>\n<li>i18n is embedded in the binary; there is no runtime download of language files.</li>\n</ul>\n<h2>Operational properties</h2>\n<ul>\n<li>Templates compile to Go via templ; XSS escaping is automatic.</li>\n<li>Dark theme is a CSS toggle stored in <code>localStorage</code>, with a no-flash inline boot script.</li>\n<li>The static bundle is content-hashed and cached aggressively at the edge.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "from-hanko-elements-to-ui8kit",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "adaptive-sdks-one-core-many-adapters",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "provider-agnostic-core",
@@ -135,7 +202,17 @@
             "url": "/blog/provider-agnostic-core-contracts-before-code/",
             "seo_keywords": "AuthFly core, FlowConfig, CredentialVerifier, provider-agnostic auth, identity contracts, IdP architecture",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Core packages</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">UI / backend deps in core</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">CredentialVerifier interface</span></li></ul>",
-            "body_html": "<p>The first thing we built was not a feature — it was a contract package. <code>core</code> defines what an IdP flow needs to know, with zero imports of UI, Hanko or storage.</p>\n<h2>What lives in core</h2>\n<ul>\n<li><strong>FlowConfig</strong> — API URL, session cookie name, logout path, browser SDK script URL.</li>\n<li><strong>FeatureFlags</strong> — registration toggles (public, OIDC, SAML).</li>\n<li><strong>AuthCode / AuthCodeStore</strong> — OAuth2-style authorization codes for the OIDC layer.</li>\n<li><strong>CredentialVerifier</strong> — verify bearer or session tokens, expose <code>FlowConfig()</code> for the UI layer.</li>\n<li><strong>IdentityClaims</strong>, session helpers, shared errors.</li>\n</ul>\n<h2>Why this order</h2>\n<p>If the core depends on a specific provider, every new provider becomes a fork. If the UI depends on a specific provider, every new provider becomes a UI rewrite. By writing the contracts first, we made the rest of the stack honest.</p>\n<h2>How the split pays off</h2>\n<ul>\n<li><strong>authkit</strong> renders pages from a ViewConfig that includes a generic FlowConfig — no provider name appears.</li>\n<li><strong>authkit-hanko</strong> implements <code>CredentialVerifier</code> for Hanko: JWT + JWKS verification, cookie extraction, the right SDKScript pointer.</li>\n<li>The IdP composes both at startup. Replacing Hanko with another provider means writing a new package next to <code>authkit-hanko</code>.</li>\n</ul>\n<h2>Future modules</h2>\n<ul>\n<li><code>github.com/authfly/core</code> — the contracts.</li>\n<li><code>github.com/authfly/authkit</code> — the hosted UI.</li>\n<li><code>github.com/authfly/authkit-hanko</code> — the first provider adapter.</li>\n</ul>"
+            "body_html": "<p>The first thing we built was not a feature — it was a contract package. <code>core</code> defines what an IdP flow needs to know, with zero imports of UI, Hanko or storage.</p>\n<h2>What lives in core</h2>\n<ul>\n<li><strong>FlowConfig</strong> — API URL, session cookie name, logout path, browser SDK script URL.</li>\n<li><strong>FeatureFlags</strong> — registration toggles (public, OIDC, SAML).</li>\n<li><strong>AuthCode / AuthCodeStore</strong> — OAuth2-style authorization codes for the OIDC layer.</li>\n<li><strong>CredentialVerifier</strong> — verify bearer or session tokens, expose <code>FlowConfig()</code> for the UI layer.</li>\n<li><strong>IdentityClaims</strong>, session helpers, shared errors.</li>\n</ul>\n<h2>Why this order</h2>\n<p>If the core depends on a specific provider, every new provider becomes a fork. If the UI depends on a specific provider, every new provider becomes a UI rewrite. By writing the contracts first, we made the rest of the stack honest.</p>\n<h2>How the split pays off</h2>\n<ul>\n<li><strong>authkit</strong> renders pages from a ViewConfig that includes a generic FlowConfig — no provider name appears.</li>\n<li><strong>authkit-hanko</strong> implements <code>CredentialVerifier</code> for Hanko: JWT + JWKS verification, cookie extraction, the right SDKScript pointer.</li>\n<li>The IdP composes both at startup. Replacing Hanko with another provider means writing a new package next to <code>authkit-hanko</code>.</li>\n</ul>\n<h2>Future modules</h2>\n<ul>\n<li><code>github.com/authfly/core</code> — the contracts.</li>\n<li><code>github.com/authfly/authkit</code> — the hosted UI.</li>\n<li><code>github.com/authfly/authkit-hanko</code> — the first provider adapter.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "sso-spi-from-hanko-poc-to-supabase",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "one-idp-session-for-saml-and-oidc",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "adaptive-sdks",
@@ -151,8 +228,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Browser core</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">N</span><span class=\"mk-evidence-lbl\">Provider adapters</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">N</span><span class=\"mk-evidence-lbl\">Backend SDK targets</span></li></ul>",
             "body_html": "<p>Most auth SDKs are written once per language and copy the same orchestration logic everywhere. We are inverting that: one TypeScript core for the browser, with thin adapters per provider and per language for everything else.</p>\n<h2>Browser side</h2>\n<ul>\n<li><strong>authkit-ts core</strong> — the flow state machine: start, challenge, verify, complete, error.</li>\n<li><strong>Provider adapters</strong> — bind the core to a credential backend (Hanko first). The adapter knows the backend; the core does not.</li>\n<li><strong>Distribution</strong> — UMD bundle published as <code>ui8kit.js</code> next to AuthKit; npm package on <code>npmjs.com/org/authfly</code>.</li>\n</ul>\n<h2>Backend side</h2>\n<ul>\n<li><strong>Go</strong> — first-class, since the IdP is Go. Reuses <code>core</code> contracts.</li>\n<li><strong>TypeScript / Node</strong> — server-side helpers for OIDC clients and session validation.</li>\n<li><strong>Python, PHP, .NET</strong> — thin SDKs over the same Management API and OIDC endpoints.</li>\n</ul>\n<h2>Adapter pattern</h2>\n<p>Every adapter implements three functions: turn user input into a credential challenge, verify the response, and surface a normalized identity to the caller. The orchestration loop stays in the core, so behaviour is identical across stacks.</p>\n<h2>Why this beats per-language rewrites</h2>\n<ul>\n<li>One bug-fix lands in one place.</li>\n<li>Behaviour parity is testable by replaying the same flow against every adapter.</li>\n<li>New providers ship as adapters, not as forks.</li>\n</ul>",
             "related": [
-                { "slug": "sso-spi-from-hanko-poc-to-supabase", "tag_tone": "primary" },
-                { "slug": "from-hanko-elements-to-ui8kit", "tag_tone": "accent" }
+                {
+                    "slug": "sso-spi-from-hanko-poc-to-supabase",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "from-hanko-elements-to-ui8kit",
+                    "tag_tone": "accent"
+                }
             ]
         },
         {
@@ -167,7 +250,17 @@
             "url": "/blog/sso-spi-from-hanko-poc-to-supabase",
             "seo_keywords": "SSO SPI, credential backend interface, Hanko adapter, Supabase auth, custom Postgres auth, provider-agnostic IdP",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">SPI contract</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Backends planned (Hanko, Supabase, custom)</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">IdP rewrites per backend</span></li></ul>",
-            "body_html": "<p>The PoC runs on Hanko. The MVP needs to run on whatever the customer already operates — most often Supabase or a custom Postgres. We treat that as an SPI problem, not a fork problem.</p>\n<h2>What the SPI guarantees</h2>\n<ul>\n<li>Verify a session or bearer token and return normalized identity claims.</li>\n<li>Expose a FlowConfig the UI can render (API URL, cookie name, logout path, SDK script).</li>\n<li>Support a feature-flag surface so the UI can hide or show registration entry points.</li>\n<li>Preserve security invariants: signed cookies, JWKS-based JWT validation, allowlisted origins.</li>\n</ul>\n<h2>Backends on the roadmap</h2>\n<ul>\n<li><strong>Hanko</strong> — the PoC. Credentials, JWKS, WebAuthn out of the box.</li>\n<li><strong>Supabase</strong> — common in greenfield products; SPI maps Supabase Auth tokens to <code>IdentityClaims</code>.</li>\n<li><strong>Custom Postgres</strong> — for teams that already manage users, passwords or passkeys themselves; the SPI wraps their existing storage.</li>\n</ul>\n<h2>What does not change when you swap backends</h2>\n<ul>\n<li>The IdP — SAML and OIDC endpoints behave identically.</li>\n<li>The hosted UI — same login, logout and error pages.</li>\n<li>The security checklist — every backend must satisfy the same JWT, cookie and origin checks.</li>\n</ul>\n<h2>What does change</h2>\n<ul>\n<li>The adapter package implementing <code>CredentialVerifier</code>.</li>\n<li>The browser bundle URL pointed to by <code>SDKScript</code>.</li>\n<li>Operational concerns — where users live, how passwords or passkeys are stored, how Admin APIs are reached.</li>\n</ul>"
+            "body_html": "<p>The PoC runs on Hanko. The MVP needs to run on whatever the customer already operates — most often Supabase or a custom Postgres. We treat that as an SPI problem, not a fork problem.</p>\n<h2>What the SPI guarantees</h2>\n<ul>\n<li>Verify a session or bearer token and return normalized identity claims.</li>\n<li>Expose a FlowConfig the UI can render (API URL, cookie name, logout path, SDK script).</li>\n<li>Support a feature-flag surface so the UI can hide or show registration entry points.</li>\n<li>Preserve security invariants: signed cookies, JWKS-based JWT validation, allowlisted origins.</li>\n</ul>\n<h2>Backends on the roadmap</h2>\n<ul>\n<li><strong>Hanko</strong> — the PoC. Credentials, JWKS, WebAuthn out of the box.</li>\n<li><strong>Supabase</strong> — common in greenfield products; SPI maps Supabase Auth tokens to <code>IdentityClaims</code>.</li>\n<li><strong>Custom Postgres</strong> — for teams that already manage users, passwords or passkeys themselves; the SPI wraps their existing storage.</li>\n</ul>\n<h2>What does not change when you swap backends</h2>\n<ul>\n<li>The IdP — SAML and OIDC endpoints behave identically.</li>\n<li>The hosted UI — same login, logout and error pages.</li>\n<li>The security checklist — every backend must satisfy the same JWT, cookie and origin checks.</li>\n</ul>\n<h2>What does change</h2>\n<ul>\n<li>The adapter package implementing <code>CredentialVerifier</code>.</li>\n<li>The browser bundle URL pointed to by <code>SDKScript</code>.</li>\n<li>Operational concerns — where users live, how passwords or passkeys are stored, how Admin APIs are reached.</li>\n</ul>",
+            "related": [
+                {
+                    "slug": "provider-agnostic-core-contracts-before-code",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "adaptive-sdks-one-core-many-adapters",
+                    "tag_tone": "accent"
+                }
+            ]
         },
         {
             "id": "preflight-checklist",
@@ -183,8 +276,14 @@
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Key figures\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">27</span><span class=\"mk-evidence-lbl\">Items in checklist</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">7</span><span class=\"mk-evidence-lbl\">Critical items (Stage 1)</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">4</span><span class=\"mk-evidence-lbl\">Stages</span></li></ul>",
             "body_html": "<p>Security is the part of Auth Fly we do not want to surprise anyone with. Here is the entire checklist, grouped by stage, with the strong points kept honest alongside the work still to do.</p>\n<h2>What is already strong</h2>\n<ul>\n<li>SAML ACS taken from SP config, never from the AuthnRequest — closes ACS substitution.</li>\n<li>OIDC <code>redirect_uri</code> validated by exact-match against per-client allowlist.</li>\n<li>Authorization codes are one-shot, TTL-bounded, compared with <code>hmac.Equal</code>.</li>\n<li>Session cookies signed with HMAC-SHA256, <code>HttpOnly</code>, <code>Secure</code>.</li>\n<li><code>Cache-Control: no-store</code> on the token endpoint.</li>\n<li>Hosted UI ships static assets locally; no CDN dependency.</li>\n<li><code>html/template</code> and templ auto-escape user-rendered fields.</li>\n<li>Logout return URLs validated against an origin allowlist.</li>\n</ul>\n<h2>Stage 1 — Critical (week 1)</h2>\n<ul>\n<li>Verify <code>iss</code> and <code>aud</code> on Hanko JWTs after signature check.</li>\n<li>Pin the JWT <code>alg</code> to <code>RS256</code> in the verifier; never trust the header value.</li>\n<li>Stop accepting bearer tokens from <code>?token=</code> query parameters.</li>\n<li>Refuse to start when <code>session_key</code> is the placeholder or shorter than 32 bytes.</li>\n<li>Configure <code>http.Server</code> with explicit ReadTimeout, WriteTimeout and IdleTimeout.</li>\n<li>Create the IdP private key file with mode <code>0600</code>.</li>\n<li>Run the container as a non-root user.</li>\n</ul>\n<h2>Stage 2 — Protocol hardening (weeks 2–3)</h2>\n<ul>\n<li>PKCE: store <code>code_challenge</code> + method, verify <code>code_verifier</code>, advertise in Discovery.</li>\n<li>Add <code>at_hash</code> to id_token to bind it to the access token.</li>\n<li>Verify <code>iss</code> on access tokens before honouring them.</li>\n<li>Validate <code>IssueInstant</code> and (when present) <code>Destination</code> on SAML AuthnRequests.</li>\n<li>Optionally verify signed AuthnRequests for SPs that opt in.</li>\n<li>Run the OIDC code-store cleanup goroutine; bound memory growth.</li>\n<li>Validate requested OIDC scopes; reject anything outside the supported set.</li>\n</ul>\n<h2>Stage 3 — Web security (weeks 3–4)</h2>\n<ul>\n<li>Security-headers middleware: CSP, X-Frame-Options DENY, X-Content-Type-Options, Referrer-Policy, HSTS.</li>\n<li>CSRF tokens on every admin POST.</li>\n<li>Rate limiting on <code>/token</code>, <code>/authorize</code>, <code>/sso</code>, <code>/console/users</code>.</li>\n<li><code>http.MaxBytesReader</code> on POST endpoints.</li>\n<li>Graceful shutdown via <code>signal.NotifyContext</code> + <code>server.Shutdown</code>.</li>\n</ul>\n<h2>Stage 4 — Enterprise (weeks 4–6)</h2>\n<ul>\n<li>Key rotation with multi-key JWKS and a previous-key validator.</li>\n<li>Move new key generation to RSA-4096.</li>\n<li>SAML Single Logout (SLO) for connected SPs.</li>\n<li>Structured audit logs: who, when, what, from where, with what result.</li>\n<li>Optional server-side session store (Redis or SQLite) for forced logout.</li>\n<li>OIDC: refresh tokens, <code>prompt</code>, <code>max_age</code>.</li>\n<li>Admin: CSRF, configurable email verification, scoped API keys.</li>\n<li>Health and readiness endpoints for orchestration.</li>\n</ul>\n<h2>How to follow along</h2>\n<p>Every item is tracked publicly on GitHub at <code>github.com/authfly</code>. Vulnerability reports go through private security advisories on the same org. No private roadmap, no hidden severity ratings.</p>",
             "related": [
-                { "slug": "saml-2-in-600-lines-of-go", "tag_tone": "primary" },
-                { "slug": "oidc-done-minimal-code-flow-jwks-pkce", "tag_tone": "accent" }
+                {
+                    "slug": "saml-2-in-600-lines-of-go",
+                    "tag_tone": "primary"
+                },
+                {
+                    "slug": "oidc-done-minimal-code-flow-jwks-pkce",
+                    "tag_tone": "accent"
+                }
             ]
         }
     ]

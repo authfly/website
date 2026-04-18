@@ -45,7 +45,9 @@
       "year": "2025",
       "pages": 14,
       "series": "Документы",
-      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: что за эндпоинты, как настроить через переменные окружения и почему один логин закрывает оба протокола."
+      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: что за эндпоинты, как настроить через переменные окружения и почему один логин закрывает оба протокола.",
+      "url": "/blog/one-idp-session-for-saml-and-oidc/?voice=itpop",
+      "cta": "Прочитать в Журнале"
     },
     {
       "title": "Заметки про AuthKit и UI8Kit",
@@ -53,7 +55,9 @@
       "year": "2025",
       "pages": 9,
       "series": "Документы",
-      "desc": "Hosted-UI на Go + templ: как устроен Renderer, ViewConfig, FlowConfig, встроенная i18n и почему мы заменили Hanko Elements на UI8Kit."
+      "desc": "Hosted-UI на Go + templ: как устроен Renderer, ViewConfig, FlowConfig, встроенная i18n и почему мы заменили Hanko Elements на UI8Kit.",
+      "url": "/blog/hosted-ui-on-go-templ-i18n/?voice=itpop",
+      "cta": "Прочитать в Журнале"
     },
     {
       "title": "Pre-flight чек-лист безопасности",
@@ -61,7 +65,19 @@
       "year": "2026",
       "pages": 27,
       "series": "Документы",
-      "desc": "Публичный список усиления защиты на четыре стадии: критические правки, усиление протоколов, web-безопасность, enterprise-функции."
+      "desc": "Публичный список усиления защиты на четыре стадии: критические правки, усиление протоколов, web-безопасность, enterprise-функции.",
+      "url": "/blog/preflight-checklist-from-poc-to-mvp-hardening/?voice=itpop",
+      "cta": "Прочитать в Журнале"
+    },
+    {
+      "title": "Provider-agnostic ядро простыми словами",
+      "publisher": "Авторизатор",
+      "year": "2025",
+      "pages": 11,
+      "series": "Документы",
+      "desc": "Почему ядро не должно знать, кто проверяет пароль. Контракт раньше кода — и поменять Hanko на Supabase можно без переписывания IdP.",
+      "url": "/blog/provider-agnostic-core-contracts-before-code/?voice=itpop",
+      "cta": "Прочитать в Журнале"
     }
   ],
   "timeline": [

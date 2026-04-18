@@ -45,7 +45,9 @@
       "year": "2025",
       "pages": 14,
       "series": "Технические референсы",
-      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: эндпоинты, конфигурация, переопределения через переменные окружения и поведение SSO между протоколами."
+      "desc": "Двухпротокольный SAML 2.0 + OIDC IdP: эндпоинты, конфигурация, переопределения через переменные окружения и поведение SSO между протоколами.",
+      "url": "/blog/one-idp-session-for-saml-and-oidc/",
+      "cta": "Прочесть в Журнале"
     },
     {
       "title": "Заметки AuthKit и UI8Kit",
@@ -53,7 +55,9 @@
       "year": "2025",
       "pages": 9,
       "series": "Технические референсы",
-      "desc": "Hosted-UI на Go + templ: Renderer, ViewConfig, FlowConfig, встроенная i18n и переход с Hanko Elements на UI8Kit."
+      "desc": "Hosted-UI на Go + templ: Renderer, ViewConfig, FlowConfig, встроенная i18n и переход с Hanko Elements на UI8Kit.",
+      "url": "/blog/hosted-ui-on-go-templ-i18n/",
+      "cta": "Прочесть в Журнале"
     },
     {
       "title": "Pre-flight чек-лист безопасности",
@@ -61,7 +65,19 @@
       "year": "2026",
       "pages": 27,
       "series": "Технические референсы",
-      "desc": "Публичный список усиления защиты, разделённый на четыре стадии: критические правки, усиление протоколов, web-безопасность, enterprise-функции."
+      "desc": "Публичный список усиления защиты, разделённый на четыре стадии: критические правки, усиление протоколов, web-безопасность, enterprise-функции.",
+      "url": "/blog/preflight-checklist-from-poc-to-mvp-hardening/",
+      "cta": "Прочесть в Журнале"
+    },
+    {
+      "title": "Provider-agnostic ядро",
+      "publisher": "Auth Fly",
+      "year": "2025",
+      "pages": 11,
+      "series": "Технические референсы",
+      "desc": "Контракты раньше кода: ядро не знает ни про Hanko, ни про Supabase. Бэкенд и UI меняются за интерфейсом, ядро остаётся.",
+      "url": "/blog/provider-agnostic-core-contracts-before-code/",
+      "cta": "Прочесть в Журнале"
     }
   ],
   "timeline": [
