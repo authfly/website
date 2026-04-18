@@ -41,3 +41,4 @@ paas.exe
 .paas/
 redeploy.sh
 tls-issue.sh
+bootstrap.sh
