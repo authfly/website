@@ -1,6 +1,5 @@
 .manual/
 .cursor/
-.paas/
 .cursorignore
 bun.lockb
 bun.lock
@@ -39,5 +38,5 @@ coverage/
 
 # PAAS runner
 paas.exe
-.paas/config.yml
-.gorunner/
+.paas/
+redeploy.sh
