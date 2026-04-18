@@ -1,0 +1,50 @@
+{
+  "seo": {
+    "title": "Контакты — Auth Fly | Следить за разработкой",
+    "description": "Auth Fly активно идёт от PoC к MVP. Следить за разработкой — на GitHub и в Telegram, ставить пакеты — с npm, репортить уязвимости — через приватные security advisories.",
+    "keywords": "Auth Fly contact, github.com/authfly, t.me/authfly, npmjs authfly, security advisories, self-hosted SSO support"
+  },
+  "sections": {
+    "channels_title": "Где следить",
+    "availability_title": "С чем поможет АутФлай"
+  },
+  "hero": {
+    "eyebrow": "Контакты",
+    "title": "Связаться",
+    "description": "Никаких форм с двенадцатью обязательными полями и галочкой «согласен на маркетинговую рассылку». GitHub, Telegram, npm. Если что-то сломалось — приватный security advisory. Если горит — пишите в Telegram, мы тоже не спим."
+  },
+  "channels": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "github.com/authfly",
+      "url": "https://github.com/authfly",
+      "desc": "Основной репозиторий, обсуждения, issues. Можно молча читать, можно задавать неудобные вопросы — отвечаем без обзвона менеджером.",
+      "type": "primary"
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "handle": "t.me/authfly",
+      "url": "https://t.me/authfly",
+      "desc": "Канал с понятными новостями: что выкатили, что в работе, что упало. Без маркетинговых эмодзи и без «коллеги, делюсь полезным».",
+      "type": "social"
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "handle": "npmjs.com/org/authfly",
+      "url": "https://www.npmjs.com/org/authfly",
+      "desc": "Опубликованные пакеты. Версии семантические, breaking changes — в CHANGELOG, а не сюрпризом в пятницу вечером.",
+      "type": "social"
+    }
+  ],
+  "availability": [
+    "Собрать SSO для нескольких сервисов на одном бренде — без подписки за пользователя",
+    "Перенести вход с готовой облачной платформы на свой self-hosted IdP",
+    "Подключить SSO в любой ваш стек — Go, Node, Python, PHP, Java",
+    "Окно входа в вашем бренде — на вашем origin, без чужих CDN",
+    "Прогнать ваш проект по открытому 27-пунктному чек-листу безопасности"
+  ],
+  "note": "АутФлай — это активная разработка от PoC к MVP. Живые demo появятся, когда проект наберёт нужную крепость. А пока — открытый код, открытый чек-лист, открытый канал. Нашли уязвимость — пожалуйста, через приватный security advisory на github.com/authfly, не в публичных issues. Спасибо."
+}

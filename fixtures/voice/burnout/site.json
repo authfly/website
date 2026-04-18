@@ -1,0 +1,65 @@
+{
+  "titles": {
+    "home": "Главная",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "projects": "Модули",
+    "contact": "Контакты"
+  },
+  "name": "АутФлай",
+  "tagline": "Полная локализованная версия наименования. Краткая Auth Fly сохраняется в коде, документации, доменном имени и сердце автора.",
+  "images": {
+    "portrait_home": "/static/img/senior.png",
+    "portrait_about": "/static/img/senior.png",
+    "og": "/static/img/authfly.png"
+  },
+  "description": "АутФлай (бывш. Auth Fly, по требованию о русскоязычных слоганах) — открытый конструктор аутентификации для тех, кто уже зарегистрировался как оператор персональных данных, ИП, самозанятый и юрлицо одновременно — и всё это ради одной формы обратной связи. Сервер у вас. Логи у вас. Ответственность, к сожалению, тоже у вас.",
+  "slogan": "Лёгкая аутентификация. Тяжёлая отчётность.",
+  "copyright": "© 2026 АутФлай · сделано на свой страх, риск и ИП",
+  "channels": {
+    "youtube": "https://t.me/authfly",
+    "linkedin": "https://github.com/authfly",
+    "telegram": "https://t.me/authfly",
+    "github": "https://github.com/authfly"
+  },
+  "ui": {
+    "switch_language_label": "Сменить язык",
+    "language_toggle_fallback": "Язык",
+    "nav_main_aria": "Основная навигация",
+    "aria_logo_home": "АутФлай — главная",
+    "theme_toggle_aria": "Переключить тёмную тему",
+    "mobile_menu_open_aria": "Открыть меню",
+    "nav_mobile_aria": "Мобильная навигация",
+    "nav_footer_aria": "Навигация в подвале",
+    "og_image_alt": "Логотип АутФлай",
+    "portrait_home_alt": "АутФлай — голос Синьора",
+    "portrait_about_alt": "АутФлай — голос Синьора"
+  },
+  "socials_display": {
+    "linkedin": { "label": "GitHub", "url": "https://github.com/authfly" },
+    "telegram": { "label": "Telegram", "url": "https://t.me/authfly" },
+    "github": { "label": "npm", "url": "https://www.npmjs.com/org/authfly" }
+  },
+  "seo": {
+    "canonical_base": "",
+    "robots": "index, follow",
+    "json_ld_person": {
+      "@type": "Organization",
+      "name": "Auth Fly",
+      "url": "https://github.com/authfly",
+      "logo": "/static/img/authfly.png",
+      "description": "Открытый конструктор аутентификации: self-hosted SSO IdP, hosted-UI и адаптивные SDK.",
+      "sameAs": [
+        "https://github.com/authfly",
+        "https://www.npmjs.com/org/authfly",
+        "https://t.me/authfly"
+      ]
+    }
+  },
+  "platforms": [
+    { "id": "github", "label": "GitHub · authfly", "url": "https://github.com/authfly", "aria_label": "АутФлай на GitHub" },
+    { "id": "linkedin", "label": "npm · authfly", "url": "https://www.npmjs.com/org/authfly", "aria_label": "АутФлай на npm" },
+    { "id": "telegram", "label": "Telegram · authfly", "url": "https://t.me/authfly", "aria_label": "АутФлай в Telegram" },
+    { "id": "reddit", "label": "GitHub · UI8Kit", "url": "https://github.com/fastygo/ui8kit", "aria_label": "UI8Kit на GitHub" }
+  ]
+}

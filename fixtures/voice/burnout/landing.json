@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Auth Fly — открытый SSO IdP, hosted-UI, адаптивные SDK",
+    "description": "Auth Fly — открытый конструктор аутентификации: self-hosted SAML 2.0 + OIDC IdP, hosted-UI на UI8Kit и адаптивные SDK под любой язык и фреймворк. PoC уже работает, MVP в активной разработке.",
+    "keywords": "Auth Fly, open source SSO, self-hosted IdP, SAML 2.0, OpenID Connect, OIDC provider, Hanko, UI8Kit, AuthKit TS, adaptive SDK, security hardening, no telemetry"
+  },
+  "hero": {
+    "eyebrow": "Open source · MIT · сделано вопреки",
+    "title": "АутФлай",
+    "subtitle": "Войти быстрее, чем заполнить форму согласия на обработку.",
+    "description": "Открытый конструктор аутентификации для тех, кто уже зарегистрировался как оператор персональных данных, ИП, самозанятый и юрлицо одновременно — и всё это ради одной формы обратной связи. Сервер у вас. Логи у вас. Ответственность, к сожалению, тоже у вас. Но хотя бы пароли — наконец у вас."
+,
+    "cta_primary": { "label": "Открыть журнал", "url": "/blog/?voice=burnout" },
+    "cta_secondary": { "label": "Смотреть модули", "url": "/projects/?voice=burnout" }
+  },
+  "path": [
+    { "year": "Идея", "icon": "server", "icon_color": "primary", "label": "Истоки", "note": "Один разработчик прочитал тарифы облачного IdP и тихо закрыл ноутбук" },
+    { "year": "2025 Q3", "icon": "book", "icon_color": "accent", "label": "Сначала контракты", "note": "Договорились о правилах раньше кода. Это, оказывается, можно" },
+    { "year": "2025 Q4", "icon": "shopping-cart", "icon_color": "primary", "label": "PoC живой", "note": "SAML и OIDC на одной сессии. Никто не пострадал" },
+    { "year": "2026 Q1+", "icon": "monitor", "icon_color": "accent", "label": "Hardening", "note": "27 пунктов чек-листа. Это меньше, чем в обычном согласии на cookies" },
+    { "year": "Дальше", "icon": "layers", "icon_color": "primary", "label": "Roadmap", "note": "Журнал входов, ротация ключей, выход «из всех мест разом» — на случай, если разом понадобится" }
+  ],
+  "pillars": [
+    { "id": "defense", "icon": "shield", "icon_color": "primary", "label": "Не звонит домой", "desc": "Ноль исходящих к чужим аналитикам, CDN и SaaS-метрикам. Домой и без нас уже звонят достаточно." },
+    { "id": "idp", "icon": "network", "icon_color": "primary", "label": "Один вход — много дверей", "desc": "Один SSO вместо двенадцати чек-боксов согласия. SAML 2.0 и OIDC на одной сессии — ваши приложения этого даже не заметят." },
+    { "id": "ui", "icon": "database", "icon_color": "accent", "label": "Окно входа — ваше", "desc": "Hosted-UI на вашем origin, в вашем бренде. Никаких чужих логотипов в самый ответственный момент пользовательского пути." },
+    { "id": "sdk", "icon": "trending-up", "icon_color": "accent", "label": "Подходит под любой стек", "desc": "Подключение к любому языку и фреймворку. Новый сервис — это новый адаптер на вечер, а не переписывание авторизации." }
+  ],
+  "metrics": [
+    { "value": "0", "label": "Внешних запросов в продукте" },
+    { "value": "1", "label": "Вход на все площадки" },
+    { "value": "5", "label": "Открытых модулей" },
+    { "value": "MIT", "label": "Можно прочитать. В отличие от." }
+  ],
+  "quote": {
+    "text": "Скучная надёжность побеждает яркие обещания. Особенно в три часа ночи, когда яркие обещания спят, а надёжность — на дежурстве.",
+    "source": "Принцип АутФлая"
+  },
+  "hero_evidence": {
+    "aria_label": "Ключевые факты",
+    "items": [
+      { "value": "0", "unit": "телеметрии" },
+      { "value": "27", "unit": "пунктов hardening" },
+      { "value": "2", "unit": "протокола, одна сессия" },
+      { "value": "MIT", "unit": "лицензия" }
+    ]
+  },
+  "hero_portrait": {
+    "aria_label": "АутФлай — голос Синьора"
+  },
+  "sections": {
+    "career_path": { "eyebrow": "Куда мы идём", "title": "От PoC к боевому запуску — без эпопей" },
+    "metrics": { "aria_label": "Ключевые факты о проекте" },
+    "pillars": { "eyebrow": "Что важно", "title": "Что вы получаете с АутФлаем" },
+    "blog_preview": { "title": "Свежие записи журнала", "aria_label": "Последние заметки" },
+    "projects_preview": {
+      "eyebrow": "Модули",
+      "title": "Из чего собран АутФлай",
+      "link_all": "Все модули →",
+      "heading_id": "projects-preview-title",
+      "aria_label": "Превью модулей",
+      "preview_count": 4
+    },
+    "platforms": {
+      "eyebrow": "Подписаться",
+      "title": "Где следить за АутФлаем",
+      "heading_id": "platforms-title"
+    }
+  }
+}

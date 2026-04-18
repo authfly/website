@@ -30,5 +30,10 @@ return [
             'html_lang' => 'ru',
             'og_locale' => 'ru_RU',
         ],
+        'voice/burnout' => [
+            'label' => '',
+            'html_lang' => 'ru',
+            'og_locale' => 'ru_RU',
+        ],
     ],
 ];

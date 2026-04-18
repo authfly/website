@@ -114,6 +114,7 @@ $buildVoiceWidget = static function (string $locale) use ($localeManager): array
         ['id' => 'vika', 'label' => 'Vika', 'voice' => 'vika', 'lang' => null],
         ['id' => 'devops', 'label' => 'DevOps', 'voice' => 'devops', 'lang' => null],
         ['id' => 'itpop', 'label' => 'Айтишник', 'voice' => 'itpop', 'lang' => null],
+        ['id' => 'burnout', 'label' => 'Синьор', 'voice' => 'burnout', 'lang' => null],
     ];
 
     $items = [];
