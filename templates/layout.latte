@@ -43,18 +43,23 @@
   {var $articleLdHtml = '<script type="application/ld+json">' . json_encode($articleLd, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES) . '</script>'}
   {$articleLdHtml|noescape}
   {/if}
+  {* Static asset version: baked into the runtime image at build time
+     (Dockerfile ARG GIT_SHA -> ENV ASSET_VERSION). Locally falls back
+     to "dev". Appended as ?v=<sha> to every /static/ URL so a deploy
+     instantly invalidates browser caches without manual versioning. *}
+  {var $assetV = getenv('ASSET_VERSION') ?: 'dev'}
   {* Auth Fly font preload — Nunito Sans 400 (body) + Nunito 700 (display), Latin first paint *}
-  <link rel="preload" href="/static/fonts/nunitosans-400-lat.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/static/fonts/nunito-700-lat.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/nunitosans-400-lat.woff2?v={$assetV}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/nunito-700-lat.woff2?v={$assetV}" as="font" type="font/woff2" crossorigin>
   {if ($lang ?? 'en') === 'ru'}
-  <link rel="preload" href="/static/fonts/nunitosans-400-cyr.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/static/fonts/nunito-700-cyr.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/nunitosans-400-cyr.woff2?v={$assetV}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/nunito-700-cyr.woff2?v={$assetV}" as="font" type="font/woff2" crossorigin>
   {/if}
   <style>{$inline_fonts_css|noescape}</style>
-  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="/static/css/styles.css?v={$assetV}">
   {if isset($extra_stylesheets) && is_array($extra_stylesheets)}
     {foreach $extra_stylesheets as $extraStylesheet}
-      <link rel="stylesheet" href="{$extraStylesheet}">
+      <link rel="stylesheet" href="{$extraStylesheet}{if !str_contains($extraStylesheet, '?')}?v={$assetV}{/if}">
     {/foreach}
   {/if}
   {* Auth Fly favicon — sky-blue "A" on a soft cloud *}
@@ -65,7 +70,7 @@
     <header class="mk-nav" role="banner">
       <div class="mk-shell">
         <nav class="mk-nav-inner" aria-label="{$site['ui']['nav_main_aria'] ?? ''}">
-          <a href="/" class="mk-logo" aria-label="{$site['ui']['aria_logo_home'] ?? ''}">
+          <a href="{$nav_url['home'] ?? '/'}" class="mk-logo" aria-label="{$site['ui']['aria_logo_home'] ?? ''}">
             <span class="mk-logo-dot" aria-hidden="true"></span>
             <span>{$site['name'] ?? ''}</span>
           </a>

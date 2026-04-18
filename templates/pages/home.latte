@@ -26,8 +26,8 @@
         </blockquote>
 
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-          <a href="/blog/" class="mk-btn mk-btn-primary">{$landing['hero']['cta_primary']['label']}</a>
-          <a href="/projects/" class="mk-btn mk-btn-outline">{$landing['hero']['cta_secondary']['label']}</a>
+          <a href="{$nav_url['blog'] ?? '/blog/'}" class="mk-btn mk-btn-primary">{$landing['hero']['cta_primary']['label']}</a>
+          <a href="{$nav_url['projects'] ?? '/projects/'}" class="mk-btn mk-btn-outline">{$landing['hero']['cta_secondary']['label']}</a>
         </div>
       </div>
       <div class="mk-portrait-wrap">
@@ -111,13 +111,13 @@
         <p class="mk-eyebrow" style="margin-bottom:0.5rem;">{$blog['hero']['eyebrow']}</p>
         <h2 style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['blog_preview']['title'] ?? ''}</h2>
       </div>
-      <a href="/blog/" style="font-family:var(--font-mono);font-size:0.8125rem;letter-spacing:0.02em;text-transform:uppercase;">{$blog['hero']['title']}</a>
+      <a href="{$nav_url['blog'] ?? '/blog/'}" style="font-family:var(--font-mono);font-size:0.8125rem;letter-spacing:0.02em;text-transform:uppercase;">{$blog['hero']['title']}</a>
     </div>
 
     <div style="display:grid;gap:1.25rem;">
       {foreach array_slice($blog['posts'], 0, 4) as $post}
         <article>
-          <a href="/blog/{$post['slug']}/" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
+          <a href="{$post['url'] ?? '/blog/' . ($post['slug'] ?? '') . '/'}" class="mk-post-item" style="display:block;text-decoration:none;color:inherit;">
             <div class="mk-post-meta">
               <span class="mk-tag mk-tag-primary">{$post['tag'] ?? ''}</span>
               <time class="mk-post-date" datetime="{$post['date'] ?? ''}">{$post['date']}</time>
@@ -144,7 +144,7 @@
         <p class="mk-eyebrow" style="margin-bottom:0.5rem;">{$landing['sections']['projects_preview']['eyebrow'] ?? ''}</p>
         <h2 id="{$landing['sections']['projects_preview']['heading_id'] ?? 'projects-preview-title'}" style="font-size:1.75rem;font-weight:700;margin:0;">{$landing['sections']['projects_preview']['title'] ?? ''}</h2>
       </div>
-      <a href="/projects/" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;">{$landing['sections']['projects_preview']['link_all'] ?? ''}</a>
+      <a href="{$nav_url['projects'] ?? '/projects/'}" class="mk-btn mk-btn-ghost" style="font-size:0.875rem;">{$landing['sections']['projects_preview']['link_all'] ?? ''}</a>
     </div>
     <div class="mk-grid-2">
       {foreach $previewProjects as $project}

@@ -36,7 +36,7 @@
     <div id="blog-list">
       {foreach $blog['posts'] as $post}
         <article class="mk-post-row" data-category="{$post['category'] ?? 'news'}">
-          <a href="/blog/{$post['slug']}/" class="mk-post-item" style="text-decoration:none;color:inherit;" aria-label="{$blog['ui']['read_post_aria_prefix'] ?? ''} {$post['title']}">
+          <a href="{$post['url']}" class="mk-post-item" style="text-decoration:none;color:inherit;" aria-label="{$blog['ui']['read_post_aria_prefix'] ?? ''} {$post['title']}">
             <div class="mk-post-meta">
               <span class="mk-tag mk-tag-primary">{$post['tag'] ?? ''}</span>
               <time class="mk-post-date" datetime="{$post['date'] ?? ''}">{$post['date']}</time>

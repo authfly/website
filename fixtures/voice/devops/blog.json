@@ -21,6 +21,7 @@
         "author_section_aria": "IdПровайдер",
         "author_tagline": "Открытый конструктор аутентификации",
         "author_about_label": "Об IdПровайдер",
+        "author_about_url": "/about/?voice=devops",
         "related_title": "Смежные материалы"
     },
     "categories": [
@@ -164,7 +165,7 @@
             "excerpt": "Как контракт CredentialVerifier превращается в Service Provider Interface — это позволяет менять credential-бэкенд без правок IdP, UI и инвариантов безопасности.",
             "date": "2026-02-10",
             "reading_time": "12 мин",
-            "url": "/blog/sso-spi-from-hanko-poc-to-supabase?voice=devops",
+            "url": "/blog/sso-spi-from-hanko-poc-to-supabase/?voice=devops",
             "seo_keywords": "SSO SPI, credential backend interface, Hanko adapter, Supabase auth, custom Postgres auth, provider-agnostic IdP",
             "evidence_html": "<ul class=\"mk-evidence\" role=\"region\" aria-label=\"Ключевые цифры\"><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">1</span><span class=\"mk-evidence-lbl\">Контракт SPI</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">3</span><span class=\"mk-evidence-lbl\">Бэкенда в плане (Hanko, Supabase, custom)</span></li><li class=\"mk-evidence-item\"><span class=\"mk-evidence-num\">0</span><span class=\"mk-evidence-lbl\">Переписываний IdP под бэкенд</span></li></ul>",
             "body_html": "<p>PoC живёт на Hanko. MVP должен запускаться на том, что уже эксплуатирует команда — чаще всего это Supabase или собственный Postgres. Мы рассматриваем это как задачу SPI, а не задачу форка: один контракт, разные адаптеры, общий runbook.</p>\n<h2>Что гарантирует SPI</h2>\n<ul>\n<li>Проверить сессионный или bearer-токен и вернуть нормализованные identity claims.</li>\n<li>Отдать FlowConfig, который UI сможет нарисовать (API URL, имя cookie, путь логаута, скрипт SDK).</li>\n<li>Поддержать поверхность feature flags, чтобы UI мог скрывать или показывать точки регистрации.</li>\n<li>Сохранить инварианты безопасности: подписанные cookie, JWT-валидация через JWKS, allowlist-ы origin.</li>\n</ul>\n<h2>Бэкенды в дорожной карте</h2>\n<ul>\n<li><strong>Hanko</strong> — PoC. Credentials, JWKS, WebAuthn из коробки.</li>\n<li><strong>Supabase</strong> — частый выбор для greenfield-продуктов; SPI мапит токены Supabase Auth в <code>IdentityClaims</code>.</li>\n<li><strong>Собственный Postgres</strong> — для команд, уже управляющих пользователями, паролями или passkey самостоятельно; SPI оборачивает существующее хранилище.</li>\n</ul>\n<h2>Что не меняется при смене бэкенда</h2>\n<ul>\n<li>IdP — эндпоинты SAML и OIDC ведут себя идентично.</li>\n<li>Hosted-UI — те же страницы входа, выхода и ошибок.</li>\n<li>Чек-лист безопасности — каждый бэкенд должен удовлетворять одним и тем же проверкам JWT, cookie и origin.</li>\n</ul>\n<h2>Что меняется</h2>\n<ul>\n<li>Пакет адаптера, реализующий <code>CredentialVerifier</code>.</li>\n<li>URL браузерного бандла, на который указывает <code>SDKScript</code>.</li>\n<li>Операционные вопросы — где живут пользователи, как хранятся пароли или passkey, как добраться до Admin API.</li>\n</ul>"

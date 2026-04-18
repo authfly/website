@@ -28,6 +28,11 @@ RUN composer dump-autoload \
 
 FROM php:8.4-fpm-alpine AS runtime
 
+# Build-time argument: short git SHA from CI. Defaults to "dev" for local
+# builds. Exposed at runtime as ASSET_VERSION and appended to /static/ URLs
+# in templates so each deploy invalidates browser caches automatically.
+ARG GIT_SHA=dev
+
 RUN apk add --no-cache nginx su-exec \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
     && pecl install apcu \
@@ -41,7 +46,8 @@ ENV APP_ENV=production \
     CACHE_TTL=3600 \
     CACHE_DIR=/app/cache \
     FIXTURES_PATH=/app/fixtures \
-    DEFENSE_CONFIG_PATH=/app/config/defense.php
+    DEFENSE_CONFIG_PATH=/app/config/defense.php \
+    ASSET_VERSION=${GIT_SHA}
 
 WORKDIR /app
 

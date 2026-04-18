@@ -47,6 +47,18 @@ final class PageRenderer
 
         $fontsCssPath = dirname(__DIR__, 2) . '/public/static/fonts/fonts.css';
         $inlineFontsCss = is_file($fontsCssPath) ? (string) file_get_contents($fontsCssPath) : '';
+        // Append the asset version to every /static/fonts/*.woff2 URL inside
+        // the inlined font CSS, so the @font-face src matches the versioned
+        // <link rel="preload"> in layout.latte. Without this match the
+        // browser would fetch each font file twice on the first visit.
+        $assetVersion = (string) (getenv('ASSET_VERSION') ?: 'dev');
+        if ($inlineFontsCss !== '' && $assetVersion !== '') {
+            $inlineFontsCss = (string) preg_replace(
+                '~(/static/fonts/[A-Za-z0-9._-]+\.woff2)(?![?#])~',
+                '$1?v=' . $assetVersion,
+                $inlineFontsCss,
+            );
+        }
 
         return $this->renderer->render('layout.latte', array_merge($templateData, [
             'content' => $pageHtml,
@@ -198,6 +210,10 @@ final class PageRenderer
                 : [],
         ];
         $pageData = array_replace($datasets, $dynamicData, $pageMeta, $routeParameters, $extraData);
+        // Pre-compute id => url map from navigation.main once per request,
+        // so templates can use $navUrl['blog'] without recomputing array_column().
+        $navMain = $pageData['navigation']['main'] ?? null;
+        $pageData['nav_url'] = is_array($navMain) ? array_column($navMain, 'url', 'id') : [];
         $pageData['lang'] = $this->locale;
         $pageData['title'] = $this->resolveTemplate((string) ($pageConfig['title'] ?? 'Landing page'), $pageData);
         $pageData['description'] = $this->resolveDescription(
