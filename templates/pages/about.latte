@@ -32,6 +32,31 @@
   </div>
 </section>
 
+{if !empty($voice_cards) && ($voice_cards['visible'] ?? false) && !empty($voice_cards['items'])}
+<section id="voices" class="mk-section mk-voice-anchor" aria-labelledby="voice-cards-title">
+  <div class="mk-content">
+    <p class="mk-eyebrow" style="margin-bottom:0.75rem;">Читать как</p>
+    <h2 id="voice-cards-title" style="font-size:1.5rem;font-weight:700;margin:0 0 0.625rem;font-family:var(--font-display);">Те же материалы — другим голосом</h2>
+    <p style="font-size:0.9375rem;color:hsl(var(--muted-foreground));max-width:600px;line-height:1.65;margin:0 0 1.75rem;">
+      Содержание одно, тон разный. Голоса дублируют канон по фактам и закрыты от индексации.
+    </p>
+    <div class="mk-voice-cards">
+      {foreach $voice_cards['items'] as $voice}
+      <a href="{$voice['url']}" class="mk-voice-card-link" rel="nofollow" aria-label="Читать как {$voice['label']}">
+        <div class="mk-voice-card-link__avatar" aria-hidden="true">
+          <img src="{$voice['avatar']}" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="mk-voice-card-link__body">
+          <p class="mk-voice-card-link__name">{$voice['label']}</p>
+          <p class="mk-voice-card-link__slogan">{$voice['slogan']}</p>
+        </div>
+      </a>
+      {/foreach}
+    </div>
+  </div>
+</section>
+{/if}
+
 <section class="mk-section">
   <div class="mk-content">
     <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 1.75rem;font-family:var(--font-display);">{$about['sections']['principles_title'] ?? ''}</h2>

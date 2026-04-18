@@ -1,0 +1,11 @@
+{var $fab = $voice_fab ?? null}
+{if is_array($fab) && ($fab['visible'] ?? false)}
+<a
+  href="{$fab['url']}"
+  class="mk-voice-fab"
+  aria-label="{$fab['label']}"
+  rel="nofollow"
+>
+  <img src="{$fab['avatar']}" alt="" loading="lazy" decoding="async">
+</a>
+{/if}

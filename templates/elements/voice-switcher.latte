@@ -1,22 +1,20 @@
 {var $widget = $voice_widget ?? null}
 {if is_array($widget) && ($widget['visible'] ?? false) && !empty($widget['items'])}
 <aside class="mk-voice" aria-label="Читать как">
-  <div class="mk-shell">
-    <div class="mk-card mk-voice-card">
-      <p class="mk-voice-eyebrow">Читать как</p>
-      <div class="mk-voice-actions" role="group" aria-label="Выбор тона изложения">
-        {foreach $widget['items'] as $item}
-          <a
-            href="{$item['url']}"
-            class="mk-voice-btn{if $item['active']} is-active{/if}"
-            data-voice-id="{$item['id']}"
-            {if $item['active']}aria-current="true"{/if}
-            rel="nofollow"
-          >{$item['label']}</a>
-        {/foreach}
-      </div>
-      <p class="mk-voice-note">Тоны DevOps и Айтишник дублируют канон по содержанию и закрыты от индексации.</p>
+  <div class="mk-shell mk-voice-shell">
+    <p class="mk-voice-eyebrow">Читать как</p>
+    <div class="mk-voice-actions" role="group" aria-label="Выбор тона изложения">
+      {foreach $widget['items'] as $item}
+        <a
+          href="{$item['url']}"
+          class="mk-voice-btn{if $item['active']} is-active{/if}"
+          data-voice-id="{$item['id']}"
+          {if $item['active']}aria-current="true"{/if}
+          rel="nofollow"
+        >{$item['label']}</a>
+      {/foreach}
     </div>
+    <p class="mk-voice-note">Тоны DevOps и Айтишник дублируют канон по содержанию и закрыты от индексации.</p>
   </div>
 </aside>
 {/if}
