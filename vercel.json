@@ -4,8 +4,6 @@
   "installCommand": "bun install && bun run build:css",
   "buildCommand": "go build -ldflags '-s -w' -o \"$VERCEL_OUTPUT_FILE\" ./cmd/server",
   "env": {
-    "APP_DEFAULT_LOCALE": "en",
-    "FIXTURE_DIR": "internal/adapters/fixture/data-en",
-    "APP_STATIC_DIR": "web/static"
+    "APP_DEFAULT_LOCALE": "en"
   }
 }

@@ -36,6 +36,18 @@ func TestLoad(t *testing.T) {
 	}
 }
 
+func TestLoadLocaleEN(t *testing.T) {
+	t.Parallel()
+	store, err := LoadLocale("en")
+	if err != nil {
+		t.Fatalf("LoadLocale en: %v", err)
+	}
+	brand, err := store.Brand(context.Background())
+	if err != nil || brand.Name == "" {
+		t.Fatalf("Brand EN embed: %#v err=%v", brand, err)
+	}
+}
+
 func TestLoadEN(t *testing.T) {
 	t.Parallel()
 	store, err := Load(filepath.Join("data-en"))

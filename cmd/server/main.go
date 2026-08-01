@@ -15,6 +15,7 @@ import (
 	"github.com/authfly/website/internal/adapters/fixture"
 	"github.com/authfly/website/internal/app/site"
 	"github.com/authfly/website/internal/ports"
+	siteweb "github.com/authfly/website/web"
 )
 
 func main() {
@@ -31,9 +32,6 @@ func main() {
 		cfg.AppBind = "0.0.0.0:" + port
 	} else if os.Getenv("APP_BIND") == "" {
 		cfg.AppBind = "127.0.0.1:3011"
-	}
-	if os.Getenv("APP_STATIC_DIR") == "" {
-		cfg.StaticDir = "web/static"
 	}
 	if cfg.HealthLivePath == "" {
 		cfg.HealthLivePath = "/healthz"
@@ -57,20 +55,32 @@ func main() {
 	slog.SetDefault(logger)
 
 	fixtureDir := os.Getenv("FIXTURE_DIR")
-	if fixtureDir == "" {
-		if defaultLocale == "en" {
-			fixtureDir = "internal/adapters/fixture/data-en"
-		} else {
-			fixtureDir = "internal/adapters/fixture/data"
-		}
+	var store *fixture.Store
+	if fixtureDir != "" {
+		store, err = fixture.Load(fixtureDir)
+	} else {
+		// Embedded packs — required on Vercel (binary-only runtime).
+		store, err = fixture.LoadLocale(defaultLocale)
+		fixtureDir = "embed:" + defaultLocale
 	}
-	store, err := fixture.Load(fixtureDir)
 	if err != nil {
 		slog.Error("fixtures", "err", err)
 		os.Exit(1)
 	}
 	var content ports.Content = store
 
+	// On Vercel the working tree is not shipped with the binary.
+	if os.Getenv("VERCEL") != "" || os.Getenv("VERCEL_ENV") != "" {
+		staticDir, matErr := siteweb.MaterializeStatic()
+		if matErr != nil {
+			slog.Error("static", "err", matErr)
+			os.Exit(1)
+		}
+		cfg.StaticDir = staticDir
+		defer os.RemoveAll(staticDir)
+	} else if os.Getenv("APP_STATIC_DIR") == "" {
+		cfg.StaticDir = "web/static"
+	}
 	sf := site.New(site.Deps{Content: content})
 
 	application := app.New(cfg).
