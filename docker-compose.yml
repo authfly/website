@@ -1,10 +1,9 @@
-# Run from e:/ (parent of @_FlightPHP and @_Go):
-#   docker compose -f @_FlightPHP/@AuthFlySite/docker-compose.yml up --build
+# Russian marketing site — build from this repo (Framework comes from go.mod).
 services:
   authflyweb:
     build:
-      context: ../..
-      dockerfile: @_FlightPHP/@AuthFlySite/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     image: authfly/website:ru
     container_name: authflyweb
     restart: unless-stopped

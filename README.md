@@ -21,7 +21,13 @@ export FIXTURE_DIR=internal/adapters/fixture/data-en
 
 ## Develop
 
-Needs sibling `../../_@Go/@Framework` (see `go.mod` replace).
+Needs `github.com/fastygo/framework` (pinned in `go.mod`). For a local Framework checkout:
+
+```bash
+cp go.work.example go.work
+# uncomment the Framework `use` line, then:
+go work sync
+```
 
 ```bash
 bun install
@@ -30,19 +36,32 @@ cp .env.example .env
 bun run dev   # templ generate + go run on :3011
 ```
 
-## Docker (RU)
+## Vercel (English)
 
-From `e:/` (parent of `@_FlightPHP` and `@_Go`):
+Project: import `authfly/website`, root = repo root, Framework Preset = **Go**.
+
+`vercel.json` already sets EN fixtures and builds CSS + templ:
+
+| Env | Value |
+| --- | --- |
+| `APP_DEFAULT_LOCALE` | `en` |
+| `FIXTURE_DIR` | `internal/adapters/fixture/data-en` |
+| `APP_STATIC_DIR` | `web/static` |
+
+CLI:
 
 ```bash
-docker compose -f @_FlightPHP/@AuthFlySite/docker-compose.yml up --build
-# http://127.0.0.1:8080
+npx vercel          # preview
+npx vercel --prod   # production
 ```
 
-Vercel / EN locally:
+Server listens on Vercel `PORT` via `cmd/server/main.go`. Static assets: `/assets/...`.
+
+## Docker (RU)
 
 ```bash
-APP_DEFAULT_LOCALE=en FIXTURE_DIR=internal/adapters/fixture/data-en bun run dev
+docker compose up --build
+# http://127.0.0.1:8080
 ```
 
 ## Routes

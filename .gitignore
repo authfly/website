@@ -5,3 +5,5 @@ web/static/css/app.css
 dist/
 .DS_Store
 .manual/
+go.work
+go.work.sum

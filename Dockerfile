@@ -1,28 +1,28 @@
-# Build from workspace root (parent of @_FlightPHP and @_Go):
-#   docker build -f @_FlightPHP/@AuthFlySite/Dockerfile -t authfly/website:ru .
-# Or: docker compose -f @_FlightPHP/@AuthFlySite/docker-compose.yml up --build
+# Build from repo root:
+#   docker build -t authfly/website:ru .
+# Or compose from e:/ with adjusted context — prefer building inside this repo now
+# that Framework is a public Go module.
 
 FROM oven/bun:1.2-alpine AS css
 WORKDIR /src
-COPY @_FlightPHP/@AuthFlySite/package.json @_FlightPHP/@AuthFlySite/bun.lock* ./
+COPY package.json bun.lock* ./
 RUN bun install
-COPY @_FlightPHP/@AuthFlySite/fastygo.config.mjs ./
-COPY @_FlightPHP/@AuthFlySite/scripts ./scripts
-COPY @_FlightPHP/@AuthFlySite/web/static/css ./web/static/css
-COPY @_FlightPHP/@AuthFlySite/internal/views ./internal/views
-COPY @_FlightPHP/@AuthFlySite/internal/ui ./internal/ui
-COPY @_FlightPHP/@AuthFlySite/internal/kit/ui ./internal/kit/ui
+COPY fastygo.config.mjs ./
+COPY scripts ./scripts
+COPY web/static/css ./web/static/css
+COPY internal/views ./internal/views
+COPY internal/ui ./internal/ui
+COPY internal/kit/ui ./internal/kit/ui
 RUN bun run build:css
 
 FROM golang:1.25-bookworm AS build
 WORKDIR /src
 RUN go install github.com/a-h/templ/cmd/templ@v0.3.1001
-COPY @_FlightPHP/@AuthFlySite/ ./
-COPY @_Go/@Framework/ /framework/
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
 COPY --from=css /src/web/static/css/app.css ./web/static/css/app.css
-RUN sed -i 's|replace github.com/fastygo/framework => .*|replace github.com/fastygo/framework => /framework|' go.mod \
-  && go mod tidy \
-  && templ generate ./... \
+RUN templ generate ./... \
   && CGO_ENABLED=0 GOOS=linux go build -o /out/authflyweb ./cmd/server
 
 FROM gcr.io/distroless/static-debian12:nonroot

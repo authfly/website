@@ -26,7 +26,10 @@ func main() {
 		slog.Error("config", "err", err)
 		os.Exit(1)
 	}
-	if os.Getenv("APP_BIND") == "" {
+	// Vercel (and most PaaS) inject PORT; prefer it over APP_BIND.
+	if port := os.Getenv("PORT"); port != "" {
+		cfg.AppBind = "0.0.0.0:" + port
+	} else if os.Getenv("APP_BIND") == "" {
 		cfg.AppBind = "127.0.0.1:3011"
 	}
 	if os.Getenv("APP_STATIC_DIR") == "" {
