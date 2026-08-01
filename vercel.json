@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "go",
   "installCommand": "bun install && bun run build:css",
-  "buildCommand": "go run github.com/a-h/templ/cmd/templ@v0.3.1001 generate ./...",
+  "buildCommand": "go build -ldflags '-s -w' -o \"$VERCEL_OUTPUT_FILE\" ./cmd/server",
   "env": {
     "APP_DEFAULT_LOCALE": "en",
     "FIXTURE_DIR": "internal/adapters/fixture/data-en",
