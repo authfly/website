@@ -1,0 +1,13 @@
+package views
+
+import (
+	"github.com/authfly/website/internal/ui/blocks/about"
+	"github.com/authfly/website/internal/ui/layout"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ AboutPage(m viewmodels.AboutModel) {
+	@layout.Store(m.Layout) {
+		@about.Page(m)
+	}
+}

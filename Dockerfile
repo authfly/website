@@ -1,78 +1,40 @@
-# syntax=docker/dockerfile:1.7
+# Build from workspace root (parent of @_FlightPHP and @_Go):
+#   docker build -f @_FlightPHP/@AuthFlySite/Dockerfile -t authfly/website:ru .
+# Or: docker compose -f @_FlightPHP/@AuthFlySite/docker-compose.yml up --build
 
-FROM composer:2 AS vendor
+FROM oven/bun:1.2-alpine AS css
+WORKDIR /src
+COPY @_FlightPHP/@AuthFlySite/package.json @_FlightPHP/@AuthFlySite/bun.lock* ./
+RUN bun install
+COPY @_FlightPHP/@AuthFlySite/fastygo.config.mjs ./
+COPY @_FlightPHP/@AuthFlySite/scripts ./scripts
+COPY @_FlightPHP/@AuthFlySite/web/static/css ./web/static/css
+COPY @_FlightPHP/@AuthFlySite/internal/views ./internal/views
+COPY @_FlightPHP/@AuthFlySite/internal/ui ./internal/ui
+COPY @_FlightPHP/@AuthFlySite/internal/kit/ui ./internal/kit/ui
+RUN bun run build:css
 
+FROM golang:1.25-bookworm AS build
+WORKDIR /src
+RUN go install github.com/a-h/templ/cmd/templ@v0.3.1001
+COPY @_FlightPHP/@AuthFlySite/ ./
+COPY @_Go/@Framework/ /framework/
+COPY --from=css /src/web/static/css/app.css ./web/static/css/app.css
+RUN sed -i 's|replace github.com/fastygo/framework => .*|replace github.com/fastygo/framework => /framework|' go.mod \
+  && go mod tidy \
+  && templ generate ./... \
+  && CGO_ENABLED=0 GOOS=linux go build -o /out/authflyweb ./cmd/server
+
+FROM gcr.io/distroless/static-debian12:nonroot
 WORKDIR /app
-
-COPY composer.json composer.lock ./
-
-RUN composer install \
-    --no-dev \
-    --no-interaction \
-    --no-progress \
-    --no-scripts \
-    --prefer-dist \
-    --no-autoloader
-
-COPY config ./config
-COPY public ./public
-COPY scripts ./scripts
-COPY src ./src
-COPY templates ./templates
-
-RUN composer dump-autoload \
-    --no-dev \
-    --classmap-authoritative \
-    --optimize
-
-
-FROM php:8.4-fpm-alpine AS runtime
-
-# Build-time argument: short git SHA from CI. Defaults to "dev" for local
-# builds. Exposed at runtime as ASSET_VERSION and appended to /static/ URLs
-# in templates so each deploy invalidates browser caches automatically.
-ARG GIT_SHA=dev
-
-RUN apk add --no-cache nginx su-exec \
-    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu opcache \
-    && apk del .build-deps \
-    && rm -rf /tmp/pear
-
-ENV APP_ENV=production \
-    APP_DEBUG=false \
-    DATA_SOURCE=fixtures \
-    CACHE_TTL=3600 \
-    CACHE_DIR=/app/cache \
-    FIXTURES_PATH=/app/fixtures \
-    DEFENSE_CONFIG_PATH=/app/config/defense.php \
-    ASSET_VERSION=${GIT_SHA}
-
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-COPY config ./config
-COPY fixtures ./fixtures
-COPY public ./public
-COPY scripts ./scripts
-COPY src ./src
-COPY templates ./templates
-COPY --from=vendor /app/vendor ./vendor
-
-COPY php.ini /usr/local/etc/php/conf.d/zz-app.ini
-COPY apcu.ini /usr/local/etc/php/conf.d/zz-apcu.ini
-COPY docker/production/nginx/default.conf /etc/nginx/http.d/default.conf
-COPY docker/production/entrypoint.sh /usr/local/bin/docker-entrypoint
-
-RUN mkdir -p /app/cache /app/templates/cache /run/nginx /var/lib/nginx /var/log/nginx \
-    && chown -R www-data:www-data /app/cache /app/templates/cache \
-    && sed -i 's/\r$//' /usr/local/bin/docker-entrypoint \
-    && chmod +x /usr/local/bin/docker-entrypoint
-
-EXPOSE 80
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD wget -q -O- http://127.0.0.1/api/health | grep -q '"status":"ok"' || exit 1
-
-ENTRYPOINT ["docker-entrypoint"]
+COPY --from=build /out/authflyweb /app/authflyweb
+COPY --from=build /src/web/static /app/web/static
+COPY --from=build /src/internal/adapters/fixture/data /app/internal/adapters/fixture/data
+COPY --from=build /src/internal/adapters/fixture/data-en /app/internal/adapters/fixture/data-en
+ENV APP_BIND=0.0.0.0:8080 \
+    APP_STATIC_DIR=/app/web/static \
+    APP_DEFAULT_LOCALE=ru \
+    FIXTURE_DIR=/app/internal/adapters/fixture/data
+EXPOSE 8080
+USER nonroot:nonroot
+ENTRYPOINT ["/app/authflyweb"]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "github",
+    "title": "GitHub",
+    "value": "github.com/authfly",
+    "note": "Issues, discussions, releases, and private security advisories."
+  },
+  {
+    "id": "telegram",
+    "title": "Telegram",
+    "value": "t.me/authfly",
+    "note": "Public channel with build notes and roadmap updates."
+  },
+  {
+    "id": "npm",
+    "title": "npm",
+    "value": "npmjs.com/org/authfly",
+    "note": "Browser SDK packages — start with AuthKit TS."
+  }
+]

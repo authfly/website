@@ -1,0 +1,7 @@
+{
+  "name": "Auth Fly",
+  "legalName": "2026 Auth Fly",
+  "tagline": "SSO. SDKs. Adapters. Take off.",
+  "offer": "Open auth construction kit",
+  "description": "Auth Fly is a self-hosted SSO Identity Provider for SAML 2.0 and OIDC, a hosted UI on UI8Kit, and adaptive SDKs that fit any language or framework. PoC is live with Hanko as the credential backend; MVP runs on Supabase or your own Postgres. No telemetry, no hidden update channels — security tracked in the open."
+}

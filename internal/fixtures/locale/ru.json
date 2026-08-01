@@ -1,0 +1,65 @@
+{
+  "brand_home_aria": "На главную",
+  "skip_to_content": "К содержанию",
+  "theme": {
+    "label": "Тема",
+    "switch_to_dark": "Тёмная тема",
+    "switch_to_light": "Светлая тема"
+  },
+  "nav": {
+    "solutions": "Модули",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "contacts": "Контакты",
+    "primary_aria": "Основная навигация",
+    "mobile_aria": "Мобильное меню",
+    "menu_aria": "Открыть меню",
+    "close_menu_aria": "Закрыть меню"
+  },
+  "footer": {
+    "sections": "Разделы",
+    "solutions": "Модули",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "docs": "Документы",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия",
+    "contacts": "Контакты"
+  },
+  "common": {
+    "back": "Назад",
+    "read_more": "Читать",
+    "minutes": "мин"
+  },
+  "pages": {
+    "projects": "Модули",
+    "blog": "Журнал",
+    "about": "О проекте",
+    "contacts": "Контакты",
+    "not_found": "Страница не найдена"
+  },
+  "home": {
+    "cta_primary": "Смотреть модули",
+    "cta_secondary": "Открыть журнал",
+    "featured_label": "Начните с этого модуля",
+    "featured_link": "Как устроен модуль",
+    "advantages_title": "Что вы получаете с АутФлаем",
+    "projects_rail": "Из чего собран АутФлай",
+    "projects_all": "Все модули",
+    "blog_rail": "Свежие записи журнала",
+    "blog_all": "Весь журнал"
+  },
+  "projects_index": {
+    "title": "Из чего собран АутФлай",
+    "lead": "Пять небольших модулей. Каждый намеренно маленький: маленькое легче читать, легче чинить и легче объяснять на код-ревью."
+  },
+  "blog_index": {
+    "title": "Журнал",
+    "lead": "Заметки о self-hosted IdP, hosted-UI и о том, почему скучная надёжность лучше ярких обещаний."
+  },
+  "common_more": "Подробнее",
+  "back_projects": "← Все модули",
+  "outcomes_title": "Факты",
+  "metrics_title": "Стек",
+  "stack_title": "Компоненты"
+}

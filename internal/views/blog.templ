@@ -1,0 +1,19 @@
+package views
+
+import (
+	"github.com/authfly/website/internal/ui/blocks/blog"
+	"github.com/authfly/website/internal/ui/layout"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ BlogPage(m viewmodels.BlogModel) {
+	@layout.Store(m.Layout) {
+		@blog.Index(m)
+	}
+}
+
+templ BlogPostPage(m viewmodels.BlogPostModel) {
+	@layout.Store(m.Layout) {
+		@blog.Post(m)
+	}
+}

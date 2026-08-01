@@ -1,0 +1,26 @@
+package notfound
+
+import (
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/stack"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ Page(m viewmodels.NotFoundModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "mx-auto max-w-lg py-16 text-center"}) {
+		@stack.Stack(stack.StackProps{Class: "gap-4"}) {
+			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
+				Страница не найдена
+			}
+			@text.Text(text.TextProps{Class: "text-muted-foreground"}) {
+				Страницы { m.Path } на сайте нет — возможно, ссылка устарела.
+			}
+			@link.Link(link.LinkProps{Href: "/", Class: "text-sm font-semibold text-primary no-underline hover:underline"}) {
+				На главную
+			}
+		}
+	}
+}

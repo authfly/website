@@ -1,0 +1,52 @@
+package legal
+
+import (
+	templpkg "github.com/a-h/templ"
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/inline"
+	"github.com/authfly/website/internal/kit/ui/list"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ Page(m viewmodels.LegalModel) {
+	@block.Block(block.BlockProps{Tag: "article", Class: "mx-auto max-w-3xl space-y-8"}) {
+		@block.Block(block.BlockProps{Tag: "header", Class: "space-y-3"}) {
+			@inline.Inline(inline.InlineProps{Class: "text-sm text-muted-foreground"}) {
+				Версия { m.Doc.Version } · действует с { m.Doc.EffectiveFrom }
+			}
+			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
+				{ m.Doc.Title }
+			}
+			@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
+				{ m.Doc.Lead }
+			}
+		}
+		for _, section := range m.Doc.Sections {
+			@block.Block(block.BlockProps{
+				Tag:   "section",
+				Class: "space-y-3",
+				Attrs: templpkg.Attributes{"id": section.ID},
+			}) {
+				@title.Title(title.TitleProps{As: 2, Class: "text-xl font-semibold"}) {
+					{ section.Title }
+				}
+				if section.Summary != "" {
+					@text.Text(text.TextProps{Class: "text-muted-foreground"}) {
+						{ section.Summary }
+					}
+				}
+				if len(section.Points) > 0 {
+					@list.List(list.ListProps{Class: "list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground"}) {
+						for _, p := range section.Points {
+							@list.ListItem(list.ListItemProps{}) {
+								{ p }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

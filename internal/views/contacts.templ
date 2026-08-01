@@ -1,0 +1,13 @@
+package views
+
+import (
+	"github.com/authfly/website/internal/ui/blocks/contacts"
+	"github.com/authfly/website/internal/ui/layout"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ ContactsPage(m viewmodels.ContactsModel) {
+	@layout.Store(m.Layout) {
+		@contacts.Page(m)
+	}
+}

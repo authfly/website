@@ -1,0 +1,144 @@
+package solutions
+
+import (
+	"github.com/authfly/website/internal/kit/ui/badge"
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/box"
+	"github.com/authfly/website/internal/kit/ui/grid"
+	"github.com/authfly/website/internal/kit/ui/group"
+	"github.com/authfly/website/internal/kit/ui/inline"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/list"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/ui/components"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ Index(m viewmodels.SolutionsModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "space-y-10"}) {
+		@components.SectionHeader(
+			m.Layout.Copy.ProjectsIndex.Title,
+			m.Layout.Copy.ProjectsIndex.Lead,
+		)
+		@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
+			for _, p := range m.Solutions {
+				@components.SolutionCard(p)
+			}
+		}
+	}
+}
+
+templ Detail(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "article", Class: "space-y-12"}) {
+		@Hero(m)
+		if len(m.Solution.Metrics) > 0 {
+			@Metrics(m)
+		}
+		if len(m.Solution.Sections) > 0 {
+			@Sections(m)
+		}
+		if len(m.Solution.Outcomes) > 0 {
+			@Outcomes(m)
+		}
+		if len(m.Solution.Stack) > 0 {
+			@Stack(m)
+		}
+		@link.Link(link.LinkProps{Href: "/projects", Class: "text-sm font-semibold text-primary no-underline hover:underline"}) {
+			{ m.Layout.Copy.BackProjects }
+		}
+	}
+}
+
+templ Hero(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "header", Class: "max-w-3xl space-y-5"}) {
+		@group.Group(group.GroupProps{Class: "flex-wrap items-center gap-2"}) {
+			@badge.Badge(badge.BadgeProps{Variant: "secondary", Class: "rounded-full px-3 py-1"}) {
+				{ m.Solution.Eyebrow }
+			}
+			@badge.Badge(badge.BadgeProps{Variant: "outline", Class: "rounded-full px-3 py-1"}) {
+				{ m.Solution.Status }
+			}
+		}
+		@title.Title(title.TitleProps{
+			As:    1,
+			Class: "font-display text-display-1 font-bold",
+		}) {
+			{ m.Solution.Title }
+		}
+		@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
+			{ m.Solution.Hero }
+		}
+		@text.Text(text.TextProps{Class: "leading-7 text-muted-foreground"}) {
+			{ m.Solution.Summary }
+		}
+	}
+}
+
+templ Metrics(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
+		@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+			{ m.Layout.Copy.MetricsTitle }
+		}
+		@grid.Grid(grid.GridProps{Class: "gap-4 sm:grid-cols-3"}) {
+			for _, metric := range m.Solution.Metrics {
+				@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5"}) {
+					@text.Text(text.TextProps{Class: "numeric text-display-3 font-bold text-primary"}) {
+						{ metric.Value }
+					}
+					@text.Text(text.TextProps{Class: "mt-1 font-medium"}) {
+						{ metric.Label }
+					}
+					@text.Text(text.TextProps{Class: "mt-1 text-sm text-muted-foreground"}) {
+						{ metric.Note }
+					}
+				}
+			}
+		}
+	}
+}
+
+templ Sections(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "space-y-6"}) {
+		for _, section := range m.Solution.Sections {
+			@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5"}) {
+				@title.Title(title.TitleProps{As: 2, Class: "text-xl font-semibold"}) {
+					{ section.Title }
+				}
+				@text.Text(text.TextProps{Class: "mt-2 leading-7 text-muted-foreground"}) {
+					{ section.Body }
+				}
+			}
+		}
+	}
+}
+
+templ Outcomes(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
+		@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+			{ m.Layout.Copy.OutcomesTitle }
+		}
+		@list.List(list.ListProps{Tag: "ul", Class: "list-disc space-y-2 pl-5 text-muted-foreground"}) {
+			for _, item := range m.Solution.Outcomes {
+				@list.ListItem(list.ListItemProps{}) {
+					{ item }
+				}
+			}
+		}
+	}
+}
+
+templ Stack(m viewmodels.SolutionModel) {
+	@block.Block(block.BlockProps{Tag: "section", Class: "space-y-3"}) {
+		@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+			{ m.Layout.Copy.StackTitle }
+		}
+		@group.Group(group.GroupProps{Class: "flex-wrap gap-2"}) {
+			for _, item := range m.Solution.Stack {
+				@inline.Inline(inline.InlineProps{Class: "rounded-full border border-border bg-card px-3 py-1 text-sm"}) {
+					{ item }
+				}
+			}
+		}
+	}
+}

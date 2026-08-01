@@ -1,0 +1,19 @@
+package views
+
+import (
+	"github.com/authfly/website/internal/ui/blocks/solutions"
+	"github.com/authfly/website/internal/ui/layout"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ SolutionsPage(m viewmodels.SolutionsModel) {
+	@layout.Store(m.Layout) {
+		@solutions.Index(m)
+	}
+}
+
+templ SolutionPage(m viewmodels.SolutionModel) {
+	@layout.Store(m.Layout) {
+		@solutions.Detail(m)
+	}
+}

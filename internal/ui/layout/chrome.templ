@@ -1,0 +1,242 @@
+package layout
+
+import (
+	templpkg "github.com/a-h/templ"
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/box"
+	"github.com/authfly/website/internal/kit/ui/button"
+	"github.com/authfly/website/internal/kit/ui/grid"
+	"github.com/authfly/website/internal/kit/ui/group"
+	"github.com/authfly/website/internal/kit/ui/inline"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/stack"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ SkipLink(m viewmodels.LayoutModel) {
+	@link.Link(link.LinkProps{
+		Href:  "#main",
+		Class: "sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-card focus:px-4 focus:py-2",
+	}) {
+		{ m.Copy.SkipToContent }
+	}
+}
+
+templ PromoBar(offer string) {
+	if offer != "" {
+		@box.Box(box.BoxProps{Class: "border-b border-border bg-secondary text-secondary-foreground"}) {
+			@box.Box(box.BoxProps{Class: "mx-auto flex max-w-7xl items-center justify-center px-4 py-2 text-center text-sm font-medium sm:px-6"}) {
+				{ offer }
+			}
+		}
+	}
+}
+
+templ Header(m viewmodels.LayoutModel) {
+	@block.Block(block.BlockProps{
+		Tag:   "header",
+		Class: "sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md",
+	}) {
+		@group.Group(group.GroupProps{Class: "mx-auto h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[4.5rem]"}) {
+			@link.Link(link.LinkProps{
+				Href:      "/",
+				Class:     "shrink-0 no-underline",
+				AriaLabel: m.Copy.BrandHomeAria,
+			}) {
+				@inline.Inline(inline.InlineProps{Class: "brand-wordmark text-2xl font-bold tracking-tight text-primary"}) {
+					{ m.Brand.Name }
+				}
+			}
+			@block.Block(block.BlockProps{
+				Tag:   "nav",
+				Class: "hidden items-center gap-1 lg:flex",
+				Attrs: templpkg.Attributes{"aria-label": m.Copy.Nav.PrimaryAria},
+			}) {
+				@link.Link(link.LinkProps{Href: "/projects", Class: navClass(m.Path, "/projects")}) {
+					{ m.Copy.Nav.Solutions }
+				}
+				@link.Link(link.LinkProps{Href: "/blog", Class: navClass(m.Path, "/blog")}) {
+					{ m.Copy.Nav.Blog }
+				}
+				@link.Link(link.LinkProps{Href: "/about", Class: navClass(m.Path, "/about")}) {
+					{ m.Copy.Nav.About }
+				}
+				@link.Link(link.LinkProps{Href: "/contacts", Class: navClass(m.Path, "/contacts")}) {
+					{ m.Copy.Nav.Contacts }
+				}
+			}
+			@group.Group(group.GroupProps{Class: "items-center gap-2"}) {
+				@ThemeToggle(m)
+				@button.Button(button.ButtonProps{
+					Type:      "button",
+					Variant:   "outline",
+					Class:     "grid h-11 w-11 place-items-center rounded-xl bg-card lg:hidden",
+					AriaLabel: m.Copy.Nav.MenuAria,
+					Attrs: templpkg.Attributes{
+						"@click":         "menuOpen = true",
+						":aria-expanded": "menuOpen.toString()",
+						"aria-controls":  "mobile-navigation",
+					},
+				}) {
+					@inline.Inline(inline.InlineProps{Attrs: templpkg.Attributes{"aria-hidden": "true"}}) {
+						☰
+					}
+				}
+			}
+		}
+	}
+	@MobileMenu(m)
+}
+
+templ ThemeToggle(m viewmodels.LayoutModel) {
+	@button.Button(button.ButtonProps{
+		ID:        "ui8kit-theme-toggle",
+		Type:      "button",
+		Variant:   "outline",
+		Class:     "grid h-11 w-11 place-items-center rounded-xl bg-card text-base",
+		AriaLabel: m.Copy.Theme.SwitchToDark,
+		Attrs: templpkg.Attributes{
+			"data-switch-to-dark-label":  m.Copy.Theme.SwitchToDark,
+			"data-switch-to-light-label": m.Copy.Theme.SwitchToLight,
+			"title":                      m.Copy.Theme.Label,
+			"aria-pressed":               "false",
+		},
+	}) {
+		@inline.Inline(inline.InlineProps{
+			Class: "leading-none",
+			Attrs: templpkg.Attributes{"id": "theme-toggle-icon", "aria-hidden": "true"},
+		}) {
+			☾
+		}
+	}
+}
+
+templ MobileMenu(m viewmodels.LayoutModel) {
+	@box.Box(box.BoxProps{
+		Class: "fixed inset-0 z-50 bg-foreground/40 lg:hidden",
+		Attrs: templpkg.Attributes{
+			"x-show":      "menuOpen",
+			"x-cloak":     "",
+			"@click":      "menuOpen = false",
+			"aria-hidden": "true",
+		},
+	}) {
+	}
+	@box.Box(box.BoxProps{
+		Class: "fixed inset-y-0 left-0 z-50 flex w-full max-w-sm flex-col border-r border-border bg-background shadow-xl lg:hidden",
+		Attrs: templpkg.Attributes{
+			"id":                       "mobile-navigation",
+			"role":                     "dialog",
+			"aria-modal":               "true",
+			"x-show":                   "menuOpen",
+			"x-cloak":                  "",
+			"x-transition:enter":       "transition transform ease-out duration-200",
+			"x-transition:enter-start": "-translate-x-full",
+			"x-transition:enter-end":   "translate-x-0",
+			"x-transition:leave":       "transition transform ease-in duration-150",
+			"x-transition:leave-start": "translate-x-0",
+			"x-transition:leave-end":   "-translate-x-full",
+			"@keydown.escape.window":  "menuOpen = false",
+		},
+	}) {
+		@group.Group(group.GroupProps{Class: "items-center justify-between gap-3 border-b border-border px-4 py-3"}) {
+			@title.Title(title.TitleProps{As: 2, Class: "text-sm font-semibold text-muted-foreground"}) {
+				{ m.Brand.Name }
+			}
+			@button.Button(button.ButtonProps{
+				Type:      "button",
+				Variant:   "outline",
+				Class:     "grid h-9 w-9 place-items-center rounded-lg",
+				AriaLabel: m.Copy.Nav.CloseMenuAria,
+				Attrs:     templpkg.Attributes{"@click": "menuOpen = false"},
+			}) {
+				✕
+			}
+		}
+		@block.Block(block.BlockProps{
+			Tag:   "nav",
+			Class: "flex flex-1 flex-col gap-1 overflow-y-auto p-3",
+			Attrs: templpkg.Attributes{"aria-label": m.Copy.Nav.MobileAria},
+		}) {
+			@link.Link(link.LinkProps{Href: "/projects", Class: mobileNavClass(m.Path, "/projects")}) {
+				{ m.Copy.Nav.Solutions }
+			}
+			@link.Link(link.LinkProps{Href: "/blog", Class: mobileNavClass(m.Path, "/blog")}) {
+				{ m.Copy.Nav.Blog }
+			}
+			@link.Link(link.LinkProps{Href: "/about", Class: mobileNavClass(m.Path, "/about")}) {
+				{ m.Copy.Nav.About }
+			}
+			@link.Link(link.LinkProps{Href: "/contacts", Class: mobileNavClass(m.Path, "/contacts")}) {
+				{ m.Copy.Nav.Contacts }
+			}
+		}
+	}
+}
+
+templ Footer(m viewmodels.LayoutModel) {
+	@block.Block(block.BlockProps{
+		Tag:   "footer",
+		Class: "mt-auto border-t border-border bg-card",
+	}) {
+		@grid.Grid(grid.GridProps{Class: "mx-auto max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3"}) {
+			@stack.Stack(stack.StackProps{Class: "space-y-2 gap-2"}) {
+				@inline.Inline(inline.InlineProps{Class: "brand-wordmark text-xl font-bold text-primary"}) {
+					{ m.Brand.Name }
+				}
+				@text.Text(text.TextProps{Class: "text-sm text-muted-foreground"}) {
+					{ m.Brand.Offer }
+				}
+			}
+			@stack.Stack(stack.StackProps{Class: "gap-2 text-sm"}) {
+				@text.Text(text.TextProps{Class: "font-semibold"}) {
+					{ m.Copy.Footer.Sections }
+				}
+				@link.Link(link.LinkProps{Href: "/projects", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.Solutions }
+				}
+				@link.Link(link.LinkProps{Href: "/blog", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.Blog }
+				}
+				@link.Link(link.LinkProps{Href: "/about", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.About }
+				}
+				@link.Link(link.LinkProps{Href: "/contacts", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.Contacts }
+				}
+			}
+			@stack.Stack(stack.StackProps{Class: "gap-2 text-sm"}) {
+				@text.Text(text.TextProps{Class: "font-semibold"}) {
+					{ m.Copy.Footer.Docs }
+				}
+				@link.Link(link.LinkProps{Href: "/legal/privacy", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.Privacy }
+				}
+				@link.Link(link.LinkProps{Href: "/legal/terms", Class: "block text-muted-foreground no-underline hover:text-primary"}) {
+					{ m.Copy.Footer.Terms }
+				}
+			}
+		}
+		@box.Box(box.BoxProps{Class: "border-t border-border py-4 text-center text-xs text-muted-foreground"}) {
+			{ m.Brand.LegalName }
+		}
+	}
+}
+
+func navClass(path, href string) string {
+	base := "rounded-lg px-3 py-2 text-sm font-medium transition-colors no-underline "
+	if path == href || (href != "/" && len(path) >= len(href) && path[:len(href)] == href) {
+		return base + "bg-secondary text-secondary-foreground"
+	}
+	return base + "hover:bg-muted"
+}
+
+func mobileNavClass(path, href string) string {
+	base := "rounded-lg px-3 py-2.5 text-sm font-medium no-underline "
+	if path == href || (href != "/" && len(path) >= len(href) && path[:len(href)] == href) {
+		return base + "bg-accent text-accent-foreground"
+	}
+	return base + "text-foreground hover:bg-muted"
+}

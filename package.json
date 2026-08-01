@@ -1,7 +1,16 @@
 {
+  "name": "authfly-website",
+  "private": true,
+  "scripts": {
+    "build:css": "bun scripts/build-css.mjs",
+    "dev": "bun run build:css && bash ./scripts/dev.sh",
+    "g": "bun run dev",
+    "retag": "bash ./scripts/retag-check.sh",
+    "test": "bash ./scripts/test.sh",
+    "config": "bun scripts/config-get.mjs --json"
+  },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.2",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^4.2.2"
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss": "^4.1.11"
   }
 }

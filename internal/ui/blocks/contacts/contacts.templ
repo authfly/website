@@ -1,0 +1,40 @@
+package contacts
+
+import (
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/box"
+	"github.com/authfly/website/internal/kit/ui/grid"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ Page(m viewmodels.ContactsModel) {
+	@block.Block(block.BlockProps{Tag: "article", Class: "space-y-10"}) {
+		@block.Block(block.BlockProps{Tag: "header", Class: "max-w-3xl space-y-3"}) {
+			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
+				Контакты
+			}
+			@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
+				Напишите, если в материалах что-то не сходится с практикой или нужно уточнение по конфигурации.
+			}
+		}
+		@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
+			@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
+				for _, ch := range m.Channels {
+					@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5"}) {
+						@text.Text(text.TextProps{Class: "font-semibold"}) {
+							{ ch.Title }
+						}
+						@text.Text(text.TextProps{Class: "mt-1 text-primary"}) {
+							{ ch.Value }
+						}
+						@text.Text(text.TextProps{Class: "mt-2 text-sm text-muted-foreground"}) {
+							{ ch.Note }
+						}
+					}
+				}
+			}
+		}
+	}
+}

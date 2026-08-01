@@ -1,0 +1,14 @@
+{
+  "title": "Auth Fly",
+  "lead": "Open auth, owned by you. Auth Fly is an open construction kit for authentication: a self-hosted SAML 2.0 + OIDC Identity Provider, a hosted UI on UI8Kit, and adaptive SDKs that fit any language or framework. PoC is live with Hanko as the credential backend; MVP runs on Supabase or your own Postgres through the SSO SPI.",
+  "body": [
+    "The through-line is boring reliability: provider-agnostic core contracts, narrow adapters per credential backend, observability over storytelling, and documentation that matches production behaviour.",
+    "Security is not a feature — it is the spine of the project. Hardening is tracked publicly via a pre-flight checklist, with no telemetry and no third-party update channels in the critical path."
+  ],
+  "pillars": [
+    "Own your IdP: Self-hosted, no telemetry, no third-party update calls. The IdP runs on your origin and only on your origin.",
+    "Adaptive SDKs: One TypeScript core for the browser; thin adapters per provider and per language. New stacks ship as adapters, not rewrites.",
+    "Provider-agnostic core: Core contracts depend on no UI and no backend. Swap Hanko for Supabase or a custom Postgres without touching the IdP or the UI.",
+    "Security in the open: Hardening tracked publicly with a pre-flight checklist. Strong points and gaps are listed side by side."
+  ]
+}

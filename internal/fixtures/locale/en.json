@@ -1,0 +1,65 @@
+{
+  "brand_home_aria": "Home",
+  "skip_to_content": "Skip to content",
+  "theme": {
+    "label": "Theme",
+    "switch_to_dark": "Dark theme",
+    "switch_to_light": "Light theme"
+  },
+  "nav": {
+    "solutions": "Modules",
+    "blog": "Journal",
+    "about": "About",
+    "contacts": "Contact",
+    "primary_aria": "Primary navigation",
+    "mobile_aria": "Mobile menu",
+    "menu_aria": "Open menu",
+    "close_menu_aria": "Close menu"
+  },
+  "footer": {
+    "sections": "Sections",
+    "solutions": "Modules",
+    "blog": "Journal",
+    "about": "About",
+    "docs": "Documents",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contacts": "Contact"
+  },
+  "common": {
+    "back": "Back",
+    "read_more": "Read",
+    "minutes": "min"
+  },
+  "pages": {
+    "projects": "Modules",
+    "blog": "Journal",
+    "about": "About",
+    "contacts": "Contact",
+    "not_found": "Page not found"
+  },
+  "home": {
+    "cta_primary": "Browse modules",
+    "cta_secondary": "Open journal",
+    "featured_label": "Start with this module",
+    "featured_link": "How this module works",
+    "advantages_title": "What you get with Auth Fly",
+    "projects_rail": "What Auth Fly is made of",
+    "projects_all": "All modules",
+    "blog_rail": "Latest journal notes",
+    "blog_all": "Full journal"
+  },
+  "projects_index": {
+    "title": "What Auth Fly is made of",
+    "lead": "Five small modules on purpose: easier to read, easier to fix, easier to explain in a Friday review."
+  },
+  "blog_index": {
+    "title": "Journal",
+    "lead": "Notes on self-hosted IdP, hosted UI, and why boring reliability beats shiny promises."
+  },
+  "common_more": "Details",
+  "back_projects": "← All modules",
+  "outcomes_title": "Facts",
+  "metrics_title": "Stack",
+  "stack_title": "Components"
+}

@@ -1,0 +1,152 @@
+/*
+ * Theme pack: YMAIL promo — derived from the GoMail app DNA.
+ * Channels are bare `H S% L%` (shadcn convention); tokens.css wraps them in hsl().
+ *
+ * Ported verbatim from GoMail (web/static/css/skins/gomail.css):
+ *   indigo brand 226, cool-neutral 220 greys, radius 0.75rem, single Inter family.
+ *
+ * Promo-only deltas are marked `promo:` — each one exists because a landing page
+ * has ~10 large elements per screen, while the mail client has hundreds of rows.
+ */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ---------------------------------------------------------------- type ---
+   * GoMail ships one family and separates hierarchy by weight + tracking only.
+   * The promo site keeps that: display text is Inter at 700 with negative
+   * tracking, NOT a second display face — the family is the strongest
+   * "same product" signal we have.
+   *
+   * If long-form blog prose ever wants an editorial serif, add it as a third
+   * stack here and load the webfont — do not reach for it on marketing chrome.
+   */
+  --font-sans-stack: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display-stack: var(--font-sans-stack);
+  --font-mono-stack: ui-monospace, "Cascadia Code", SFMono-Regular, monospace;
+
+  /* -------------------------------------------------------------- surface ---
+   * Three levels, same hue family:
+   *   canvas (recessed band) < background (page) < card (raised)
+   * promo: page lifts to 98% L. GoMail's 95% canvas is correct behind an app
+   * chrome that frames white panes, but reads dull across a full-bleed page —
+   * so 95% is demoted to `canvas`, used for alternating section bands.
+   */
+  --background: 220 30% 98%;
+  --canvas: 220 30% 95%;
+  --foreground: 222 32% 13%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 32% 13%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 32% 13%;
+
+  /* ----------------------------------------------------------------- brand --- */
+  --primary: 226 70% 55%;
+  --primary-foreground: 0 0% 100%;
+
+  /* `accent` is a SURFACE tint, not a highlight colour — this is how GoMail
+   * paints active nav items and selected rows. Keep the role identical so the
+   * promo header's active link matches the app's sidebar. */
+  --accent: 226 90% 96%;
+  --accent-foreground: 226 70% 40%;
+
+  /* promo: the one colour GoMail has no use for. A mail client never needs to
+   * shout; a landing page needs a non-brand hue for badges, pricing and offers.
+   * Warm amber sits opposite indigo, so emphasis reads as emphasis. */
+  --highlight: 38 92% 50%;
+  --highlight-foreground: 30 45% 12%;
+
+  /* ---------------------------------------------------------------- neutral --- */
+  --secondary: 220 20% 94%;
+  --secondary-foreground: 222 32% 13%;
+  --muted: 220 20% 94%;
+  --muted-foreground: 220 10% 44%;
+  --border: 220 18% 89%;
+  --input: 220 24% 97%;
+  --ring: 226 70% 55%;
+
+  /* ---------------------------------------------------------------- status --- */
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --destructive-soft: 0 85% 97%;
+  --success: 152 45% 38%;
+  --success-foreground: 0 0% 100%;
+
+  /* ----------------------------------------------------------------- shape ---
+   * GoMail's base radius. tokens.css derives the ramp so controls land on 16px
+   * and cards on 20px — the exact values the app uses.
+   */
+  --radius: 0.75rem;
+
+  /* -------------------------------------------------------------- elevation ---
+   * GoMail is deliberately flat: separation comes from `border` + `bg-card`,
+   * and shadow is reserved for the login card and composer dialog.
+   *
+   * promo: shadows are affordable here (few, large elements) and needed to make
+   * cards feel clickable. They stay in-family by being BRAND-TINTED rather than
+   * neutral grey, and the 1px border is never dropped — so a promo card still
+   * reads as the same object as an app pane, just lifted off the page.
+   *
+   * Raw values take an `elevate-` prefix because `--shadow-*` is a Tailwind
+   * theme namespace, so a raw `--shadow-lift` would collide with the bridged
+   * one (the same reason the font stacks carry a `-stack` suffix).
+   */
+  --elevate-lift:
+    0 1px 2px hsl(222 32% 13% / 0.04),
+    0 8px 24px -16px hsl(226 70% 30% / 0.18);
+  --elevate-float:
+    0 2px 4px hsl(222 32% 13% / 0.05),
+    0 18px 40px -24px hsl(226 70% 30% / 0.28);
+  --elevate-brand: 0 12px 32px -14px hsl(226 70% 55% / 0.45);
+
+  /* ------------------------------------------------------------- motion ---
+   * Easing lifted from GoMail's animation tokens. Colour-only hovers keep
+   * Tailwind's 150ms default, matching the app; the two tokens below are for
+   * promo transforms, which need longer to read as intentional not twitchy.
+   */
+  --curve-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --curve-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-base: 220ms;
+  --dur-slow: 320ms;
+
+  color-scheme: light;
+}
+
+.dark {
+  --background: 222 32% 7%;
+  /* Dark mode expresses a recessed band by going lighter, not darker — 4% L
+   * would collapse into pure black. */
+  --canvas: 222 30% 10%;
+  --foreground: 210 30% 94%;
+  --card: 222 26% 11%;
+  --card-foreground: 210 30% 94%;
+  --popover: 222 26% 11%;
+  --popover-foreground: 210 30% 94%;
+
+  --primary: 226 84% 68%;
+  --primary-foreground: 226 60% 10%;
+  --accent: 226 40% 20%;
+  --accent-foreground: 226 84% 78%;
+  --highlight: 38 88% 58%;
+  --highlight-foreground: 30 45% 10%;
+
+  --secondary: 222 20% 17%;
+  --secondary-foreground: 210 30% 94%;
+  --muted: 222 20% 17%;
+  --muted-foreground: 215 14% 64%;
+  --border: 220 14% 21%;
+  --input: 222 22% 14%;
+  --ring: 226 84% 68%;
+
+  --destructive: 0 74% 62%;
+  --destructive-foreground: 0 0% 100%;
+  --destructive-soft: 0 40% 22%;
+  --success: 152 45% 50%;
+  --success-foreground: 0 0% 100%;
+
+  /* Tinted shadows disappear on dark backgrounds; lean on opacity instead. */
+  --elevate-lift: 0 8px 24px -16px hsl(0 0% 0% / 0.6);
+  --elevate-float: 0 18px 40px -24px hsl(0 0% 0% / 0.75);
+  --elevate-brand: 0 12px 32px -14px hsl(226 84% 68% / 0.35);
+
+  color-scheme: dark;
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "privacy",
+    "title": "Privacy policy",
+    "shortTitle": "Privacy",
+    "version": "1.0",
+    "effectiveFrom": "2026-08-01",
+    "lead": "This marketing site does not collect form PII and does not run analytics counters.",
+    "sections": [
+      {
+        "id": "data",
+        "title": "What we process",
+        "summary": "No registration or analytics on the marketing site.",
+        "points": [
+          "Pages are the same for every visitor.",
+          "Theme preference stays in your browser only.",
+          "If forms appear later, this policy will be updated first."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "terms",
+    "title": "Terms of use",
+    "shortTitle": "Terms",
+    "version": "1.0",
+    "effectiveFrom": "2026-08-01",
+    "lead": "Materials are informational; Auth Fly MIT code lives in the GitHub repositories.",
+    "sections": [
+      {
+        "id": "scope",
+        "title": "Scope",
+        "summary": "Module descriptions are not a support contract.",
+        "points": [
+          "Check repository docs for the version you deploy.",
+          "The server operator is responsible for deployment."
+        ]
+      }
+    ]
+  }
+]

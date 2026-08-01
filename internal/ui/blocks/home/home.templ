@@ -1,0 +1,146 @@
+package home
+
+import (
+	templpkg "github.com/a-h/templ"
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/box"
+	"github.com/authfly/website/internal/kit/ui/button"
+	"github.com/authfly/website/internal/kit/ui/grid"
+	"github.com/authfly/website/internal/kit/ui/group"
+	"github.com/authfly/website/internal/kit/ui/inline"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/stack"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/ui/components"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ Hero(m viewmodels.HomeModel) {
+	@block.Block(block.BlockProps{
+		Tag:   "section",
+		Class: "surface-hero animate-rise",
+	}) {
+		@grid.Grid(grid.GridProps{Class: "items-center gap-10 lg:grid-cols-2 lg:gap-14"}) {
+			@stack.Stack(stack.StackProps{Class: "gap-7"}) {
+				@stack.Stack(stack.StackProps{Class: "gap-4"}) {
+					@title.Title(title.TitleProps{
+						As:    1,
+						Class: "font-display text-display-1 font-bold brand-wordmark text-primary",
+					}) {
+						{ m.Layout.Brand.Name }
+					}
+					@text.Text(text.TextProps{Class: "max-w-xl text-lead text-foreground"}) {
+						{ m.Layout.Brand.Tagline }
+					}
+					@text.Text(text.TextProps{Class: "max-w-xl text-muted-foreground"}) {
+						{ m.Layout.Brand.Description }
+					}
+				}
+				@group.Group(group.GroupProps{Class: "flex-col gap-3 sm:flex-row"}) {
+					@link.Link(link.LinkProps{
+						Href:  "/projects",
+						Class: button.ButtonClasses(button.ButtonProps{Class: "inline-flex h-12 items-center justify-center rounded-xl px-6 text-base font-semibold no-underline shadow-brand"}),
+					}) {
+						{ m.Layout.Copy.Home.CTAPrimary }
+					}
+					@link.Link(link.LinkProps{
+						Href:  "/blog",
+						Class: button.ButtonClasses(button.ButtonProps{Variant: "outline", Class: "inline-flex h-12 items-center justify-center rounded-xl bg-card px-6 text-base font-semibold no-underline"}),
+					}) {
+						{ m.Layout.Copy.Home.CTASecondary }
+					}
+				}
+			}
+			if m.Featured != nil {
+				@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card/90 p-6 shadow-lift animate-fade"}) {
+					@stack.Stack(stack.StackProps{Class: "gap-3"}) {
+						@inline.Inline(inline.InlineProps{Class: "text-xs font-semibold uppercase tracking-label text-muted-foreground"}) {
+							{ m.Layout.Copy.Home.FeaturedLabel }
+						}
+						@title.Title(title.TitleProps{As: 2, Class: "font-display text-xl font-bold tracking-tight"}) {
+							{ m.Featured.Title }
+						}
+						@text.Text(text.TextProps{Class: "text-sm leading-6 text-muted-foreground"}) {
+							{ m.Featured.Summary }
+						}
+						@link.Link(link.LinkProps{
+							Href:  m.Featured.Href,
+							Class: "inline-flex w-fit text-sm font-semibold text-primary underline-offset-4 hover:underline",
+						}) {
+							{ m.Layout.Copy.Home.FeaturedLink }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+templ Advantages(m viewmodels.HomeModel) {
+	if len(m.Advantages) > 0 {
+		@block.Block(block.BlockProps{Tag: "section", Class: "mt-section space-y-6"}) {
+			@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+				{ m.Layout.Copy.Home.AdvantagesTitle }
+			}
+			@grid.Grid(grid.GridProps{Class: "gap-4 sm:grid-cols-2 lg:grid-cols-2"}) {
+				for i, a := range m.Advantages {
+					@box.Box(box.BoxProps{
+						Class: "rounded-2xl border border-border bg-card p-5 shadow-lift card-lift animate-rise stagger",
+						Attrs: templpkg.Attributes{"style": "--stagger-index: " + viewmodels.Itoa(i)},
+					}) {
+						@inline.Inline(inline.InlineProps{Class: "text-2xl text-primary", Attrs: templpkg.Attributes{"aria-hidden": "true"}}) {
+							{ a.Glyph }
+						}
+						@title.Title(title.TitleProps{As: 3, Class: "mt-3 font-semibold"}) {
+							{ a.Title }
+						}
+						@text.Text(text.TextProps{Class: "mt-2 text-sm leading-6 text-muted-foreground"}) {
+							{ a.Description }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+templ SolutionRail(m viewmodels.HomeModel, items []viewmodels.SolutionCardModel) {
+	if len(items) > 0 {
+		@block.Block(block.BlockProps{Tag: "section", Class: "mt-section space-y-6"}) {
+			@group.Group(group.GroupProps{Class: "items-end justify-between gap-4"}) {
+				@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+					{ m.Layout.Copy.Home.ProjectsRail }
+				}
+				@link.Link(link.LinkProps{Href: "/projects", Class: "text-sm font-semibold text-primary no-underline hover:underline"}) {
+					{ m.Layout.Copy.Home.ProjectsAll }
+				}
+			}
+			@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
+				for _, item := range items {
+					@components.SolutionCard(item)
+				}
+			}
+		}
+	}
+}
+
+templ BlogRail(m viewmodels.HomeModel, items []viewmodels.BlogCardModel) {
+	if len(items) > 0 {
+		@block.Block(block.BlockProps{Tag: "section", Class: "mt-section space-y-6"}) {
+			@group.Group(group.GroupProps{Class: "items-end justify-between gap-4"}) {
+				@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+					{ m.Layout.Copy.Home.BlogRail }
+				}
+				@link.Link(link.LinkProps{Href: "/blog", Class: "text-sm font-semibold text-primary no-underline hover:underline"}) {
+					{ m.Layout.Copy.Home.BlogAll }
+				}
+			}
+			@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
+				for _, item := range items {
+					@components.BlogCard(item)
+				}
+			}
+		}
+	}
+}

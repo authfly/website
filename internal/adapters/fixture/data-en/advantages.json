@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Security first",
+    "description": "No telemetry, no third-party update calls. Hardening tracked publicly via a pre-flight checklist.",
+    "glyph": "◆"
+  },
+  {
+    "title": "IdP core",
+    "description": "SAML 2.0 IdP and OIDC Provider sharing one signed session cookie, Hanko-backed for the PoC.",
+    "glyph": "▣"
+  },
+  {
+    "title": "Hosted UI",
+    "description": "UI8Kit-based login, logout and error pages with embedded i18n and dark theme — served from your own origin.",
+    "glyph": "◇"
+  },
+  {
+    "title": "Adaptive SDKs",
+    "description": "One TypeScript core; thin adapters per provider and per language — start with Hanko today.",
+    "glyph": "○"
+  }
+]

@@ -1,0 +1,120 @@
+package components
+
+import (
+	"github.com/authfly/website/internal/kit/ui/badge"
+	"github.com/authfly/website/internal/kit/ui/block"
+	"github.com/authfly/website/internal/kit/ui/card"
+	"github.com/authfly/website/internal/kit/ui/group"
+	"github.com/authfly/website/internal/kit/ui/inline"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/stack"
+	"github.com/authfly/website/internal/kit/ui/text"
+	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/viewmodels"
+)
+
+templ SolutionCard(p viewmodels.SolutionCardModel) {
+	@block.Block(block.BlockProps{
+		Tag:   "article",
+		Class: card.CardClasses(card.CardProps{Class: "flex h-full flex-col overflow-hidden rounded-2xl card-lift " + accentBorder(p.Accent)}),
+	}) {
+		@stack.Stack(stack.StackProps{Class: "flex-1 gap-3 p-5"}) {
+			@group.Group(group.GroupProps{Class: "items-center justify-between gap-2"}) {
+				@badge.Badge(badge.BadgeProps{Variant: "secondary", Size: "sm", Class: "rounded-full px-2 py-0.5"}) {
+					{ p.Eyebrow }
+				}
+			}
+			@title.Title(title.TitleProps{As: 3, Class: "font-display text-lg font-semibold leading-snug"}) {
+				@link.Link(link.LinkProps{
+					Href:  p.Href,
+					Class: "text-inherit no-underline hover:text-primary",
+				}) {
+					{ p.Title }
+				}
+			}
+			@text.Text(text.TextProps{Class: "text-sm leading-6 text-muted-foreground"}) {
+				{ p.Summary }
+			}
+			@group.Group(group.GroupProps{Class: "mt-auto items-center justify-between gap-2 pt-2"}) {
+				@badge.Badge(badge.BadgeProps{Variant: "outline", Size: "sm", Class: "rounded-full px-2 py-0.5"}) {
+					{ p.Status }
+				}
+				@link.Link(link.LinkProps{
+					Href:  p.Href,
+					Class: "text-sm font-semibold text-primary no-underline hover:underline",
+				}) {
+					{ viewmodels.MoreWord() }
+				}
+			}
+		}
+	}
+}
+
+templ BlogCard(p viewmodels.BlogCardModel) {
+	@block.Block(block.BlockProps{
+		Tag:   "article",
+		Class: card.CardClasses(card.CardProps{Class: "flex h-full flex-col rounded-2xl p-5 card-lift"}),
+	}) {
+		@stack.Stack(stack.StackProps{Class: "flex-1 gap-3"}) {
+			@group.Group(group.GroupProps{Class: "items-center gap-2 text-xs text-muted-foreground"}) {
+				@inline.Inline(inline.InlineProps{Class: "numeric"}) {
+					{ viewmodels.FormatDate(p.Date) }
+				}
+				@inline.Inline(inline.InlineProps{Class: "opacity-50"}) {
+					·
+				}
+				@inline.Inline(inline.InlineProps{}) {
+					{ viewmodels.Itoa(p.ReadMinutes) } { viewmodels.MinutesWord() }
+				}
+			}
+			@title.Title(title.TitleProps{As: 3, Class: "font-display text-xl font-semibold leading-snug"}) {
+				@link.Link(link.LinkProps{
+					Href:  p.Href,
+					Class: "text-inherit no-underline hover:text-primary",
+				}) {
+					{ p.Title }
+				}
+			}
+			@text.Text(text.TextProps{Class: "text-sm leading-6 text-muted-foreground"}) {
+				{ p.Excerpt }
+			}
+			if len(p.Tags) > 0 {
+				@group.Group(group.GroupProps{Class: "mt-auto flex-wrap gap-2 pt-2"}) {
+					for _, t := range p.Tags {
+						@badge.Badge(badge.BadgeProps{Variant: "outline", Size: "sm", Class: "rounded-full px-2 py-0.5"}) {
+							{ t }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+templ SectionHeader(heading, lead string) {
+	@block.Block(block.BlockProps{Tag: "header", Class: "max-w-3xl space-y-3"}) {
+		@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
+			{ heading }
+		}
+		if lead != "" {
+			@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
+				{ lead }
+			}
+		}
+	}
+}
+
+// accentBorder maps a content accent role to a left rule. Roles, not colour
+// names, so a theme swap never leaves the fixtures lying.
+func accentBorder(accent string) string {
+	switch accent {
+	case "brand":
+		return "border-l-4 border-l-primary"
+	case "highlight":
+		return "border-l-4 border-l-highlight"
+	case "neutral":
+		return "border-l-4 border-l-muted-foreground"
+	default:
+		return "border border-border"
+	}
+}

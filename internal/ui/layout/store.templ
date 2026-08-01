@@ -1,0 +1,52 @@
+package layout
+
+import "github.com/authfly/website/internal/viewmodels"
+
+// Store is the AuthFly document shell + chrome.
+// Raw document tags are allowed only here.
+templ Store(m viewmodels.LayoutModel) {
+	<!DOCTYPE html>
+	<html lang={ htmlLang(m.Lang) }>
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>{ m.Title }</title>
+			<meta name="description" content={ m.Brand.Description }/>
+			<script>
+				(function () {
+					try {
+						var stored = localStorage.getItem("ui8kit-theme");
+						var dark = stored === "dark" || (stored !== "light" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+						document.documentElement.classList.toggle("dark", dark);
+					} catch (e) {}
+				})();
+			</script>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+			<link rel="stylesheet" href="/assets/css/app.css"/>
+			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+			<script defer src="/assets/js/theme.js"></script>
+		</head>
+		<body
+			class="min-h-screen bg-background font-sans text-foreground antialiased max-md:has-[#mobile-navigation]:overflow-hidden"
+			x-data="{ menuOpen: false }"
+			:class="{ 'overflow-hidden': menuOpen }"
+		>
+			@SkipLink(m)
+			@PromoBar(m.Offer)
+			@Header(m)
+			<main id="main" class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
+				{ children... }
+			</main>
+			@Footer(m)
+		</body>
+	</html>
+}
+
+func htmlLang(lang string) string {
+	if lang == "" {
+		return "ru"
+	}
+	return lang
+}

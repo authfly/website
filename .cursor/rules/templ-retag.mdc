@@ -1,0 +1,77 @@
+---
+description: Retag — semantic kit atoms (block once, box inside); no raw HTML in composition
+globs: internal/{kit/ui,ui,views}/**/*.templ
+alwaysApply: false
+---
+
+# Templ retag (HTML5 via kit)
+
+Composition owns **no raw HTML**. Tags come from `internal/kit/ui` + `utils.ResolveTag` / `TagGroup*`. Normative doc: `.project/retag.md`. Allowlist SoT: `fastygo.config.mjs` → `retag.allow`.
+
+## Zones
+
+| Zone | Paths | Raw HTML |
+| --- | --- | --- |
+| **U** | `internal/kit/ui/**` | Required (codegen). Do not hand-edit. |
+| **L** | `internal/ui/layout/**` | Only `html\|head\|body\|meta\|title\|link\|script\|noscript\|main`. |
+| **C** | `internal/ui/{blocks,components,widgets}/**`, `internal/views/**` | **0 raw**, except allowlist. |
+
+## Block vs Box (hard rule)
+
+- **`@block.Block`** — **one root landmark per** block / widget / large component. Always set `Tag` to a real landmark (`section`, `article`, `header`, `footer`, `nav`, `aside`, `figure`, `search`, `hgroup`). Never omit `Tag` (fallback is `div` — that is a Box job).
+- **`@box.Box`** — internal non-landmark shells (cards, surfaces, drawers, overlays). Tag is `div` only (`TagGroupBoxAllowed`).
+- Nested `@block.Block` only when HTML5 allows nested landmarks: `nav` in `header`, `header`/`section` in `article`. Do not nest Block just to wrap layout.
+
+```templ
+// ❌ Block without Tag → div
+@block.Block(block.BlockProps{Class: "…"}) { … }
+
+// ✅ root landmark
+@block.Block(block.BlockProps{Tag: "section", Class: "…"}) {
+  @box.Box(box.BoxProps{Class: "rounded-2xl border …"}) { … }
+}
+```
+
+## Atom by role (`utils.TagGroup*`)
+
+| Need | Atom | Allowed tags / notes |
+| --- | --- | --- |
+| Page region / landmark | `block` | `TagGroupLayout` — always pass `Tag` |
+| Inner surface / card shell | `box` | `div` only |
+| Vertical rhythm | `stack` | `div` (default), `ul`/`ol` if list |
+| Horizontal row | `group` | `div`, `fieldset`, `dl` |
+| 2D layout | `grid` (+ `GridCol`) | always `div` |
+| Constrained width shell | `container` | `div`, `main`, `section` |
+| Heading | `title` | `As` 1–6 → `h1`–`h6` |
+| Body paragraph | `text` | always `<p>` — not for labels/names |
+| Inline fragment | `inline` | always `<span>` (meta, glyphs, brand chip) |
+| List | `list` + `list.ListItem` | `ul`/`ol`/`dl`/`menu` + `li`/`dt`/`dd` |
+| Prose link | `link` | `<a>` |
+| CTA | `button` (+ `Href` if link-styled) | kit button |
+| Card chrome classes only | `card.CardClasses(…)` | class string into `block`/`box` — not a second wrapper |
+
+Pick by **HTML role**, not by Tailwind convenience. If a `section` needs a grid, wrap: `block(Tag:"section")` → `@grid.Grid` → `@box.Box` cards — do not dump `grid` utilities onto the landmark as a substitute for structure.
+
+## Page shapes
+
+| Page kind | Root `block.Tag` |
+| --- | --- |
+| Index / listing | `section` |
+| Long-form / detail / about / legal | `article` |
+| Site chrome | `header` / `footer` / `nav` (layout) |
+| Promo strip / overlay | `box` (not Block) |
+
+Inside `article`: optional nested `header` (title block) and `section` (named parts). Body copy = `@text`; lists = `@list`.
+
+## Allowlist
+
+- `<input type="hidden">` — file must be in `retag.allow`; keep `// retag:allow: hidden input — …` above.
+- Any other raw tag — `// retag:allow: <reason>` on previous line (prefer kit extension).
+
+## Do not
+
+- Raw layout/typography/controls in composition or views.
+- `@block` as a generic `div` wrapper.
+- `@text` for non-paragraph chrome (use `inline` / `title`).
+- Hand-edit `internal/kit/ui` or invent new roots outside the registry map.
+- Increase retag debt — run `./scripts/retag-check.sh` before finishing.

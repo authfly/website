@@ -1,0 +1,239 @@
+/*
+ * Promo layer — base reset plus the few recipes that utilities express poorly
+ * (multi-stop gradients, hover transforms, pseudo-element glows).
+ *
+ * Everything else stays as Tailwind utilities in the templates.
+ *
+ * Raw vars are referenced directly (--elevate-*, --curve-*, --radius) rather
+ * than the bridged @theme names, because `@theme inline` inlines its values
+ * into utilities instead of publishing them as custom properties.
+ */
+
+@layer base {
+  html {
+    font-family: var(--font-sans-stack);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    /* Flat canvas, as in the app. The hero surface carries the gradient, so the
+     * page keeps the product's calm and the selling energy stays in one place. */
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Border colour defaults to the line token, so `border` alone is enough —
+   * this is what makes the app's border-first separation cheap to write. */
+  *,
+  *::before,
+  *::after {
+    border-color: hsl(var(--border));
+  }
+
+  /* Single global focus treatment, lifted from the app. Individual components
+   * do not re-declare focus styles. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  [x-cloak] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* --------------------------------------------------------------- type --- */
+
+  /* Display face is the sans stack with tighter tracking — hierarchy comes from
+   * weight and spacing, not from a second family. */
+  .font-display,
+  .brand-wordmark {
+    font-family: var(--font-display-stack);
+    letter-spacing: -0.02em;
+  }
+
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* ------------------------------------------------------------ surfaces --- */
+
+  /* Hero: card gradient plus a drifting brand glow. The border is kept so the
+   * hero is recognisably the same object family as an app pane. */
+  .surface-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) + 16px);
+    padding: 2rem 1.5rem;
+    background:
+      radial-gradient(120% 80% at 0% 0%, hsl(var(--primary) / 0.1), transparent 55%),
+      radial-gradient(90% 70% at 100% 15%, hsl(var(--primary) / 0.06), transparent 50%),
+      linear-gradient(165deg, hsl(var(--card)) 0%, hsl(var(--canvas)) 100%);
+  }
+
+  .surface-hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: min(52vw, 420px);
+    height: min(52vw, 420px);
+    border-radius: 999px;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.18), transparent 68%);
+    animation: drift 18s ease-in-out infinite alternate;
+    z-index: -1;
+  }
+
+  /* Inverted brand band for closing CTAs — the one place the promo site is
+   * allowed to go loud, because the app never does. */
+  .surface-brand {
+    background:
+      linear-gradient(135deg, hsl(var(--primary)), hsl(226 70% 38%)),
+      hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  /* Recessed full-bleed band, alternating against the page. */
+  .surface-band {
+    background: hsl(var(--canvas));
+    border-block: 1px solid hsl(var(--border));
+  }
+
+  /* ----------------------------------------------------------- behaviour --- */
+
+  /* Promo cards may move; app rows may not. Large discrete targets tolerate a
+   * lift, and it is the cheapest signal that a whole card is clickable. */
+  .card-lift {
+    transition:
+      transform var(--dur-slow) var(--curve-out),
+      box-shadow var(--dur-slow) var(--curve-out),
+      border-color var(--dur-base) ease;
+  }
+
+  @media (hover: hover) {
+    .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--elevate-float);
+      border-color: hsl(var(--primary) / 0.4);
+    }
+
+    .card-lift:hover .card-zoom {
+      transform: scale(1.06);
+    }
+  }
+
+  /* Keyboard parity: the lift is decorative, the shadow is the actual cue. */
+  .card-lift:focus-within {
+    box-shadow: var(--elevate-float);
+    border-color: hsl(var(--primary) / 0.4);
+  }
+
+  .card-zoom {
+    transition: transform 0.5s var(--curve-out);
+  }
+
+  /* Sequences a grid reveal; index comes from an inline --stagger-index. */
+  .stagger {
+    animation-delay: calc(var(--stagger-index, 0) * 45ms);
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-skeleton {
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--muted)) 20%,
+      hsl(var(--card)) 40%,
+      hsl(var(--muted)) 60%
+    );
+    background-size: 220% 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .surface-hero {
+    padding: 3rem 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .surface-hero {
+    padding: 4rem 3.5rem;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-28px, 18px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .card-lift:hover,
+  .card-lift:hover .card-zoom {
+    transform: none;
+  }
+}
