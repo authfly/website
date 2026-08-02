@@ -29,7 +29,7 @@ templ Page(m viewmodels.AboutModel) {
 		if len(m.Page.Pillars) > 0 {
 			@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
 				@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
-					Принципы
+					{ m.Layout.Copy.About.PillarsTitle }
 				}
 				@list.List(list.ListProps{Tag: "ul", Class: "list-disc space-y-2 pl-5 text-muted-foreground"}) {
 					for _, item := range m.Page.Pillars {

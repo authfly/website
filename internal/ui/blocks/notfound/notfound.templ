@@ -13,13 +13,16 @@ templ Page(m viewmodels.NotFoundModel) {
 	@block.Block(block.BlockProps{Tag: "section", Class: "mx-auto max-w-lg py-16 text-center"}) {
 		@stack.Stack(stack.StackProps{Class: "gap-4"}) {
 			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
-				Страница не найдена
+				{ m.Layout.Copy.NotFound.Title }
 			}
 			@text.Text(text.TextProps{Class: "text-muted-foreground"}) {
-				Страницы { m.Path } на сайте нет — возможно, ссылка устарела.
+				{ m.Layout.Copy.NotFound.Lead }
+			}
+			@text.Text(text.TextProps{Class: "text-sm text-muted-foreground"}) {
+				{ m.Path }
 			}
 			@link.Link(link.LinkProps{Href: "/", Class: "text-sm font-semibold text-primary no-underline hover:underline"}) {
-				На главную
+				{ m.Layout.Copy.NotFound.Home }
 			}
 		}
 	}

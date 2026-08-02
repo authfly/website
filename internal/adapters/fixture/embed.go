@@ -44,6 +44,9 @@ func loadFS(fsys embed.FS, root string) (*Store, error) {
 	if err := must("brand.json", &s.brand); err != nil {
 		return nil, err
 	}
+	if err := must("home-meta.json", &s.home); err != nil {
+		return nil, err
+	}
 	if err := must("advantages.json", &s.advantages); err != nil {
 		return nil, err
 	}
@@ -56,7 +59,7 @@ func loadFS(fsys embed.FS, root string) (*Store, error) {
 	if err := must("about.json", &s.about); err != nil {
 		return nil, err
 	}
-	if err := must("contacts.json", &s.channels); err != nil {
+	if err := must("contacts.json", &s.contacts); err != nil {
 		return nil, err
 	}
 	if err := must("legal.json", &s.docs); err != nil {

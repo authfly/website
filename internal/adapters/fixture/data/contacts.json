@@ -1,20 +1,42 @@
-[
-  {
-    "id": "github",
-    "title": "GitHub",
-    "value": "github.com/authfly",
-    "note": "Основной репозиторий, обсуждения, issues. Можно молча читать, можно задавать неудобные вопросы — отвечаем без обзвона менеджером."
+{
+  "seo": {
+    "title": "Контакты — Auth Fly | Следить за разработкой",
+    "description": "Auth Fly активно идёт от PoC к MVP. Следить за разработкой — на GitHub и в Telegram, ставить пакеты — с npm, репортить уязвимости — через приватные security advisories.",
+    "keywords": "Auth Fly contact, github.com/authfly, t.me/authfly, npmjs authfly, security advisories, self-hosted SSO support"
   },
-  {
-    "id": "telegram",
-    "title": "Telegram",
-    "value": "t.me/authfly",
-    "note": "Канал с понятными новостями: что выкатили, что в работе, что упало. Без маркетинговых эмодзи и без «коллеги, делюсь полезным»."
-  },
-  {
-    "id": "npm",
-    "title": "npm",
-    "value": "npmjs.com/org/authfly",
-    "note": "Опубликованные пакеты. Версии семантические, breaking changes — в CHANGELOG, а не сюрпризом в пятницу вечером."
-  }
-]
+  "title": "Связаться",
+  "lead": "Никаких форм с двенадцатью обязательными полями и галочкой «согласен на маркетинговую рассылку». GitHub, Telegram, npm. Если что-то сломалось — приватный security advisory. Если горит — пишите в Telegram, мы тоже не спим.",
+  "channels_title": "Где следить",
+  "availability_title": "С чем поможет АутФлай",
+  "channels": [
+    {
+      "id": "github",
+      "title": "GitHub",
+      "value": "github.com/authfly",
+      "href": "https://github.com/authfly",
+      "note": "Основной репозиторий, обсуждения, issues. Можно молча читать, можно задавать неудобные вопросы — отвечаем без обзвона менеджером."
+    },
+    {
+      "id": "telegram",
+      "title": "Telegram",
+      "value": "t.me/authfly",
+      "href": "https://t.me/authfly",
+      "note": "Канал с понятными новостями: что выкатили, что в работе, что упало. Без маркетинговых эмодзи и без «коллеги, делюсь полезным»."
+    },
+    {
+      "id": "npm",
+      "title": "npm",
+      "value": "npmjs.com/org/authfly",
+      "href": "https://www.npmjs.com/org/authfly",
+      "note": "Опубликованные пакеты. Версии семантические, breaking changes — в CHANGELOG, а не сюрпризом в пятницу вечером."
+    }
+  ],
+  "availability": [
+    "Собрать SSO для нескольких сервисов на одном бренде — без подписки за пользователя",
+    "Перенести вход с готовой облачной платформы на свой self-hosted IdP",
+    "Подключить SSO в любой ваш стек — Go, Node, Python, PHP, Java",
+    "Окно входа в вашем бренде — на вашем origin, без чужих CDN",
+    "Прогнать ваш проект по открытому 27-пунктному чек-листу безопасности"
+  ],
+  "note": "АутФлай — это активная разработка от PoC к MVP. Живые demo появятся, когда проект наберёт нужную крепость. А пока — открытый код, открытый чек-лист, открытый канал. Нашли уязвимость — пожалуйста, через приватный security advisory на github.com/authfly, не в публичных issues. Спасибо."
+}

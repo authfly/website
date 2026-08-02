@@ -4,6 +4,8 @@ import (
 	"github.com/authfly/website/internal/kit/ui/block"
 	"github.com/authfly/website/internal/kit/ui/box"
 	"github.com/authfly/website/internal/kit/ui/grid"
+	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/list"
 	"github.com/authfly/website/internal/kit/ui/text"
 	"github.com/authfly/website/internal/kit/ui/title"
 	"github.com/authfly/website/internal/viewmodels"
@@ -13,26 +15,74 @@ templ Page(m viewmodels.ContactsModel) {
 	@block.Block(block.BlockProps{Tag: "article", Class: "space-y-10"}) {
 		@block.Block(block.BlockProps{Tag: "header", Class: "max-w-3xl space-y-3"}) {
 			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
-				Контакты
+				if m.Page.Title != "" {
+					{ m.Page.Title }
+				} else {
+					{ m.Layout.Copy.Contacts.FallbackTitle }
+				}
 			}
-			@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
-				Напишите, если в материалах что-то не сходится с практикой или нужно уточнение по конфигурации.
+			if m.Page.Lead != "" {
+				@text.Text(text.TextProps{Class: "text-lead text-muted-foreground"}) {
+					{ m.Page.Lead }
+				}
 			}
 		}
-		@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
-			@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
-				for _, ch := range m.Channels {
-					@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5"}) {
-						@text.Text(text.TextProps{Class: "font-semibold"}) {
-							{ ch.Title }
-						}
-						@text.Text(text.TextProps{Class: "mt-1 text-primary"}) {
-							{ ch.Value }
-						}
-						@text.Text(text.TextProps{Class: "mt-2 text-sm text-muted-foreground"}) {
-							{ ch.Note }
+		if len(m.Page.Channels) > 0 {
+			@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
+				if m.Page.ChannelsTitle != "" {
+					@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+						{ m.Page.ChannelsTitle }
+					}
+				}
+				@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-2"}) {
+					for _, ch := range m.Page.Channels {
+						@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5"}) {
+							@text.Text(text.TextProps{Class: "font-semibold"}) {
+								{ ch.Title }
+							}
+							if ch.Href != "" {
+								@link.Link(link.LinkProps{
+									Href:     ch.Href,
+									Class:    "mt-1 inline-flex text-primary no-underline hover:underline",
+									External: true,
+								}) {
+									{ ch.Value }
+								}
+							} else {
+								@text.Text(text.TextProps{Class: "mt-1 text-primary"}) {
+									{ ch.Value }
+								}
+							}
+							if ch.Note != "" {
+								@text.Text(text.TextProps{Class: "mt-2 text-sm text-muted-foreground"}) {
+									{ ch.Note }
+								}
+							}
 						}
 					}
+				}
+			}
+		}
+		if len(m.Page.Availability) > 0 {
+			@block.Block(block.BlockProps{Tag: "section", Class: "space-y-4"}) {
+				if m.Page.AvailabilityTitle != "" {
+					@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+						{ m.Page.AvailabilityTitle }
+					}
+				}
+				@list.List(list.ListProps{Tag: "ul", Class: "list-disc space-y-2 pl-5 text-muted-foreground"}) {
+					for _, item := range m.Page.Availability {
+						@list.ListItem(list.ListItemProps{}) {
+							{ item }
+						}
+					}
+				}
+			}
+		}
+		if m.Page.Note != "" {
+			@block.Block(block.BlockProps{Tag: "section", Class: "max-w-3xl"}) {
+				@text.Text(text.TextProps{Class: "text-sm leading-7 text-muted-foreground"}) {
+					{ m.Page.Note }
 				}
 			}
 		}

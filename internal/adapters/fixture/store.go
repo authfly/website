@@ -16,13 +16,14 @@ type Store struct {
 	mu sync.RWMutex
 
 	brand      ports.Brand
+	home       ports.HomeMeta
 	advantages []ports.Advantage
 	solutions  []ports.Solution
 	bySolution map[string]ports.Solution
 	posts      []ports.BlogPost
 	byPost     map[string]ports.BlogPost
 	about      ports.AboutPage
-	channels   []ports.ContactChannel
+	contacts   ports.ContactPage
 	docs       []ports.LegalDocument
 	byDoc      map[string]ports.LegalDocument
 }
@@ -50,6 +51,9 @@ func Load(dir string) (*Store, error) {
 	if err := must("brand.json", &s.brand); err != nil {
 		return nil, err
 	}
+	if err := must("home-meta.json", &s.home); err != nil {
+		return nil, err
+	}
 	if err := must("advantages.json", &s.advantages); err != nil {
 		return nil, err
 	}
@@ -62,7 +66,7 @@ func Load(dir string) (*Store, error) {
 	if err := must("about.json", &s.about); err != nil {
 		return nil, err
 	}
-	if err := must("contacts.json", &s.channels); err != nil {
+	if err := must("contacts.json", &s.contacts); err != nil {
 		return nil, err
 	}
 	if err := must("legal.json", &s.docs); err != nil {
@@ -84,6 +88,12 @@ func (s *Store) Brand(context.Context) (ports.Brand, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	return s.brand, nil
+}
+
+func (s *Store) HomeMeta(context.Context) (ports.HomeMeta, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.home, nil
 }
 
 func (s *Store) Advantages(context.Context) ([]ports.Advantage, error) {
@@ -138,12 +148,10 @@ func (s *Store) About(context.Context) (ports.AboutPage, error) {
 	return s.about, nil
 }
 
-func (s *Store) ContactChannels(context.Context) ([]ports.ContactChannel, error) {
+func (s *Store) Contacts(context.Context) (ports.ContactPage, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	out := make([]ports.ContactChannel, len(s.channels))
-	copy(out, s.channels)
-	return out, nil
+	return s.contacts, nil
 }
 
 func (s *Store) LegalDocument(_ context.Context, id string) (*ports.LegalDocument, error) {

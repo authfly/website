@@ -14,7 +14,7 @@ templ Page(m viewmodels.LegalModel) {
 	@block.Block(block.BlockProps{Tag: "article", Class: "mx-auto max-w-3xl space-y-8"}) {
 		@block.Block(block.BlockProps{Tag: "header", Class: "space-y-3"}) {
 			@inline.Inline(inline.InlineProps{Class: "text-sm text-muted-foreground"}) {
-				Версия { m.Doc.Version } · действует с { m.Doc.EffectiveFrom }
+				{ m.Layout.Copy.Legal.VersionPrefix } { m.Doc.Version } · { m.Layout.Copy.Legal.EffectivePrefix } { m.Doc.EffectiveFrom }
 			}
 			@title.Title(title.TitleProps{As: 1, Class: "font-display text-display-2 font-bold"}) {
 				{ m.Doc.Title }

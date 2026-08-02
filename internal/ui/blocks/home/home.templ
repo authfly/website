@@ -7,6 +7,7 @@ import (
 	"github.com/authfly/website/internal/kit/ui/button"
 	"github.com/authfly/website/internal/kit/ui/grid"
 	"github.com/authfly/website/internal/kit/ui/group"
+	"github.com/authfly/website/internal/kit/ui/image"
 	"github.com/authfly/website/internal/kit/ui/inline"
 	"github.com/authfly/website/internal/kit/ui/link"
 	"github.com/authfly/website/internal/kit/ui/stack"
@@ -37,38 +38,123 @@ templ Hero(m viewmodels.HomeModel) {
 						{ m.Layout.Brand.Description }
 					}
 				}
+				if len(m.Meta.Evidence) > 0 {
+					@group.Group(group.GroupProps{
+						Class: "flex-wrap gap-3",
+						Attrs: templpkg.Attributes{"aria-label": m.Meta.EvidenceAria},
+					}) {
+						for _, item := range m.Meta.Evidence {
+							@box.Box(box.BoxProps{Class: "rounded-xl border border-border bg-card/80 px-3 py-2"}) {
+								@inline.Inline(inline.InlineProps{Class: "numeric text-sm font-semibold text-primary"}) {
+									{ item.Value }
+								}
+								@inline.Inline(inline.InlineProps{Class: "ml-1 text-xs text-muted-foreground"}) {
+									{ item.Unit }
+								}
+							}
+						}
+					}
+				}
 				@group.Group(group.GroupProps{Class: "flex-col gap-3 sm:flex-row"}) {
 					@link.Link(link.LinkProps{
-						Href:  "/projects",
+						Href:  "/blog",
 						Class: button.ButtonClasses(button.ButtonProps{Class: "inline-flex h-12 items-center justify-center rounded-xl px-6 text-base font-semibold no-underline shadow-brand"}),
 					}) {
 						{ m.Layout.Copy.Home.CTAPrimary }
 					}
 					@link.Link(link.LinkProps{
-						Href:  "/blog",
+						Href:  "/projects",
 						Class: button.ButtonClasses(button.ButtonProps{Variant: "outline", Class: "inline-flex h-12 items-center justify-center rounded-xl bg-card px-6 text-base font-semibold no-underline"}),
 					}) {
 						{ m.Layout.Copy.Home.CTASecondary }
 					}
 				}
 			}
-			if m.Featured != nil {
-				@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card/90 p-6 shadow-lift animate-fade"}) {
-					@stack.Stack(stack.StackProps{Class: "gap-3"}) {
-						@inline.Inline(inline.InlineProps{Class: "text-xs font-semibold uppercase tracking-label text-muted-foreground"}) {
-							{ m.Layout.Copy.Home.FeaturedLabel }
+			if m.Meta.Portrait.Src != "" {
+				@box.Box(box.BoxProps{
+					Class: "animate-fade overflow-hidden rounded-2xl border border-border bg-card shadow-lift",
+					Attrs: templpkg.Attributes{"aria-label": m.Meta.Portrait.Aria},
+				}) {
+					@image.Image(image.ImageProps{
+						Src:           m.Meta.Portrait.Src,
+						Alt:           m.Meta.Portrait.Aria,
+						Class:         "aspect-[4/5] w-full object-cover object-top",
+						Loading:       "eager",
+						FetchPriority: "high",
+					})
+				}
+			}
+		}
+	}
+}
+
+templ Quote(m viewmodels.HomeModel) {
+	if m.Meta.Quote.Text != "" {
+		@block.Block(block.BlockProps{Tag: "section", Class: "mt-section"}) {
+			@box.Box(box.BoxProps{Class: "mx-auto max-w-3xl rounded-2xl border border-border bg-card/70 px-6 py-8 text-center shadow-lift"}) {
+				@text.Text(text.TextProps{Class: "font-display text-xl leading-8 text-foreground sm:text-2xl"}) {
+					“{ m.Meta.Quote.Text }”
+				}
+				if m.Meta.Quote.Source != "" {
+					@text.Text(text.TextProps{Class: "mt-4 text-sm font-medium text-muted-foreground"}) {
+						— { m.Meta.Quote.Source }
+					}
+				}
+			}
+		}
+	}
+}
+
+templ Path(m viewmodels.HomeModel) {
+	if len(m.Meta.Path) > 0 {
+		@block.Block(block.BlockProps{Tag: "section", Class: "mt-section space-y-6"}) {
+			@stack.Stack(stack.StackProps{Class: "gap-2"}) {
+				if m.Meta.PathEyebrow != "" {
+					@inline.Inline(inline.InlineProps{Class: "text-xs font-semibold uppercase tracking-label text-muted-foreground"}) {
+						{ m.Meta.PathEyebrow }
+					}
+				}
+				@title.Title(title.TitleProps{As: 2, Class: "font-display text-display-3 font-bold"}) {
+					{ m.Meta.PathTitle }
+				}
+			}
+			@grid.Grid(grid.GridProps{Class: "gap-4 md:grid-cols-5"}) {
+				for i, step := range m.Meta.Path {
+					@box.Box(box.BoxProps{
+						Class: "rounded-2xl border border-border bg-card p-4 shadow-lift animate-rise stagger",
+						Attrs: templpkg.Attributes{"style": "--stagger-index: " + viewmodels.Itoa(i)},
+					}) {
+						@inline.Inline(inline.InlineProps{Class: "text-xs font-semibold uppercase tracking-label text-primary"}) {
+							{ step.Year }
 						}
-						@title.Title(title.TitleProps{As: 2, Class: "font-display text-xl font-bold tracking-tight"}) {
-							{ m.Featured.Title }
+						@title.Title(title.TitleProps{As: 3, Class: "mt-2 text-base font-semibold"}) {
+							{ step.Label }
 						}
-						@text.Text(text.TextProps{Class: "text-sm leading-6 text-muted-foreground"}) {
-							{ m.Featured.Summary }
+						@text.Text(text.TextProps{Class: "mt-2 text-sm leading-6 text-muted-foreground"}) {
+							{ step.Note }
 						}
-						@link.Link(link.LinkProps{
-							Href:  m.Featured.Href,
-							Class: "inline-flex w-fit text-sm font-semibold text-primary underline-offset-4 hover:underline",
-						}) {
-							{ m.Layout.Copy.Home.FeaturedLink }
+					}
+				}
+			}
+		}
+	}
+}
+
+templ Metrics(m viewmodels.HomeModel) {
+	if len(m.Meta.Metrics) > 0 {
+		@block.Block(block.BlockProps{
+			Tag:   "section",
+			Class: "mt-section",
+			Attrs: templpkg.Attributes{"aria-label": m.Meta.MetricsAria},
+		}) {
+			@grid.Grid(grid.GridProps{Class: "gap-4 sm:grid-cols-2 lg:grid-cols-4"}) {
+				for _, metric := range m.Meta.Metrics {
+					@box.Box(box.BoxProps{Class: "rounded-2xl border border-border bg-card p-5 text-center shadow-lift"}) {
+						@text.Text(text.TextProps{Class: "numeric text-display-3 font-bold text-primary"}) {
+							{ metric.Value }
+						}
+						@text.Text(text.TextProps{Class: "mt-1 text-sm text-muted-foreground"}) {
+							{ metric.Label }
 						}
 					}
 				}

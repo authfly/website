@@ -11,7 +11,22 @@ templ Store(m viewmodels.LayoutModel) {
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<title>{ m.Title }</title>
-			<meta name="description" content={ m.Brand.Description }/>
+			<meta name="description" content={ m.Description }/>
+			if m.Canonical != "" {
+				<link rel="canonical" href={ m.Canonical }/>
+			}
+			<meta property="og:type" content="website"/>
+			<meta property="og:title" content={ m.Title }/>
+			<meta property="og:description" content={ m.Description }/>
+			if m.OgImage != "" {
+				<meta property="og:image" content={ m.OgImage }/>
+			}
+			<meta name="twitter:card" content="summary_large_image"/>
+			<meta name="twitter:title" content={ m.Title }/>
+			<meta name="twitter:description" content={ m.Description }/>
+			if m.OgImage != "" {
+				<meta name="twitter:image" content={ m.OgImage }/>
+			}
 			<script>
 				(function () {
 					try {

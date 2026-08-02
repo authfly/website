@@ -39,8 +39,8 @@
     "not_found": "Страница не найдена"
   },
   "home": {
-    "cta_primary": "Смотреть модули",
-    "cta_secondary": "Открыть журнал",
+    "cta_primary": "Открыть журнал",
+    "cta_secondary": "Смотреть модули",
     "featured_label": "Начните с этого модуля",
     "featured_link": "Как устроен модуль",
     "advantages_title": "Что вы получаете с АутФлаем",
@@ -56,6 +56,21 @@
   "blog_index": {
     "title": "Журнал",
     "lead": "Заметки о self-hosted IdP, hosted-UI и о том, почему скучная надёжность лучше ярких обещаний."
+  },
+  "about": {
+    "pillars_title": "Принципы"
+  },
+  "contacts": {
+    "fallback_title": "Связаться"
+  },
+  "not_found": {
+    "title": "Страница не найдена",
+    "lead": "Такой страницы на сайте нет — возможно, ссылка устарела.",
+    "home": "На главную"
+  },
+  "legal": {
+    "version_prefix": "Версия",
+    "effective_prefix": "действует с"
   },
   "common_more": "Подробнее",
   "back_projects": "← Все модули",

@@ -75,8 +75,23 @@ type Locale struct {
 		Title string `json:"title"`
 		Lead  string `json:"lead"`
 	} `json:"blog_index"`
-	CommonMore   string `json:"common_more"`
-	BackProjects string `json:"back_projects"`
+	About struct {
+		PillarsTitle string `json:"pillars_title"`
+	} `json:"about"`
+	Contacts struct {
+		FallbackTitle string `json:"fallback_title"`
+	} `json:"contacts"`
+	NotFound struct {
+		Title string `json:"title"`
+		Lead  string `json:"lead"`
+		Home  string `json:"home"`
+	} `json:"not_found"`
+	Legal struct {
+		VersionPrefix   string `json:"version_prefix"`
+		EffectivePrefix string `json:"effective_prefix"`
+	} `json:"legal"`
+	CommonMore    string `json:"common_more"`
+	BackProjects  string `json:"back_projects"`
 	OutcomesTitle string `json:"outcomes_title"`
 	MetricsTitle  string `json:"metrics_title"`
 	StackTitle    string `json:"stack_title"`
@@ -86,9 +101,6 @@ type Locale struct {
 func ActiveLocale() string {
 	return envOr("APP_DEFAULT_LOCALE", "ru")
 }
-
-// DefaultLocale is kept for callers; prefer ActiveLocale() when env may change.
-var DefaultLocale = ActiveLocale()
 
 var (
 	localeMu    sync.RWMutex
@@ -104,7 +116,7 @@ func envOr(key, fallback string) string {
 
 func LoadLocale(code string) (Locale, error) {
 	if code == "" {
-		code = DefaultLocale
+		code = ActiveLocale()
 	}
 	localeMu.RLock()
 	if loc, ok := localeCache[code]; ok {

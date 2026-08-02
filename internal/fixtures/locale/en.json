@@ -39,8 +39,8 @@
     "not_found": "Page not found"
   },
   "home": {
-    "cta_primary": "Browse modules",
-    "cta_secondary": "Open journal",
+    "cta_primary": "Open journal",
+    "cta_secondary": "Browse modules",
     "featured_label": "Start with this module",
     "featured_link": "How this module works",
     "advantages_title": "What you get with Auth Fly",
@@ -56,6 +56,21 @@
   "blog_index": {
     "title": "Journal",
     "lead": "Notes on self-hosted IdP, hosted UI, and why boring reliability beats shiny promises."
+  },
+  "about": {
+    "pillars_title": "Principles"
+  },
+  "contacts": {
+    "fallback_title": "Get in touch"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "lead": "That page is not on this site — the link may be outdated.",
+    "home": "Back home"
+  },
+  "legal": {
+    "version_prefix": "Version",
+    "effective_prefix": "effective from"
   },
   "common_more": "Details",
   "back_projects": "← All modules",

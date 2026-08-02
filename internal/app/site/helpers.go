@@ -11,6 +11,8 @@ import (
 	"github.com/authfly/website/internal/viewmodels"
 )
 
+const defaultOgImage = "/assets/img/authfly.png"
+
 func layoutLang() string {
 	return fixtures.ActiveLocale()
 }
@@ -23,7 +25,7 @@ func layoutPages(lang string) fixtures.Locale {
 	return loc
 }
 
-func (f *Feature) layout(ctx context.Context, r *http.Request, title string) (viewmodels.LayoutModel, error) {
+func (f *Feature) layout(ctx context.Context, r *http.Request, title, description string) (viewmodels.LayoutModel, error) {
 	brand, err := f.deps.Content.Brand(ctx)
 	if err != nil {
 		return viewmodels.LayoutModel{}, err
@@ -33,13 +35,19 @@ func (f *Feature) layout(ctx context.Context, r *http.Request, title string) (vi
 	if err != nil {
 		return viewmodels.LayoutModel{}, err
 	}
+	if description == "" {
+		description = brand.Description
+	}
 	return viewmodels.LayoutModel{
-		Title: title,
-		Brand: brand,
-		Offer: brand.Offer,
-		Path:  r.URL.Path,
-		Copy:  copy,
-		Lang:  lang,
+		Title:       title,
+		Description: description,
+		OgImage:     defaultOgImage,
+		Canonical:   r.URL.Path,
+		Brand:       brand,
+		Offer:       brand.Offer,
+		Path:        r.URL.Path,
+		Copy:        copy,
+		Lang:        lang,
 	}, nil
 }
 
@@ -59,8 +67,6 @@ func (f *Feature) solutionCards(list []ports.Solution) []viewmodels.SolutionCard
 	return out
 }
 
-// take limits a slice. Homepage rails are teasers; full lists live on
-// /projects and /blog.
 func take[T any](list []T, n int) []T {
 	if len(list) > n {
 		return list[:n]
@@ -82,6 +88,7 @@ func featuredPosts(list []ports.BlogPost) []ports.BlogPost {
 }
 
 func (f *Feature) blogCards(list []ports.BlogPost) []viewmodels.BlogCardModel {
+	lang := layoutLang()
 	out := make([]viewmodels.BlogCardModel, 0, len(list))
 	for _, p := range list {
 		out = append(out, viewmodels.BlogCardModel{
@@ -93,6 +100,7 @@ func (f *Feature) blogCards(list []ports.BlogPost) []viewmodels.BlogCardModel {
 			Tags:        p.Tags,
 			Href:        "/blog/" + p.Slug,
 			Featured:    p.Featured,
+			Lang:        lang,
 		})
 	}
 	return out

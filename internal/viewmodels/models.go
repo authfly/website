@@ -11,21 +11,22 @@ import (
 
 // LayoutModel is shared chrome for every full page.
 type LayoutModel struct {
-	Title string
-	Brand ports.Brand
-	Offer string
-	Path  string
-	Copy  fixtures.Locale
-	Lang  string
+	Title       string
+	Description string
+	OgImage     string
+	Canonical   string
+	Brand       ports.Brand
+	Offer       string
+	Path        string
+	Copy        fixtures.Locale
+	Lang        string
 }
 
-// HomeModel is the landing page. Featured is the configuration promoted in the
-// hero; Solutions and Posts are teasers, so the rails do not repeat it or the
-// full listing pages.
+// HomeModel is the landing page.
 type HomeModel struct {
 	Layout     LayoutModel
+	Meta       ports.HomeMeta
 	Advantages []ports.Advantage
-	Featured   *SolutionCardModel
 	Solutions  []SolutionCardModel
 	Posts      []BlogCardModel
 }
@@ -37,10 +38,10 @@ type AboutModel struct {
 	Brand  ports.Brand
 }
 
-// ContactsModel is the contacts page (info only — no forms / mailto CTAs).
+// ContactsModel is the contacts page (info only — no forms).
 type ContactsModel struct {
-	Layout   LayoutModel
-	Channels []ports.ContactChannel
+	Layout LayoutModel
+	Page   ports.ContactPage
 }
 
 // LegalModel is a legal document page.
@@ -55,7 +56,7 @@ type NotFoundModel struct {
 	Path   string
 }
 
-// SolutionCardModel is a compact solution tile.
+// SolutionCardModel is a compact module tile.
 type SolutionCardModel struct {
 	Slug    string
 	Title   string
@@ -66,13 +67,13 @@ type SolutionCardModel struct {
 	Href    string
 }
 
-// SolutionModel is a solution detail page.
+// SolutionModel is a module detail page.
 type SolutionModel struct {
 	Layout   LayoutModel
 	Solution ports.Solution
 }
 
-// SolutionsModel is the solutions index.
+// SolutionsModel is the modules index.
 type SolutionsModel struct {
 	Layout    LayoutModel
 	Solutions []SolutionCardModel
@@ -88,6 +89,7 @@ type BlogCardModel struct {
 	Tags        []string
 	Href        string
 	Featured    bool
+	Lang        string
 }
 
 // BlogModel is the blog index.
@@ -134,7 +136,7 @@ func FormatDate(iso string, lang ...string) string {
 	if err != nil {
 		return iso
 	}
-	code := fixtures.DefaultLocale
+	code := fixtures.ActiveLocale()
 	if len(lang) > 0 && lang[0] != "" {
 		code = lang[0]
 	}
@@ -149,6 +151,7 @@ func MinutesWord() string {
 	return fixtures.MustLocale(fixtures.ActiveLocale()).Common.Minutes
 }
 
+// MoreWord returns the locale "details" label for cards.
 func MoreWord() string {
 	return fixtures.MustLocale(fixtures.ActiveLocale()).CommonMore
 }

@@ -9,6 +9,9 @@ import (
 templ HomePage(m viewmodels.HomeModel) {
 	@layout.Store(m.Layout) {
 		@home.Hero(m)
+		@home.Quote(m)
+		@home.Path(m)
+		@home.Metrics(m)
 		@home.Advantages(m)
 		@home.SolutionRail(m, m.Solutions)
 		@home.BlogRail(m, m.Posts)

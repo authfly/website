@@ -58,7 +58,7 @@ templ BlogCard(p viewmodels.BlogCardModel) {
 		@stack.Stack(stack.StackProps{Class: "flex-1 gap-3"}) {
 			@group.Group(group.GroupProps{Class: "items-center gap-2 text-xs text-muted-foreground"}) {
 				@inline.Inline(inline.InlineProps{Class: "numeric"}) {
-					{ viewmodels.FormatDate(p.Date) }
+					{ viewmodels.FormatDate(p.Date, p.Lang) }
 				}
 				@inline.Inline(inline.InlineProps{Class: "opacity-50"}) {
 					·
