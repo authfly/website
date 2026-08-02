@@ -22,6 +22,10 @@ func TestLoad(t *testing.T) {
 	if err != nil || len(home.Path) == 0 || home.Portrait.Src == "" {
 		t.Fatalf("HomeMeta: %#v err=%v", home, err)
 	}
+	about, err := store.About(ctx)
+	if err != nil || len(about.Books) == 0 || len(about.Timeline) == 0 {
+		t.Fatalf("About: books=%d timeline=%d err=%v", len(about.Books), len(about.Timeline), err)
+	}
 	solutions, err := store.Solutions(ctx)
 	if err != nil || len(solutions) != 5 {
 		t.Fatalf("Solutions: len=%d err=%v", len(solutions), err)
@@ -33,6 +37,9 @@ func TestLoad(t *testing.T) {
 	posts, err := store.BlogPosts(ctx)
 	if err != nil || len(posts) < 1 {
 		t.Fatalf("BlogPosts: len=%d err=%v", len(posts), err)
+	}
+	if len(posts[0].Blocks) == 0 {
+		t.Fatalf("BlogPosts blocks empty for %s", posts[0].Slug)
 	}
 	contacts, err := store.Contacts(ctx)
 	if err != nil || len(contacts.Channels) == 0 || contacts.Channels[0].Href == "" {

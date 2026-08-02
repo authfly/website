@@ -100,21 +100,56 @@ type Solution struct {
 }
 
 type BlogPost struct {
-	Slug        string   `json:"slug"`
-	Title       string   `json:"title"`
-	Excerpt     string   `json:"excerpt"`
-	Date        string   `json:"date"`
-	ReadMinutes int      `json:"readMinutes"`
-	Tags        []string `json:"tags"`
-	Featured    bool     `json:"featured"`
-	Body        []string `json:"body"`
+	Slug        string      `json:"slug"`
+	Title       string      `json:"title"`
+	Excerpt     string      `json:"excerpt"`
+	Date        string      `json:"date"`
+	ReadMinutes int         `json:"readMinutes"`
+	Tags        []string    `json:"tags"`
+	Featured    bool        `json:"featured"`
+	Body        []string    `json:"body"`
+	Blocks      []BodyBlock `json:"blocks"`
+}
+
+// BodyBlock is a typed article fragment (paragraph, heading, or list).
+type BodyBlock struct {
+	Kind  string   `json:"kind"` // p | h2 | h3 | ul
+	Text  string   `json:"text,omitempty"`
+	Items []string `json:"items,omitempty"`
+}
+
+type AboutBook struct {
+	Title     string `json:"title"`
+	Publisher string `json:"publisher"`
+	Year      string `json:"year"`
+	Pages     int    `json:"pages"`
+	Series    string `json:"series"`
+	Desc      string `json:"desc"`
+	Href      string `json:"href"`
+	CTA       string `json:"cta"`
+}
+
+type AboutTimelineItem struct {
+	Period string `json:"period"`
+	Label  string `json:"label"`
+	Detail string `json:"detail"`
 }
 
 type AboutPage struct {
-	Title   string   `json:"title"`
-	Lead    string   `json:"lead"`
-	Body    []string `json:"body"`
-	Pillars []string `json:"pillars"`
+	SEO            PageSEO             `json:"seo"`
+	Title          string              `json:"title"`
+	Lead           string              `json:"lead"`
+	Body           []string            `json:"body"`
+	Pillars        []string            `json:"pillars"`
+	PillarsTitle   string              `json:"pillars_title"`
+	BooksEyebrow   string              `json:"books_eyebrow"`
+	BooksTitle     string              `json:"books_title"`
+	BooksIntro     string              `json:"books_intro"`
+	TimelineTitle  string              `json:"timeline_title"`
+	Portrait       Portrait            `json:"portrait"`
+	Meta           []string            `json:"meta"`
+	Books          []AboutBook         `json:"books"`
+	Timeline       []AboutTimelineItem `json:"timeline"`
 }
 
 type ContactChannel struct {

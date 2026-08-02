@@ -70,8 +70,11 @@ docker compose up --build
 
 ## Regenerating fixtures from PHP archive
 
+Burnout/EN sources live in git history (`8dd879d`). Extract to `.manual/` then:
+
 ```bash
-python3 scripts/convert-php-fixtures.py
+# landing/contacts already under scripts/convert-php-fixtures.py (if .old-php present)
+python3 scripts/regen-content-fixtures.py   # blog blocks + about books/timeline
 ```
 
-`.old-php/` is the archived FlightPHP site; delete when the Go site is verified.
+Static assets are self-hosted: Inter woff2 under `web/static/fonts/`, Alpine under `web/static/js/alpine.min.js` (no Google Fonts / jsDelivr).

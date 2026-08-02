@@ -124,7 +124,15 @@ func (f *Feature) handleAbout(w http.ResponseWriter, r *http.Request) {
 	brand, _ := f.deps.Content.Brand(ctx)
 	pages := layoutPages(layoutLang()).Pages
 	page, _ := f.deps.Content.About(ctx)
-	layout, err := f.layout(ctx, r, viewmodels.WithBrand(pages.About, brand.Name), page.Lead)
+	title := viewmodels.WithBrand(pages.About, brand.Name)
+	desc := page.Lead
+	if page.SEO.Title != "" {
+		title = page.SEO.Title
+	}
+	if page.SEO.Description != "" {
+		desc = page.SEO.Description
+	}
+	layout, err := f.layout(ctx, r, title, desc)
 	if err != nil {
 		http.Error(w, "layout error", http.StatusInternalServerError)
 		return

@@ -20,10 +20,42 @@
    * If long-form blog prose ever wants an editorial serif, add it as a third
    * stack here and load the webfont — do not reach for it on marketing chrome.
    */
-  --font-sans-stack: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+	--font-sans-stack: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-display-stack: var(--font-sans-stack);
   --font-mono-stack: ui-monospace, "Cascadia Code", SFMono-Regular, monospace;
+}
 
+/* Self-hosted Inter (latin) — no Google Fonts request. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+}
+
+:root {
   /* -------------------------------------------------------------- surface ---
    * Three levels, same hue family:
    *   canvas (recessed band) < background (page) < card (raised)

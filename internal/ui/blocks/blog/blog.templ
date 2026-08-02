@@ -7,9 +7,11 @@ import (
 	"github.com/authfly/website/internal/kit/ui/group"
 	"github.com/authfly/website/internal/kit/ui/inline"
 	"github.com/authfly/website/internal/kit/ui/link"
+	"github.com/authfly/website/internal/kit/ui/list"
 	"github.com/authfly/website/internal/kit/ui/stack"
 	"github.com/authfly/website/internal/kit/ui/text"
 	"github.com/authfly/website/internal/kit/ui/title"
+	"github.com/authfly/website/internal/ports"
 	"github.com/authfly/website/internal/ui/components"
 	"github.com/authfly/website/internal/viewmodels"
 )
@@ -65,11 +67,42 @@ templ Post(m viewmodels.BlogPostModel) {
 			}
 		}
 		@stack.Stack(stack.StackProps{Class: "gap-5"}) {
-			for _, para := range m.Post.Body {
-				@text.Text(text.TextProps{Class: "text-base leading-8 text-foreground/90"}) {
-					{ para }
+			if len(m.Post.Blocks) > 0 {
+				for _, b := range m.Post.Blocks {
+					@BodyBlock(b)
+				}
+			} else {
+				for _, para := range m.Post.Body {
+					@text.Text(text.TextProps{Class: "text-base leading-8 text-foreground/90"}) {
+						{ para }
+					}
 				}
 			}
 		}
+	}
+}
+
+templ BodyBlock(b ports.BodyBlock) {
+	switch b.Kind {
+		case "h2":
+			@title.Title(title.TitleProps{As: 2, Class: "font-display text-xl font-bold tracking-tight"}) {
+				{ b.Text }
+			}
+		case "h3":
+			@title.Title(title.TitleProps{As: 3, Class: "text-lg font-semibold"}) {
+				{ b.Text }
+			}
+		case "ul":
+			@list.List(list.ListProps{Tag: "ul", Class: "list-disc space-y-2 pl-5 text-base leading-7 text-foreground/90"}) {
+				for _, item := range b.Items {
+					@list.ListItem(list.ListItemProps{}) {
+						{ item }
+					}
+				}
+			}
+		default:
+			@text.Text(text.TextProps{Class: "text-base leading-8 text-foreground/90"}) {
+				{ b.Text }
+			}
 	}
 }
