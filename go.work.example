@@ -1,7 +1,0 @@
-# Optional: use local Framework while developing.
-# go work use . ../../_@Go/@Framework
-go 1.25.0
-
-use .
-# uncomment to override GitHub Framework with local checkout:
-# use ../../_@Go/@Framework
