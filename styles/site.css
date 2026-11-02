@@ -1,0 +1,4 @@
+/* Document-level rules that have no utility in the ui8px policy: page height, font smoothing, anchor offset under the
+   sticky header (h-16 plus spacing). */
+html { scroll-padding-top: 5rem; }
+body { min-height: 100vh; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }

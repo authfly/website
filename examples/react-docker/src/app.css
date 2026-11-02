@@ -1,0 +1,3 @@
+/* Tailwind v4 + the UI8Kit 3 theme tokens (installed by `npx ui8kit@3 init`); @source scans the installed files. */
+@import "./styles/index.css";
+@source "./";

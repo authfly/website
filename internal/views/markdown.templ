@@ -1,0 +1,196 @@
+package views
+
+import (
+	af "github.com/authfly/authkit/packages/ui/templ/authfly"
+	"github.com/authfly/authkit/packages/ui/templ/ui/box"
+	"github.com/authfly/authkit/packages/ui/templ/ui/link"
+	"github.com/authfly/authkit/packages/ui/templ/ui/separator"
+	"github.com/authfly/authkit/packages/ui/templ/ui/text"
+	"github.com/authfly/website/internal/md"
+	"strconv"
+	"strings"
+)
+
+// Article renders a parsed page: every Markdown block maps to a primitive, text is always escaped.
+templ Article(blocks []md.Block) {
+	@box.Box(box.BoxProps{Tag: "article", Class: "flex min-w-0 flex-col gap-4"}) {
+		for _, b := range blocks {
+			@Block(b)
+		}
+	}
+}
+
+templ Block(b md.Block) {
+	switch b.Kind {
+		case md.Heading:
+			@text.Text(text.TextProps{Tag: headTag(b.Level), Class: headCls(b.Level), Attrs: af.A("id", b.ID)}) {
+				@Spans(b.Text)
+			}
+		case md.Paragraph:
+			@text.Text(text.TextProps{Tag: "p", Class: "leading-relaxed"}) {
+				@Spans(b.Text)
+			}
+		case md.Code:
+			@box.Box(box.BoxProps{Class: "relative min-w-0", Attrs: af.A("data-lang", b.Lang)}) {
+				@text.Text(text.TextProps{Tag: "pre", Class: "overflow-auto rounded border border-border bg-muted p-4 text-sm leading-relaxed"}) {
+					@text.Text(text.TextProps{Tag: "code"}) {
+						{ b.Code }
+					}
+				}
+			}
+		case md.Bullets:
+			@box.Box(box.BoxProps{Tag: "ul", Class: "flex flex-col gap-2 leading-relaxed"}) {
+				for _, it := range b.Items {
+					@box.Box(box.BoxProps{Tag: "li", Class: "flex items-start gap-2"}) {
+						@text.Text(text.TextProps{Tag: "span", Class: "shrink-0 text-muted-foreground", Attrs: af.A("aria-hidden", "true")}) {
+							@af.LucideIcon("dot", "md")
+						}
+						@text.Text(text.TextProps{Tag: "span", Class: "min-w-0"}) {
+							@Spans(it)
+						}
+					}
+				}
+			}
+		case md.Numbers:
+			@box.Box(box.BoxProps{Tag: "ol", Class: "flex flex-col gap-2 leading-relaxed"}) {
+				for i, it := range b.Items {
+					@box.Box(box.BoxProps{Tag: "li", Class: "flex items-start gap-2"}) {
+						@text.Text(text.TextProps{Tag: "span", Class: "shrink-0 font-semibold text-muted-foreground", Attrs: af.A("aria-hidden", "true")}) {
+							{ itoa(i + 1) + "." }
+						}
+						@text.Text(text.TextProps{Tag: "span", Class: "min-w-0"}) {
+							@Spans(it)
+						}
+					}
+				}
+			}
+		case md.Table:
+			@box.Box(box.BoxProps{Class: "w-full overflow-auto rounded border border-border"}) {
+				@box.Box(box.BoxProps{Tag: "table", Class: "w-full text-left text-sm"}) {
+					@box.Box(box.BoxProps{Tag: "thead", Class: "bg-muted"}) {
+						@box.Box(box.BoxProps{Tag: "tr"}) {
+							for _, c := range b.Header {
+								@box.Box(box.BoxProps{Tag: "th", Class: "px-4 py-2 font-semibold", Attrs: af.A("scope", "col")}) {
+									@Spans(c)
+								}
+							}
+						}
+					}
+					@box.Box(box.BoxProps{Tag: "tbody"}) {
+						for i, r := range b.Rows {
+							@box.Box(box.BoxProps{Tag: "tr", Class: rowCls(i)}) {
+								for _, c := range r {
+									@box.Box(box.BoxProps{Tag: "td", Class: "px-4 py-2"}) {
+										@Spans(c)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		case md.Note:
+			@box.Box(box.BoxProps{Tag: "aside", Class: noteCls(b), Attrs: af.A("role", "note")}) {
+				@af.LucideIcon(noteIcon(b), "sm")
+				@af.Stack("2", "", "", "min-w-0", nil) {
+					for _, it := range b.Items {
+						@text.Text(text.TextProps{Tag: "p", Class: "leading-relaxed"}) {
+							@Spans(it)
+						}
+					}
+				}
+			}
+		case md.Rule:
+			@separator.Separator(separator.SeparatorProps{Decorative: true, Class: "my-4"})
+	}
+}
+
+templ Spans(in []md.Inline) {
+	for _, s := range in {
+		switch s.Kind {
+			case md.Mono:
+				@text.Text(text.TextProps{Tag: "code", Class: "rounded bg-muted px-2 text-sm"}) {
+					{ s.Text }
+				}
+			case md.Strong:
+				@text.Text(text.TextProps{Tag: "strong", Class: "font-semibold"}) {
+					{ s.Text }
+				}
+			case md.Em:
+				@text.Text(text.TextProps{Tag: "em"}) {
+					{ s.Text }
+				}
+			case md.Link:
+				@link.Link(link.LinkProps{Href: s.Href, External: isExternal(s.Href), Class: "font-medium text-primary underline underline-offset-4"}) {
+					{ s.Text }
+				}
+			default:
+				{ s.Text }
+		}
+	}
+}
+
+func headTag(level int) string {
+	return [...]string{"h1", "h1", "h2", "h3", "h4"}[min(level, 4)]
+}
+
+func headCls(level int) string {
+	switch level {
+	case 1:
+		return "text-3xl font-bold md:text-4xl"
+	case 2:
+		return "pt-8 text-2xl font-semibold"
+	case 3:
+		return "pt-4 text-xl font-semibold"
+	}
+	return "text-lg font-semibold"
+}
+
+func rowCls(i int) string {
+	if i%2 == 1 {
+		return "bg-muted"
+	}
+	return ""
+}
+
+func itoa(n int) string { return strconv.Itoa(n) }
+
+func isExternal(href string) bool {
+	return strings.HasPrefix(href, "http://") || strings.HasPrefix(href, "https://")
+}
+
+// A note whose first span is a strong "Warning"/"Unverified" marker (either locale) gets the warning tone.
+func noteWarn(b md.Block) bool {
+	if len(b.Items) == 0 || len(b.Items[0]) == 0 || b.Items[0][0].Kind != md.Strong {
+		return false
+	}
+	head := strings.ToLower(b.Items[0][0].Text)
+	for m := range warnMarkers {
+		if strings.HasPrefix(head, m) {
+			return true
+		}
+	}
+	return false
+}
+
+// Markers are matched in lower case; the Russian ones are written as escapes (no Cyrillic literals in code).
+var warnMarkers = map[string]bool{
+	"warning": true, "unverified": true, "known issue": true,
+	"\u0432\u043d\u0438\u043c\u0430\u043d\u0438\u0435": true, // vnimanie
+	"\u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e": true, // ne provereno
+	"\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u0430\u044f \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0430": true, // izvestnaya problema
+}
+
+func noteCls(b md.Block) string {
+	if noteWarn(b) {
+		return af.AlertSkin("warning", "gap-4 p-4 text-sm font-normal text-foreground")
+	}
+	return af.AlertSkin("default", "gap-4 p-4 text-sm font-normal")
+}
+
+func noteIcon(b md.Block) string {
+	if noteWarn(b) {
+		return "triangle-alert"
+	}
+	return "info"
+}

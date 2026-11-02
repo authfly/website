@@ -11,4 +11,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with: { go-version-file: go.mod }
-      - run: go vet ./... && go build ./...
+      - uses: oven-sh/setup-bun@v2
+      - name: templ code is generated
+        run: go run github.com/a-h/templ/cmd/templ@v0.3.1070 generate && git diff --exit-code
+      - name: gofmt
+        run: test -z "$(gofmt -l .)"
+      - name: vet, build, tests (content in step en/ru, internal links and anchors, rendered hrefs, raw .md, llms.txt, hygiene)
+        run: go vet ./... && go build ./... && go test ./...
+      - run: bun install --frozen-lockfile
+      - name: assets/app.css is fresh
+        run: bash tools/build-css.sh --check
+      - name: ui8px lint (8+4 grid, tokens only)
+        run: bunx ui8px lint

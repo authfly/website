@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+# installed by `npx ui8kit@3.2.1 init` / `add` (see README): CLI-owned, reinstall instead of committing
+src/ui
+src/blocks
+src/components
+src/lib
+src/styles
+src/utils
+ui8kit.config.json
+ui8kit.lock.json
+.cursor

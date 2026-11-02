@@ -1,8 +1,4 @@
 node_modules/
-.env
+.cache/
 *.exe
-dist/
 .DS_Store
-.manual/
-go.work
-go.work.sum

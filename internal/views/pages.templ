@@ -1,0 +1,79 @@
+package views
+
+import (
+	af "github.com/authfly/authkit/packages/ui/templ/authfly"
+	"github.com/authfly/authkit/packages/ui/templ/ui/box"
+	"github.com/authfly/authkit/packages/ui/templ/ui/link"
+	"github.com/authfly/authkit/packages/ui/templ/ui/text"
+	"github.com/authfly/website/internal/md"
+)
+
+// DocPage is a content page.
+templ DocPage(s Shell, blocks []md.Block) {
+	@Frame(s) {
+		@Article(blocks)
+	}
+}
+
+// HomePage puts the hero (dictionary text) above the home content.
+templ HomePage(s Shell, blocks []md.Block) {
+	@Frame(s) {
+		@af.Stack("8", "", "", "", nil) {
+			@box.Box(box.BoxProps{Tag: "section", Class: af.CardSkin("gap-4 p-8"), Attrs: af.A("aria-labelledby", "hero")}) {
+				@af.Group("2", "center", "", "", nil) {
+					@af.Badge("secondary", "hero-badge", s.t("hero.badge"))
+				}
+				@text.Text(text.TextProps{Tag: "h1", Class: "text-4xl font-bold md:text-5xl", Attrs: af.A("id", "hero")}) {
+					{ s.t("hero.title") }
+				}
+				@text.Text(text.TextProps{Tag: "p", Class: "text-lg leading-relaxed text-muted-foreground"}) {
+					{ s.t("hero.lead") }
+				}
+				@text.Text(text.TextProps{Tag: "pre", Class: "overflow-auto rounded border border-border bg-muted p-4 text-sm"}) {
+					@text.Text(text.TextProps{Tag: "code"}) {
+						{ s.t("hero.command") }
+					}
+				}
+				@af.Group("4", "center", "", "flex-wrap", nil) {
+					@link.Link(link.LinkProps{Href: "/" + s.Lang + "/quickstart", Class: af.ButtonSkin("default")}) {
+						@af.LucideIcon("rocket", "sm")
+						@text.Text(text.TextProps{Tag: "span"}) {
+							{ s.t("hero.primary") }
+						}
+					}
+					@link.Link(link.LinkProps{Href: "/" + s.Lang + "/guides/install-authfly-stalwart", Class: af.ButtonSkin("outline")}) {
+						@af.LucideIcon("book-open", "sm")
+						@text.Text(text.TextProps{Tag: "span"}) {
+							{ s.t("hero.secondary") }
+						}
+					}
+					@link.Link(link.LinkProps{Href: "/llms.txt", Class: af.ButtonSkin("ghost")}) {
+						@af.LucideIcon("bot", "sm")
+						@text.Text(text.TextProps{Tag: "span"}) {
+							{ s.t("hero.agents") }
+						}
+					}
+				}
+			}
+			@Article(blocks)
+		}
+	}
+}
+
+// NotFound is the 404 page.
+templ NotFound(s Shell) {
+	@Frame(s) {
+		@af.Stack("4", "", "", "", nil) {
+			@af.IconBadge("search-x", "default")
+			@text.Text(text.TextProps{Tag: "h1", Class: "text-3xl font-bold"}) {
+				{ s.t("notfound.title") }
+			}
+			@text.Text(text.TextProps{Tag: "p", Class: "text-muted-foreground"}) {
+				{ s.t("notfound.text") }
+			}
+			@link.Link(link.LinkProps{Href: "/" + s.Lang + "/", Class: af.ButtonSkin("default", "self-start")}) {
+				{ s.t("notfound.home") }
+			}
+		}
+	}
+}

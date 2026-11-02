@@ -1,9 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "go",
-  "installCommand": "bun install && bun run build:css",
-  "buildCommand": "go build -ldflags '-s -w' -o \"$VERCEL_OUTPUT_FILE\" ./cmd/server",
+  "installCommand": "go mod download",
+  "buildCommand": "go build -trimpath -ldflags '-s -w' -o \"$VERCEL_OUTPUT_FILE\" ./cmd/server",
   "env": {
-    "APP_DEFAULT_LOCALE": "en"
+    "SITE_ORIGIN": "https://authfly.vercel.app"
   }
 }

@@ -1,0 +1,57 @@
+# authfly.yaml: the single source of truth of this Authfly deployment. Edit it and run `authfly deploy` again.
+# Secrets are not here: they live in .authfly/secrets (0600). Docs: https://authfly.vercel.app/en/reference/authfly-yaml
+version: 1
+name: demo
+target: docker
+provider: stalwart
+app:
+    runtime: react
+    adapter: node
+    clients:
+        - id: my-app
+          name: My app
+          redirect_uris:
+            - http://localhost:5173/callback
+domain: example.test
+public_url: http://localhost:4000
+http:
+    port: 4000
+    http_port: 0
+    tls: "off"
+mail:
+    hostname: mail.example.test
+    tls: "off"
+    storage: rocksdb
+    encryption_at_rest: false
+    ports:
+        smtp: 25
+        submissions: 465
+        imaps: 993
+sign_in:
+    magic_link: true
+    password: true
+    username: false
+    social: false
+    two_factor: false
+    webauthn: false
+    require_verify: true
+policy:
+    pack: gdpr
+    operator: Example Ltd
+    contact: privacy@example.test
+ports:
+    management: 8080
+    console: 4500
+channel:
+    name: stable
+    manifest: https://github.com/authfly/cli/releases/latest/download/channel.json
+    version: ""
+incus:
+    network: authfly0
+    subnet: 10.118.42.1/24
+    pool: default
+    image: images:debian/13
+    firewall: false
+backup:
+    dir: backups
+    keep: 7

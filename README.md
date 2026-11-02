@@ -1,80 +1,49 @@
-# AuthFly marketing site
+# authfly/website
 
-Go + templ SSR site, patterned after [YMAIL_SITE](../_@Go/@YMAIL_SITE). Content is the former PHP **burnout** voice (RU) and the English fixture pack (EN). Voice switcher is gone.
+The Authfly documentation site, https://authfly.vercel.app: onboarding to Authfly + Stalwart for developers and AI
+agents, in English and Russian. Go `net/http` + [templ](https://templ.guide), rendered only with UI8Kit 3 templ
+primitives and the Authfly templ layer from [authfly/authkit](https://github.com/authfly/authkit)
+(`github.com/authfly/authkit/packages/ui/templ`, pinned in `go.mod`).
 
-## Locales / deploy
+## Layout
 
-| Target | Locale | Fixtures |
-| --- | --- | --- |
-| Docker / VPS | `ru` | `internal/adapters/fixture/data` (from `.old-php/fixtures/voice/burnout`) |
-| Vercel | `en` | `internal/adapters/fixture/data-en` (from `.old-php/fixtures/en`) |
-
-```bash
-# Russian (default)
-export APP_DEFAULT_LOCALE=ru
-export FIXTURE_DIR=internal/adapters/fixture/data
-
-# English
-export APP_DEFAULT_LOCALE=en
-export FIXTURE_DIR=internal/adapters/fixture/data-en
-```
-
-## Develop
-
-Needs `github.com/fastygo/framework` (pinned in `go.mod`). For a local Framework checkout:
-
-```bash
-cp go.work.example go.work
-# uncomment the Framework `use` line, then:
-go work sync
-```
-
-```bash
-bun install
-bun run build:css
-cp .env.example .env
-bun run dev   # templ generate + go run on :3011
-```
-
-## Vercel (English)
-
-Project: import `authfly/website`, root = repo root, Framework Preset = **Go**.
-
-`vercel.json` already sets EN fixtures and builds CSS + templ:
-
-| Env | Value |
-| --- | --- |
-| `APP_DEFAULT_LOCALE` | `en` |
-| `FIXTURE_DIR` | `internal/adapters/fixture/data-en` |
-| `APP_STATIC_DIR` | `web/static` |
-
-CLI:
-
-```bash
-npx vercel          # preview
-npx vercel --prod   # production
-```
-
-Server listens on Vercel `PORT` via `cmd/server/main.go`. Static assets: `/assets/...`.
-
-## Docker (RU)
-
-```bash
-docker compose up --build
-# http://127.0.0.1:8080
-```
+| Path | What |
+|---|---|
+| `content/{en,ru}/**/*.md` | the pages: one Markdown file per page and locale, front matter `title`, `nav`, `description` |
+| `internal/site` | loader, navigation (`Nav`), routes, `llms.txt`, sitemap; `i18n/{en,ru}.json` UI strings |
+| `internal/md` | the Markdown subset parser (no HTML output; the views render the block tree with primitives) |
+| `internal/views` | templ views: document, header, sidebar, article, home, 404 |
+| `assets/` | `app.css` (built, committed), `theme.js`, `favicon.svg` |
+| `styles/` | `theme.css` (Authfly tokens, vendored from authkit), `site.css` (document-level rules) |
+| `examples/react-docker` | the tested React + Docker app of the guide |
 
 ## Routes
 
-`/`, `/projects`, `/projects/{slug}`, `/blog`, `/blog/{slug}`, `/about`, `/contacts` (`/contact` alias), `/legal/{privacy|terms}`
+`/{en,ru}/<page>` HTML, `/{en,ru}/<page>.md` the raw Markdown source, `/llms.txt` and `/ru/llms.txt` (index),
+`/llms-full.txt` and `/ru/llms-full.txt` (every page in one file), `/sitemap.xml`. `/` redirects by
+`Accept-Language`; paths of the previous site redirect to their new pages.
 
-## Regenerating fixtures from PHP archive
+## Develop
 
-Burnout/EN sources live in git history (`8dd879d`). Extract to `.manual/` then:
-
-```bash
-# landing/contacts already under scripts/convert-php-fixtures.py (if .old-php present)
-python3 scripts/regen-content-fixtures.py   # blog blocks + about books/timeline
+```sh
+go install github.com/a-h/templ/cmd/templ@v0.3.1070
+bun install
+templ generate && bash tools/build-css.sh && go run ./cmd/server   # http://localhost:3011
+go test ./...                                                        # en/ru in step, links, anchors, rendering
+bunx ui8px lint                                                      # must report 0
 ```
 
-Static assets are self-hosted: Inter woff2 under `web/static/fonts/`, Alpine under `web/static/js/alpine.min.js` (no Google Fonts / jsDelivr).
+Add a page: write `content/en/<slug>.md` and `content/ru/<slug>.md`, add the slug to `Nav` in
+`internal/site/site.go`. Tests fail if a locale misses a page, a dictionary key, a code block or a table, or if a
+link or anchor does not resolve.
+
+Rules: [UI8Kit contract](https://github.com/ui8kit/contract) (primitives only, tokens only, Lucide icons, 8+4 grid,
+no raw HTML, texts from content or the dictionary). Facts in the docs come from the Authfly source; mark anything not
+checked against code as UNVERIFIED / НЕ ПРОВЕРЕНО.
+
+## Deploy
+
+Vercel (Go runtime, `vercel.json`): every push to `main` deploys production. Generated `*_templ.go` and
+`assets/app.css` are committed, so the build is `go build` only. Self-hosting: `Dockerfile`.
+
+License: Apache-2.0, © Authfly.
